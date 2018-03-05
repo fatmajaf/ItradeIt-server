@@ -41,8 +41,6 @@ public abstract class User implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
 	
-	@OneToMany
-	private List<Trade_Offer> offers;
 	@OneToOne
 	private Address address;
 	
@@ -105,12 +103,6 @@ public abstract class User implements Serializable{
 	}
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
-	}
-	public List<Trade_Offer> getOffers() {
-		return offers;
-	}
-	public void setOffers(List<Trade_Offer> offers) {
-		this.offers = offers;
 	}
 	public Address getAddress() {
 		return address;

@@ -3,9 +3,11 @@ package tn.esprit.SLTS_server.persistence;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Entity
 public class Bond extends Instrument implements Serializable{
 	private Float parvalue;
 	private Float couponrate;
