@@ -27,6 +27,9 @@ public class TradingExchange implements Serializable {
 	@JoinColumn(name = "id_user", referencedColumnName = "id", insertable = false, updatable = false)
 	private User user;
 
+	public TradingExchange(){
+		
+	}
 	public Date getCreationDate() {
 		return creationDate;
 	}
@@ -65,6 +68,9 @@ public class TradingExchange implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public String toString(){
+		return "le statut est:"+status;
 	}
 
 }

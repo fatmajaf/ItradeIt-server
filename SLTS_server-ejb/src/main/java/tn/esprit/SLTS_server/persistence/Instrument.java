@@ -19,6 +19,7 @@ public class Instrument implements Serializable{
 	private float volume;
 	private float open;
 	private int available=1;
+	private String confirmed;
 	
 	
 	@ManyToOne
@@ -96,6 +97,12 @@ public class Instrument implements Serializable{
 	}
 	public void setInstrumentIssuerType(String instrumentIssuerType) {
 		InstrumentIssuerType = instrumentIssuerType;
+	}
+	public String getConfirmed() {
+		return confirmed;
+	}
+	public void setConfirmed(String confirmed) {
+		this.confirmed = confirmed;
 	}
 	
 
