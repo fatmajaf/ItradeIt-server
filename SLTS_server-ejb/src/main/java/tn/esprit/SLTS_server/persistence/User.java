@@ -40,10 +40,12 @@ public class User implements Serializable{
 	@Column(name="birth_date")
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
+
 	private Integer phone;
 
 	@OneToMany
-	private List<Trade_Offer> offers;
+	private List<Offer> offers;
+
 	@OneToOne
 	private Address address;
 	
@@ -125,12 +127,6 @@ public class User implements Serializable{
 	}
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
-	}
-	public List<Trade_Offer> getOffers() {
-		return offers;
-	}
-	public void setOffers(List<Trade_Offer> offers) {
-		this.offers = offers;
 	}
 	public Address getAddress() {
 		return address;

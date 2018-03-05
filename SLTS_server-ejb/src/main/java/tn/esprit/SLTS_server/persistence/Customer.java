@@ -13,11 +13,16 @@ import javax.persistence.OneToOne;
 public class Customer extends User implements Serializable{
 	
 	private Integer risk=0;
+
 	@ManyToOne
 	private Trader trader;
 	private Double money;
 	@OneToOne
 	private Company company;
+
+	@OneToMany(mappedBy="customer")
+	private List<InteresstedBy> interesstedByList;
+
 	
 	public Integer getRisk() {
 		return risk;
@@ -25,6 +30,7 @@ public class Customer extends User implements Serializable{
 	public void setRisk(Integer risk) {
 		this.risk = risk;
 	}
+
 	public Trader getTrader() {
 		return trader;
 	}
@@ -50,6 +56,14 @@ public class Customer extends User implements Serializable{
 	}
 	
 	
+
+	public List<InteresstedBy> getInteresstedByList() {
+		return interesstedByList;
+	}
+	public void setInteresstedByList(List<InteresstedBy> interesstedByList) {
+		this.interesstedByList = interesstedByList;
+	}
+
 	
 
 }
