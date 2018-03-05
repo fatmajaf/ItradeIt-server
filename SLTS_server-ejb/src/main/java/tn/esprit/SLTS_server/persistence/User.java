@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 @Entity
 @DiscriminatorColumn(name="role")
 
-public abstract class User implements Serializable{
+public class User implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	private Integer id;
@@ -46,6 +46,27 @@ public abstract class User implements Serializable{
 	@OneToOne
 	private Address address;
 	
+	//asma
+	@OneToMany(mappedBy="InstrumentIssuer")
+	private List<Instrument> instruments;
+	public User(){
+		
+	}
+
+	
+	public String toString(){
+		return "user hedha hwa :"+login+" , men :"+nationality;}
+		
+		public List<Instrument> getInstruments() {
+			return instruments;
+		}
+
+
+		public void setInstruments(List<Instrument> instruments) {
+			this.instruments = instruments;
+		}
+	
+	//asma
 	public Integer getId() {
 		return id;
 	}
@@ -118,6 +139,9 @@ public abstract class User implements Serializable{
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+
+
+	
 	
 	
 	
