@@ -125,16 +125,7 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 	}
 	
 	
-	/*@Override
-	public Trader getnbtradesbytrader(int id) {
-		String jpql = "SELECT u where ( SELECT max(count(u)) FROM TradingExchange u where MONTH(u.creationDate) = MONTH(CURRENT_DATE)  group by u.user.trader.id) FROM TradingExchange u";
-        Query query = em.createQuery(jpql);
-		//query.setParameter("id", id);
-		
-		
-		return (Trader) query.getSingleResult();
-	}
-	*/
+	
 	@Override
 	public User findUserByphoneNumber(Integer phone) {
 		Query query = em.createQuery("SELECT u from User u where u.phone=:phone");
