@@ -27,6 +27,9 @@ public class TradingExchange implements Serializable {
 	@JoinColumn(name = "id_user", referencedColumnName = "id", insertable = false, updatable = false)
 	private User user;
 
+	public TradingExchange(){
+		
+	}
 	public Date getCreationDate() {
 		return creationDate;
 	}
