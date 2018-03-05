@@ -16,7 +16,8 @@ public class Trader extends User implements Serializable{
 	private String tradertype;
 	@Column(name="is_banned")
 	private Integer isbanned;
-
+	@OneToMany(mappedBy="trader")
+    private List<Customer> customers;
 	
 	public String getTradertype() {
 		return tradertype;

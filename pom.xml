@@ -50,7 +50,7 @@
 			<dependency>
 				<groupId>javax</groupId>
 				<artifactId>javaee-api</artifactId>
-				<version>${version.javaee}</version>
+					<version>${version.javaee}</version>
 				<scope>provided</scope>
 			</dependency>
 

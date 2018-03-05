@@ -21,7 +21,7 @@ public class Company implements Serializable{
 	@Column(name="creation_date")
 	@Temporal(TemporalType.DATE)
 	private Date creationDate;
-	@OneToOne
+	@OneToOne(mappedBy="company")
 	private Customer customer;
 	public Integer getId() {
 		return id;
@@ -46,6 +46,11 @@ public class Company implements Serializable{
 	}
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+	@Override
+	public String toString() {
+		return "Company [id=" + id + ", name=" + name + ", creationDate=" + creationDate + ", customer=" + customer
+				+ "]";
 	}
 	
 

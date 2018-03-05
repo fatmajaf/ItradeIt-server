@@ -1,31 +1,35 @@
 package tn.esprit.SLTS_server.persistence;
 
 import java.io.Serializable;
+
 import java.util.Date;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
+@Entity
+@DiscriminatorValue(value="bond")
 public class Bond extends Instrument implements Serializable{
-	private Float parvalue;
-	private Float couponrate;
+	private Double parvalue;
+	private Double couponrate;
 	private Integer callable=1;
 	private String type;
-	private Float saleprice;
+	private Double saleprice;
 	@Temporal(TemporalType.DATE)
 	private Date maturitydate;
 	@Temporal(TemporalType.DATE)
 	private Date callabilityperiod;
-	public Float getParvalue() {
+	public Double getParvalue() {
 		return parvalue;
 	}
-	public void setParvalue(Float parvalue) {
+	public void setParvalue(Double parvalue) {
 		this.parvalue = parvalue;
 	}
-	public Float getCouponrate() {
+	public Double getCouponrate() {
 		return couponrate;
 	}
-	public void setCouponrate(Float couponrate) {
+	public void setCouponrate(Double couponrate) {
 		this.couponrate = couponrate;
 	}
 	public Integer getCallable() {
@@ -40,10 +44,10 @@ public class Bond extends Instrument implements Serializable{
 	public void setType(String type) {
 		this.type = type;
 	}
-	public Float getSaleprice() {
+	public Double getSaleprice() {
 		return saleprice;
 	}
-	public void setSaleprice(Float saleprice) {
+	public void setSaleprice(Double saleprice) {
 		this.saleprice = saleprice;
 	}
 	public Date getMaturitydate() {

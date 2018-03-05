@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 @Entity
 @DiscriminatorColumn(name="role")
 
-public abstract class User implements Serializable{
+public class User implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	private Integer id;
@@ -40,7 +40,8 @@ public abstract class User implements Serializable{
 	@Column(name="birth_date")
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
-	
+	private Integer phone;
+
 	@OneToMany
 	private List<Trade_Offer> offers;
 	@OneToOne
@@ -117,6 +118,20 @@ public abstract class User implements Serializable{
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+	
+	public Integer getPhone() {
+		return phone;
+	}
+	public void setPhone(Integer phone) {
+		this.phone = phone;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName+"\n";
 	}
 	
 	

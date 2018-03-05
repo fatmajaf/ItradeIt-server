@@ -14,7 +14,7 @@ public class Address implements Serializable{
 	private String state;
 	private Integer zipcode;
 	private String sountry;
-	private Integer number;
+
 	private String street;
 	public Integer getId() {
 		return id;
@@ -40,12 +40,7 @@ public class Address implements Serializable{
 	public void setSountry(String sountry) {
 		this.sountry = sountry;
 	}
-	public Integer getNumber() {
-		return number;
-	}
-	public void setNumber(Integer number) {
-		this.number = number;
-	}
+	
 	public String getStreet() {
 		return street;
 	}

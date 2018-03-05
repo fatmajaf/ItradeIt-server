@@ -67,4 +67,11 @@ public class TradingExchange implements Serializable {
 		this.user = user;
 	}
 
+	@Override
+	public String toString() {
+		return "TradingExchange [creationDate=" + creationDate + ", status=" + status + ", rolePK=" + rolePK
+				+ ", instrument=" + instrument + ", user=" + user + "]";
+	}
+	
+
 }
