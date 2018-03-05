@@ -17,9 +17,8 @@ public class Trader extends User implements Serializable{
 	@Column(name="is_banned")
 	private Integer isbanned;
 	@OneToMany(mappedBy="trader")
-
     private List<Customer> customers;
-
+	@OneToMany(mappedBy="trader")
 	private List<Offer> offers;
 	@OneToMany(mappedBy="trader")
 	private List<Request> requests;

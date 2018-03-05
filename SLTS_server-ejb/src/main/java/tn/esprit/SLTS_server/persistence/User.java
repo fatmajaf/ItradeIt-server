@@ -43,8 +43,6 @@ public class User implements Serializable{
 
 	private Integer phone;
 
-	@OneToMany
-	private List<Offer> offers;
 
 	@OneToOne
 	private Address address;
