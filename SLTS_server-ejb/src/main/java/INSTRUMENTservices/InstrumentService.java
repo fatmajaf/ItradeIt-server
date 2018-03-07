@@ -30,6 +30,9 @@ public class InstrumentService implements InstrumentServiceRemote,InstrumentServ
 		em.refresh(instrument);
 	
 	}
+	
+	
+	
 	@Override
 	public List<Instrument> findAll() {
 		return em.createQuery("from Instrument", Instrument.class).getResultList();
