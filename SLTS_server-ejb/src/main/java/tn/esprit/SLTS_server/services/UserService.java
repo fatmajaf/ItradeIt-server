@@ -72,6 +72,10 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 		em.merge(user);
 	}
 
+	
+	
+	
+	
 	@Override
 	public void deleteUser(User user) {
 		em.remove(user);
