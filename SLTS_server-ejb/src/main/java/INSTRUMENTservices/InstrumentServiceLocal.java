@@ -16,5 +16,5 @@ public interface InstrumentServiceLocal {
 	List<Instrument> findAll();
 	public void delete(Integer id);
 	public void updatee(Integer id, float changee);
-
+//k
 }
