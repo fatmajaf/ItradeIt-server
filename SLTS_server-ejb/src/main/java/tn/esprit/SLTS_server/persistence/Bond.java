@@ -4,15 +4,12 @@ import java.io.Serializable;
 
 import java.util.Date;
 
-
-
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 @Entity
-
+@DiscriminatorValue(value="bond")
 public class Bond extends Instrument implements Serializable{
 	private Double parvalue;
 	private Double couponrate;

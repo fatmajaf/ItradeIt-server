@@ -29,6 +29,9 @@ public interface UserServiceRemote {
 	List<TradingExchange> getalltradesforcustomersbytrader(int id);
 	
 	User findUserByphoneNumber(Integer phone);
+	Trader findtraderactivelazynbtrades(String criteria);
+	Long getnbtradesforactivelazytrader(String criteria);
+	List<User> findAlldesactiatedCustomers();
 	
 	 
 

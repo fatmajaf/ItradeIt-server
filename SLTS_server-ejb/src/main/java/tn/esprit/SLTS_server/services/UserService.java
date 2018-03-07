@@ -57,7 +57,7 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 
 	@Override
 	public List<User> findAllCustomers() {
-		String jpql = "SELECT c FROM Customer c";
+		String jpql = "SELECT c FROM Customer c order by c.creationDate desc";
 		Query query = em.createQuery(jpql);
 		return query.getResultList();
 	}
@@ -90,53 +90,90 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 		query.setParameter("criteria", "%" + criteria + "%");
 		return query.getResultList();
 	}
+
 	@Override
 	public Long getNbCustomersNotActivated() {
 		String jpql = "SELECT count(u) FROM Customer u where u.isactive=0";
 		Query query = em.createQuery(jpql);
 		return (Long) query.getSingleResult();
 	}
+
 	@Override
 	public Long getNbBannedTraders() {
 		String jpql = "SELECT count(u) FROM Trader u where u.isbanned=1";
 		Query query = em.createQuery(jpql);
 		return (Long) query.getSingleResult();
 	}
+
 	@Override
 	public List<Customer> getalltradercustomersbyid(int id) {
 		String jpql = "SELECT u.customers FROM Trader u where u.id=:id";
-        Query query = em.createQuery(jpql);
+		Query query = em.createQuery(jpql);
 		query.setParameter("id", id);
 		return query.getResultList();
 	}
+
 	@Override
 	public List<TradingExchange> getalltrades(int id) {
 		String jpql = "SELECT u FROM TradingExchange u where u.user.id=:id";
-        Query query = em.createQuery(jpql);
+		Query query = em.createQuery(jpql);
 		query.setParameter("id", id);
 		return query.getResultList();
 	}
+
 	@Override
 	public List<TradingExchange> getalltradesforcustomersbytrader(int id) {
 		String jpql = "SELECT u FROM TradingExchange u where u.user.trader.id=:id order by u.creationDate desc";
-        Query query = em.createQuery(jpql);
+		Query query = em.createQuery(jpql);
 		query.setParameter("id", id);
 		return query.getResultList();
 	}
-	
-	
-	
+
 	@Override
 	public User findUserByphoneNumber(Integer phone) {
 		Query query = em.createQuery("SELECT u from User u where u.phone=:phone");
-		
+
 		query.setParameter("phone", phone);
 
 		List<User> res = query.getResultList();
-		if ((res != null) && (res.isEmpty() == false)) {
+		if ((res != null) && (!res.isEmpty())) {
 			return res.get(0);
 		}
 		return null;
+	}
+
+	@Override
+	public Trader findtraderactivelazynbtrades(String criteria) {
+		String jpql= "SELECT u.user.trader from TradingExchange u join u.user c join c.trader group by u.user.id order by count(*)"
+				+ criteria;
+		Query query = em.createQuery(jpql
+				);
+
+	
+		List<Trader> res = query.getResultList();
+		if ((res != null) && (!res.isEmpty())) {
+			return res.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public Long getnbtradesforactivelazytrader(String criteria) {
+String jpql = "SELECT count(*) from TradingExchange u group by u.user.id order by count(*)" + criteria;
+		Query query = em
+				.createQuery(jpql);
+		List<Long> res = query.getResultList();
+		if ((res != null) && (!res.isEmpty())) {
+			return res.get(0);
+		}
+		return null;
+
+	}
+	@Override
+	public List<User> findAlldesactiatedCustomers() {
+		String jpql = "SELECT c FROM Customer c where c.isactive=0";
+		Query query = em.createQuery(jpql);
+		return query.getResultList();
 	}
 
 	

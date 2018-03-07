@@ -43,7 +43,7 @@ public class InstrumentService implements InstrumentServiceRemote,InstrumentServ
 		System.out.println("aaa");
 		Instrument inst=em.find(Instrument.class,id);
 		System.out.println("aaa");
-		inst.setChangee(changee);
+		//inst.setChangee(changee);
 		em.flush();
 				
 	}
@@ -58,7 +58,7 @@ public class InstrumentService implements InstrumentServiceRemote,InstrumentServ
 	public void InstrumentUser(int instrumentId,int userId){
 		User user=em.find(User.class, userId);
 		Instrument inst=em.find(Instrument.class, instrumentId);
-		inst.setInstrumentIssuer(user);
+		//inst.setInstrumentIssuer(user);
 		
 		
 	}

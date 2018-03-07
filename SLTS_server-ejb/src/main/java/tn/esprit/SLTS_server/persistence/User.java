@@ -40,32 +40,13 @@ public class User implements Serializable{
 	@Column(name="birth_date")
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
-
 	private Integer phone;
 
-
+	@OneToMany
+	private List<Trade_Offer> offers;
 	@OneToOne
 	private Address address;
 	
-	//asma
-	@OneToMany(mappedBy="InstrumentIssuer")
-	private List<Instrument> instruments;
-	public User(){
-		
-	}
-
-	
-	
-		public List<Instrument> getInstruments() {
-			return instruments;
-		}
-
-
-		public void setInstruments(List<Instrument> instruments) {
-			this.instruments = instruments;
-		}
-	
-	//asma
 	public Integer getId() {
 		return id;
 	}
@@ -126,15 +107,18 @@ public class User implements Serializable{
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
+	public List<Trade_Offer> getOffers() {
+		return offers;
+	}
+	public void setOffers(List<Trade_Offer> offers) {
+		this.offers = offers;
+	}
 	public Address getAddress() {
 		return address;
 	}
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-
-
-	
 	
 	public Integer getPhone() {
 		return phone;

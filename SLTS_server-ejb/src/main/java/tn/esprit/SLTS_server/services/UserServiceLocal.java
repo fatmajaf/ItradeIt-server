@@ -29,4 +29,7 @@ public interface UserServiceLocal {
 	List<TradingExchange> getalltrades(int id);
 	public List<TradingExchange> getalltradesforcustomersbytrader(int id);
 	User findUserByphoneNumber(Integer phone);
+	Trader findtraderactivelazynbtrades(String criteria);
+	Long getnbtradesforactivelazytrader(String criteria);
+	List<User> findAlldesactiatedCustomers();
 }
