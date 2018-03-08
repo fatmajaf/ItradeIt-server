@@ -47,7 +47,7 @@ public class Customer extends User implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return super.toString()+"Customer [risk=" + risk + ", trader=" + trader + "compaaaanyyyyyyyy "+company.getName()+"]";
+		return super.getFirstName()+" "+super.getLastName();
 	}
 	
 	

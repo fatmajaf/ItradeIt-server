@@ -3,6 +3,7 @@ package tn.esprit.SLTS_server.persistence;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ public class TradingExchange implements Serializable {
 	private Integer status;
 	@EmbeddedId
 	private TradingExchangePK rolePK;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.REMOVE)
 	@JoinColumn(name = "id_instrument", referencedColumnName = "id", insertable = false, updatable = false)
 	private Instrument instrument;
 	@ManyToOne

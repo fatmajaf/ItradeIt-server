@@ -47,6 +47,11 @@ public class User implements Serializable{
 	@OneToOne
 	private Address address;
 	
+	//asma
+	@OneToMany(mappedBy="InstrumentIssuer")
+	private List<Instrument> instruments;
+	
+	
 	public Integer getId() {
 		return id;
 	}

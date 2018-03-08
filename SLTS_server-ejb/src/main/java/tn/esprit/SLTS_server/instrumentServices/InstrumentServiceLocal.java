@@ -1,4 +1,4 @@
-package INSTRUMENTservices;
+package tn.esprit.SLTS_server.instrumentServices;
 
 
 import java.util.List;
@@ -16,5 +16,6 @@ public interface InstrumentServiceLocal {
 	List<Instrument> findAll();
 	public void delete(Integer id);
 	public void updatee(Integer id, float changee);
-//k
+	
+
 }

@@ -1,4 +1,4 @@
-package INSTRUMENTservices;
+package tn.esprit.SLTS_server.instrumentServices;
 
 
 
@@ -9,7 +9,9 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
+import tn.esprit.SLTS_server.persistence.Bond;
 import tn.esprit.SLTS_server.persistence.Instrument;
 import tn.esprit.SLTS_server.persistence.User;
 
@@ -20,19 +22,19 @@ public class InstrumentService implements InstrumentServiceRemote,InstrumentServ
 	@PersistenceContext(unitName="SLTS_server-ejb")
 	private EntityManager em;
 	
-	
+		
 	public InstrumentService() {
 		
 	}
+	
 	@Override
 	public void create(Instrument instrument) {
+		//((Bond)instrument).setAvailablecoupon(((Bond) instrument).calculCouponAvailable());
+		
 		em.persist(instrument);
 		em.refresh(instrument);
 	
 	}
-	
-	
-	
 	@Override
 	public List<Instrument> findAll() {
 		return em.createQuery("from Instrument", Instrument.class).getResultList();
@@ -46,7 +48,7 @@ public class InstrumentService implements InstrumentServiceRemote,InstrumentServ
 		System.out.println("aaa");
 		Instrument inst=em.find(Instrument.class,id);
 		System.out.println("aaa");
-		//inst.setChangee(changee);
+		inst.setChangee(changee);
 		em.flush();
 				
 	}
@@ -61,12 +63,26 @@ public class InstrumentService implements InstrumentServiceRemote,InstrumentServ
 	public void InstrumentUser(int instrumentId,int userId){
 		User user=em.find(User.class, userId);
 		Instrument inst=em.find(Instrument.class, instrumentId);
-		//inst.setInstrumentIssuer(user);
-		
+	
 		
 	}
 	
-	
-	
+	/*@Override
+	public Long getNbBannedTraders() {
+		String jpql = "SELECT count(u) FROM Trader u where u.isbanned=1";
+		Query query = em.createQuery(jpql);
+		return (Long) query.getSingleResult();
+	}*/
 
+	@Override
+	public List<String> findAllCustomers() {
+		return em.createNativeQuery("select e.login from User e", User.class).getResultList();
+	}
+	
+	@Override
+	public List<Bond> findAllBonds() {
+		return em.createQuery("select B from Bond B", Bond.class).getResultList();
+	}
+	
+	
 }
