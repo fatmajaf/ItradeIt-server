@@ -88,7 +88,7 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 
 	@Override
 	public List<User> SearchAllUsers(String criteria) {
-		String jpql = "SELECT u FROM User u where u.firstName like :criteria";
+		String jpql = "SELECT u FROM User u where u.firstName like :criteria or u.lastName like :criteria or u.login like :criteria or u.nationality like :criteria or u.email like :criteria or u.creationDate like :criteria or u.birthdate like :criteria or u.phone like :criteria";
 
 		Query query = em.createQuery(jpql);
 		query.setParameter("criteria", "%" + criteria + "%");
