@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
+
 @Entity
 @DiscriminatorColumn(name="role")
 
@@ -51,6 +53,9 @@ public class User implements Serializable{
 	@OneToMany(mappedBy="InstrumentIssuer")
 	private List<Instrument> instruments;
 	
+	
+	@OneToMany
+	private List<Comment> comments;
 	
 	public Integer getId() {
 		return id;
@@ -125,6 +130,18 @@ public class User implements Serializable{
 		this.address = address;
 	}
 	
+	public List<Instrument> getInstruments() {
+		return instruments;
+	}
+	public void setInstruments(List<Instrument> instruments) {
+		this.instruments = instruments;
+	}
+	public List<Comment> getComments() {
+		return comments;
+	}
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 	public Integer getPhone() {
 		return phone;
 	}
