@@ -1,11 +1,13 @@
 package tn.esprit.SLTS_server.persistence;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -13,7 +15,7 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-public class Comment {
+public class Comment implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	private Integer id;
@@ -23,10 +25,24 @@ public class Comment {
 	@OneToOne
 	private User commenter;
 	
+	@ManyToOne
+	private User user;
 	
 	
 	public Integer getId() {
 		return id;
+	}
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 

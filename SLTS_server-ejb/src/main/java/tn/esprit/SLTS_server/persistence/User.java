@@ -4,13 +4,16 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -54,7 +57,8 @@ public class User implements Serializable{
 	private List<Instrument> instruments;
 	
 	
-	@OneToMany
+	@OneToMany(mappedBy="user",fetch = FetchType.EAGER, cascade= CascadeType.ALL)
+	
 	private List<Comment> comments;
 	
 	public Integer getId() {
@@ -155,7 +159,10 @@ public class User implements Serializable{
 		return "User [id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName
 				+ ", lastName=" + lastName+"\n";
 	}
-	
+	public void addcomment(Comment comment){
+		//comment.setCommenter(this);
+		this.comments.add(comment);
+	}
 	
 	
 	
