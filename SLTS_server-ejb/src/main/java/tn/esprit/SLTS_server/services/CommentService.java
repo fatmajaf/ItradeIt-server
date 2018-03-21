@@ -76,4 +76,14 @@ public class CommentService implements CommentServiceLocal, CommentServiceRemote
 			return (query.executeUpdate());
 	}
 
+	@Override
+	public void updatecommentbody(int idc, String body) {
+		
+		 String jpql = "Update Comment c set c.body=:body where c.id=:idc";
+			Query query = em.createQuery(jpql);
+			query.setParameter("body", body);
+			query.setParameter("idc", idc);
+			query.executeUpdate();
+	}
+
 }

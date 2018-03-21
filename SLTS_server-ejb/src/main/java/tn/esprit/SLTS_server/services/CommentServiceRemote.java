@@ -18,4 +18,5 @@ public interface CommentServiceRemote {
 	public Comment findCommentById(int id);
 	public void deleteComment(Comment c) ;
 	public int deleteallusercomments(User u);
+	public void updatecommentbody(int idc, String body);
 }
