@@ -22,13 +22,14 @@ public class Comment implements Serializable {
     private String body;
 	@Temporal(TemporalType.DATE)
 	private Date creationDate;
+	
 	@OneToOne
 	private User commenter;
 	
 	@ManyToOne
 	private User user;
 	
-	
+	private int banned=0;
 	public Integer getId() {
 		return id;
 	}
@@ -37,6 +38,18 @@ public class Comment implements Serializable {
 
 	public User getUser() {
 		return user;
+	}
+
+
+
+	public int getBanned() {
+		return banned;
+	}
+
+
+
+	public void setBanned(int banned) {
+		this.banned = banned;
 	}
 
 
