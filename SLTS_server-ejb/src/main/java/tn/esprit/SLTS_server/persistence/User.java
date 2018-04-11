@@ -49,7 +49,7 @@ public class User implements Serializable{
 	private String photo;
 
 	@OneToMany
-	private List<Trade_Offer> offers;
+	private List<Offer> offers;
 	@OneToOne
 	private Address address;
 	
@@ -131,10 +131,10 @@ public class User implements Serializable{
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
-	public List<Trade_Offer> getOffers() {
+	public List<Offer> getOffers() {
 		return offers;
 	}
-	public void setOffers(List<Trade_Offer> offers) {
+	public void setOffers(List<Offer> offers) {
 		this.offers = offers;
 	}
 	public Address getAddress() {
