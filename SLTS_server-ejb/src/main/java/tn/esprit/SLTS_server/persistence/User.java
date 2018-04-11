@@ -46,6 +46,7 @@ public class User implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
 	private Integer phone;
+	private String photo;
 
 	@OneToMany
 	private List<Trade_Offer> offers;
@@ -64,6 +65,15 @@ public class User implements Serializable{
 	public Integer getId() {
 		return id;
 	}
+	
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}

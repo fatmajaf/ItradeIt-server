@@ -18,6 +18,9 @@ public interface CommentServiceLocal {
 	public void deleteComment(Comment c) ;
 	public int deleteallusercomments(User u);
 	public void updatecommentbody(int idc, String body);
-	
-
+	public void bancomment(int idc);
+	public User getmostbannedcommenter();
+	public Long getnbmaxbannedcomments();
+	public Long totalbannedcommentscurmonth();
+	public Long getnbbannedcommentsbycommenterid(int idc);
 }

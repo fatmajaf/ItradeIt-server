@@ -23,6 +23,21 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>4.3.10.Final</version>
 		</dependency>
+		
+		
+	<!-- https://mvnrepository.com/artifact/com.zavtech/morpheus-yahoo -->
+<dependency>
+    <groupId>com.zavtech</groupId>
+    <artifactId>morpheus-yahoo</artifactId>
+    <version>0.9.21</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/com.zavtech/morpheus-viz -->
+<dependency>
+    <groupId>com.zavtech</groupId>
+    <artifactId>morpheus-viz</artifactId>
+    <version>0.9.21</version>
+</dependency>
+		
 	</dependencies>
 
 	<build>

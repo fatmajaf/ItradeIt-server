@@ -32,4 +32,5 @@ public interface UserServiceLocal {
 	Trader findtraderactivelazynbtrades(String criteria);
 	Long getnbtradesforactivelazytrader(String criteria);
 	List<User> findAlldesactiatedCustomers();
+	void updatephotouserbyid(int idu, String photo);
 }

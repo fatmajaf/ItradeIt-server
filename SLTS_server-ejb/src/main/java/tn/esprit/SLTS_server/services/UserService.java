@@ -180,6 +180,16 @@ String jpql = "SELECT count(*) from TradingExchange u group by u.user.id order b
 		return query.getResultList();
 	}
 
+	@Override
+	public void updatephotouserbyid(int idu, String photo) {
+		String jpql = "Update User c set c.photo=:photo where c.id=:idu";
+		Query query = em.createQuery(jpql);
+		query.setParameter("photo", photo);
+		query.setParameter("idu", idu);
+		query.executeUpdate();
+		
+	}
+
 	
 
 }
