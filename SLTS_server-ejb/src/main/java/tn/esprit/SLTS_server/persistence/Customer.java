@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,6 +20,9 @@ public class Customer extends User implements Serializable{
 	private Double money;
 	@OneToOne(cascade=CascadeType.ALL)
 	private Company company;
+	
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="customer",cascade={CascadeType.PERSIST,CascadeType.REMOVE})
+	private List<InteresstedBy> interesstedByList;
 	
 	public Integer getRisk() {
 		return risk;
@@ -48,6 +52,12 @@ public class Customer extends User implements Serializable{
 	@Override
 	public String toString() {
 		return super.getFirstName()+" "+super.getLastName();
+	}
+	public List<InteresstedBy> getInteresstedByList() {
+		return interesstedByList;
+	}
+	public void setInteresstedByList(List<InteresstedBy> interesstedByList) {
+		this.interesstedByList = interesstedByList;
 	}
 	
 	

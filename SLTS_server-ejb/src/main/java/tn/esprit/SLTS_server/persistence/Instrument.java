@@ -2,12 +2,14 @@ package tn.esprit.SLTS_server.persistence;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 @Entity
 @DiscriminatorColumn(name="typeinstrument")
 public class Instrument implements Serializable{
@@ -20,6 +22,12 @@ public class Instrument implements Serializable{
 	private float volume;
 	private float open;
 	private int available=1;
+	
+	@Column(unique=true)
+	private String Reference; 
+	@OneToOne(mappedBy="instrument")
+	private Offer offer;
+
 	
     private boolean confirmed=false;
 	@ManyToOne
@@ -82,6 +90,30 @@ public class Instrument implements Serializable{
 
 
 */
+
+
+	public String getReference() {
+		return Reference;
+	}
+
+
+
+	public void setReference(String reference) {
+		Reference = reference;
+	}
+
+
+
+	public Offer getOffer() {
+		return offer;
+	}
+
+
+
+	public void setOffer(Offer offer) {
+		this.offer = offer;
+	}
+
 
 
 	@Override
@@ -169,6 +201,6 @@ public class Instrument implements Serializable{
 	public void setAvailable(int available) {
 		this.available = available;
 	}
-	
+		
 
 }
