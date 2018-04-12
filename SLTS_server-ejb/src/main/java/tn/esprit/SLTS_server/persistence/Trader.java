@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.IndexColumn;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -26,8 +27,8 @@ public class Trader extends User implements Serializable {
 	@OneToMany(mappedBy = "trader", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Request> requests;
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "trader")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany( mappedBy = "trader")
 	private List<Customer> customers;
 
 	public String getTradertype() {
@@ -54,7 +55,7 @@ public class Trader extends User implements Serializable {
 		this.customers = customers;
 	}
 
-	public List<Offer> getOffers() {
+public List<Offer> getOffers() {
 		return offers;
 	}
 

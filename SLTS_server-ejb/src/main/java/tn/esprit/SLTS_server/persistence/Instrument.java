@@ -25,8 +25,8 @@ public class Instrument implements Serializable{
 	
 	@Column(unique=true)
 	private String Reference; 
-	@OneToOne(mappedBy="instrument")
-	private Offer offer;
+	//@OneToOne(mappedBy="instrument")
+	//private Offer offer;
 
 	
     private boolean confirmed=false;
@@ -104,7 +104,7 @@ public class Instrument implements Serializable{
 
 
 
-	public Offer getOffer() {
+/*	public Offer getOffer() {
 		return offer;
 	}
 
@@ -114,7 +114,7 @@ public class Instrument implements Serializable{
 		this.offer = offer;
 	}
 
-
+*/
 
 	@Override
 	public String toString() {

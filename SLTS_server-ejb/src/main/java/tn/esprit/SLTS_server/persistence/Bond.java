@@ -40,6 +40,15 @@ The market price of a bond may be above or below par, depending on factors such 
 	@Temporal(TemporalType.DATE)
 	private Date callabilityperiod;
 	private Float availablecoupon;
+	
+	//added values
+	
+	private String typeOfCouponPayment;
+	private Date dateOfPublication;
+	
+	
+	//end add
+	
 	public Double getParvalue() {
 		return parvalue;
 	}
@@ -101,6 +110,18 @@ The market price of a bond may be above or below par, depending on factors such 
 				+ saleprice + ", convertible=" + convertible + ", backroundType=" + backroundType + ", maturitydate="
 				+ maturitydate + ", callabilityperiod=" + callabilityperiod + ", availablecoupon=" + availablecoupon
 				+ "]";
+	}
+	public String getTypeOfCouponPayment() {
+		return typeOfCouponPayment;
+	}
+	public void setTypeOfCouponPayment(String typeOfCouponPayment) {
+		this.typeOfCouponPayment = typeOfCouponPayment;
+	}
+	public Date getDateOfPublication() {
+		return dateOfPublication;
+	}
+	public void setDateOfPublication(Date dateOfPublication) {
+		this.dateOfPublication = dateOfPublication;
 	}
 	
 

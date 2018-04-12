@@ -19,6 +19,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 
 
 @Entity
@@ -48,8 +52,8 @@ public class User implements Serializable{
 	private Integer phone;
 	private String photo;
 
-	@OneToMany
-	private List<Offer> offers;
+	//@OneToMany
+	//private List<Offer> offers;
 	@OneToOne
 	private Address address;
 	//maryem
@@ -61,8 +65,8 @@ public class User implements Serializable{
 	@OneToMany(mappedBy="InstrumentIssuer")
 	private List<Instrument> instruments;
 	
-	
-	@OneToMany(mappedBy="user",fetch = FetchType.EAGER, cascade= CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="user",cascade= CascadeType.ALL)
 	
 	private List<Comment> comments;
 	
@@ -135,12 +139,12 @@ public class User implements Serializable{
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
-	public List<Offer> getOffers() {
+	/*public List<Offer> getOffers() {
 		return offers;
 	}
 	public void setOffers(List<Offer> offers) {
 		this.offers = offers;
-	}
+	}*/
 	public Address getAddress() {
 		return address;
 	}

@@ -10,6 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.IndexColumn;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @DiscriminatorValue(value="customer")
 public class Customer extends User implements Serializable{
@@ -20,8 +24,8 @@ public class Customer extends User implements Serializable{
 	private Double money;
 	@OneToOne(cascade=CascadeType.ALL)
 	private Company company;
-	
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="customer",cascade={CascadeType.PERSIST,CascadeType.REMOVE})
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="customer",cascade={CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<InteresstedBy> interesstedByList;
 	
 	public Integer getRisk() {
