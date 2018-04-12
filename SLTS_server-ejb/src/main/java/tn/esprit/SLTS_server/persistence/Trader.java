@@ -54,8 +54,6 @@ public class Trader extends User implements Serializable {
 		this.customers = customers;
 	}
 
-	
-
 	public List<Offer> getOffers() {
 		return offers;
 	}

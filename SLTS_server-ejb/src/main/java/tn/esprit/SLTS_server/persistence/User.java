@@ -52,6 +52,10 @@ public class User implements Serializable{
 	private List<Offer> offers;
 	@OneToOne
 	private Address address;
+	//maryem
+	@OneToMany(mappedBy="user")
+	private List<WatchList> watchLists;
+	
 	
 	//asma
 	@OneToMany(mappedBy="InstrumentIssuer")
