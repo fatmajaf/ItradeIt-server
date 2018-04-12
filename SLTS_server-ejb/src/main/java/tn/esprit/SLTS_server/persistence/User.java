@@ -51,6 +51,16 @@ public class User implements Serializable{
 	private Date birthdate;
 	private Integer phone;
 	private String photo;
+	
+	//kaies
+	@OneToMany(mappedBy="iduser")
+	private List<Reponse> reponses;
+	
+	@OneToMany(mappedBy="iduser")
+	private List<Forum> questions;
+	
+	@OneToMany(mappedBy="users")
+	private List<Portfolio> portfolios;
 
 	//@OneToMany
 	//private List<Offer> offers;
@@ -69,6 +79,14 @@ public class User implements Serializable{
 	@OneToMany(mappedBy="user",cascade= CascadeType.ALL)
 	
 	private List<Comment> comments;
+	
+	
+	public List<Reponse> getReponses() {
+		return reponses;
+	}
+	public void setReponses(List<Reponse> reponses) {
+		this.reponses = reponses;
+	}
 	
 	public Integer getId() {
 		return id;
