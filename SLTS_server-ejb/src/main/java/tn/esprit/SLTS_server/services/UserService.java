@@ -17,7 +17,7 @@ import tn.esprit.SLTS_server.persistence.TradingExchange;
 import tn.esprit.SLTS_server.persistence.User;
 
 @Stateless
-
+@LocalBean
 public class UserService implements UserServiceRemote, UserServiceLocal {
 	@PersistenceContext
 	private EntityManager em;
@@ -30,7 +30,9 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 
 		List<User> res = query.getResultList();
 		if ((res != null) && (res.isEmpty() == false)) {
+			System.out.println(res.get(0));
 			return res.get(0);
+			
 		}
 		return null;
 	}

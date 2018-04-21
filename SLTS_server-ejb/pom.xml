@@ -37,6 +37,50 @@
     <artifactId>morpheus-viz</artifactId>
     <version>0.9.21</version>
 </dependency>
+		<dependency>
+    <groupId>org.mobicents.external.freetts</groupId>
+    <artifactId>cmu_time_awb</artifactId>
+    <version>1.0</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.mobicents.external.freetts/cmu_us_kal -->
+<dependency>
+    <groupId>org.mobicents.external.freetts</groupId>
+    <artifactId>cmu_us_kal</artifactId>
+    <version>1.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.mobicents.external.freetts/cmudict04 -->
+<dependency>
+    <groupId>org.mobicents.external.freetts</groupId>
+    <artifactId>cmudict04</artifactId>
+    <version>1.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.mobicents.external.freetts/cmulex -->
+<dependency>
+    <groupId>org.mobicents.external.freetts</groupId>
+    <artifactId>cmulex</artifactId>
+    <version>1.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.mobicents.external.freetts/cmutimelex -->
+<dependency>
+    <groupId>org.mobicents.external.freetts</groupId>
+    <artifactId>cmutimelex</artifactId>
+    <version>1.0</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.mobicents.external.freetts/en_us -->
+<dependency>
+    <groupId>org.mobicents.external.freetts</groupId>
+    <artifactId>en_us</artifactId>
+    <version>1.0</version>
+</dependency>
+
+   <!-- https://mvnrepository.com/artifact/org.mobicents.external.freetts/freetts -->
+<dependency>
+    <groupId>org.mobicents.external.freetts</groupId>
+    <artifactId>freetts</artifactId>
+    <version>1.0</version>
+</dependency>
+   
 		
 	</dependencies>
 

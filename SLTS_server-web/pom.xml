@@ -28,6 +28,23 @@
 			<type>ejb</type>
 			<scope>provided</scope>
 		</dependency>
+		
+		
+		
+		<!-- b -->
+		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>bootstrap</artifactId>
+    <version>3.2.0</version>
+</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
+<dependency>
+    <groupId>org.webjars</groupId>
+    <artifactId>jquery</artifactId>
+    <version>1.11.1</version>
+</dependency>
+		
 	</dependencies>
 
 	<build>
