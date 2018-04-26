@@ -30,5 +30,6 @@ public interface CompanyServiceRemote {
 	int getNbreCompanyBySize(Size s);
 	int getNbreCompanyByStatus(JuridicalStatus s);
 	int getNbreCompanyBySector(Sector s);
+	List<Company> getCompanyFollowed(int userId);
 	
 }

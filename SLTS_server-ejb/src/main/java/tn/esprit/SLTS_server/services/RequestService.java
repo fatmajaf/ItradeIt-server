@@ -38,7 +38,7 @@ public class RequestService implements RequestServiceRemote {
 
 	@Override
 	public Request getRequest(int o, int t) {
-		Query query=em.createQuery("select r From Request r where r.offer.id=:param1 and r.trader.id=:param2");
+		Query query=em.createQuery("select r From Request r join r.offer o join r.trader t where o.id=:param1 and t.id=:param2");
 		query.setParameter("param1", o);
 		query.setParameter("param2", t);
 		return (Request)query.getSingleResult();
@@ -61,7 +61,7 @@ public class RequestService implements RequestServiceRemote {
 
 	@Override
 	public List<Request> getAllRequests(int idTrader) {
-		Query query=em.createQuery("select r from Request r where r.offer.trader.id:=param");
+		Query query=em.createQuery("select r from Request r join r.offer o join o.trader t where t.id:=param");
 		query.setParameter("param", idTrader);
 		return query.getResultList();
 	}
@@ -74,7 +74,7 @@ public class RequestService implements RequestServiceRemote {
 
 	@Override
 	public List<Request> getMyRequests(int idTrader) {
-		Query query=em.createQuery("select r from Request r where r.trader.id:=param");
+		Query query=em.createQuery("select r from Request r join r.trader t where t.id:=param");
 		query.setParameter("param", idTrader);
 		return query.getResultList();
 	}

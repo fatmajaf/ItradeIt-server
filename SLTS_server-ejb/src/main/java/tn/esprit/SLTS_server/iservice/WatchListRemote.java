@@ -20,5 +20,6 @@ public interface WatchListRemote {
 	List<WatchList> getWatchListByCompany(int companyId);
 	int getNbreWatchListByUser(int userId);
 	int getnbreWatchListByCompany(int companyId);
+	boolean isWatched(int companyId,int userId );
 
 }

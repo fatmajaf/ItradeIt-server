@@ -23,7 +23,7 @@ public class InterestedByService implements InterestedByServiceRemote {
 	
 	@Override
 	public InteresstedBy getInteresstedBy(int offId, int clientId) {
-		Query query=em.createQuery("select i From InterestedBy where i.offre.id=:param1 and i.customer.id=:param2");
+		Query query=em.createQuery("select i From InteresstedBy i join i.offre o join i.customer c where o.id=:param1 and c.id=:param2");
 		query.setParameter("param1", offId);
 		query.setParameter("param2", clientId);
 		return (InteresstedBy)query.getSingleResult();
@@ -41,6 +41,7 @@ public class InterestedByService implements InterestedByServiceRemote {
 		intBy.setInteresstedByPk(ipk);
 		intBy.setOffre(offer);
 		intBy.setCustomer(customer);
+		intBy.setNote(note);
 		em.persist(intBy);
 	}
 
@@ -60,7 +61,7 @@ public class InterestedByService implements InterestedByServiceRemote {
 
 	@Override
 	public Boolean isInterestedBy(int offId, int clientId) {
-		Query query=em.createQuery("select count(i) From InterestedBy i where i.offre.id=:param1 and i.customer.id=:param2");
+		Query query=em.createQuery("select count(i) From InteresstedBy i join i.offre o join i.customer c where o.id=:param1 and c.id=:param2");
 		query.setParameter("param1", offId);
 		query.setParameter("param2", clientId);
 		long nbre=(long)query.getSingleResult();
@@ -72,21 +73,21 @@ public class InterestedByService implements InterestedByServiceRemote {
 
 	@Override
 	public List<InteresstedBy> getAllInterestedBy(int traderId) {
-		Query query=em.createQuery("select i from InterestedBy i where i.customer.trader.id:=param");
+		Query query=em.createQuery("select i from InteresstedBy i join i.customer c join c.trader t where t.id:=param");
 		query.setParameter("param", traderId);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<InteresstedBy> getInterestedByClient(int clientId) {
-		Query query=em.createQuery("select i from InterestedBy i where i.customer.id:=param");
+		Query query=em.createQuery("select i from InteresstedBy i join i.customer c where c.id:=param");
 		query.setParameter("param", clientId);
 		return query.getResultList();
 	}
 
 	@Override
 	public List<InteresstedBy> getMyInterestedByLevel(int note,int traderId) {
-		Query query=em.createQuery("select i from InterestedBy i where i.customer.id:=param and i.note=param1");
+		Query query=em.createQuery("select i from InteresstedBy i join i.customer c where c.id:=param and i.note=param1");
 		query.setParameter("param", traderId);
 		query.setParameter("param1", note);
 		return query.getResultList();
@@ -94,7 +95,7 @@ public class InterestedByService implements InterestedByServiceRemote {
 
 	@Override
 	public float getMoy(int clientId,int offerId) {
-		Query query=em.createQuery("select avg(i.note) from InterestedBy i where i.customer.id:=param and i.offer.id:=param1");
+		Query query=em.createQuery("select avg(i.note) from InteresstedBy i join i.customer c join i.offre o where c.id:=param and o.id:=param1");
 		query.setParameter("param", clientId);
 		query.setParameter("param1", offerId);
 		return (float)query.getSingleResult();

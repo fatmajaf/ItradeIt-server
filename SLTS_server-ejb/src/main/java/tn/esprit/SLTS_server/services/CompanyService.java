@@ -128,4 +128,11 @@ public class CompanyService implements CompanyServiceRemote{
 		return getCompanyBySector(s).size();
 	}
 
+	@Override
+	public List<Company> getCompanyFollowed(int userId) {
+		Query query=em.createQuery("select w.company From WatchList w join w.company c join w.user u where u.id=:param");
+		query.setParameter("param",userId);
+		return query.getResultList();
+	}
+
 }

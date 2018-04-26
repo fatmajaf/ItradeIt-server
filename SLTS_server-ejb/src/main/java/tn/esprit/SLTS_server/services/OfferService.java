@@ -21,7 +21,7 @@ public class OfferService implements OfferServiceRemote {
 	public int addOffre(Offer o,int traderId,int isntId) {
 		Trader t=em.find(Trader.class,traderId);
 		Instrument i=em.find(Instrument.class, isntId);
-		//o.setTrader(t);
+		o.setTrader(t);
 		o.setInstrument(i);
 		em.persist(o);
 		return o.getId();
@@ -45,7 +45,7 @@ public class OfferService implements OfferServiceRemote {
 	public void affectTraderToOffre(Integer offId, Integer tradId) {
 		Trader t=em.find(Trader.class,tradId);
 		Offer o=em.find(Offer.class,offId);
-		//o.setTrader(t);
+		o.setTrader(t);
 		
 	}
 
@@ -58,7 +58,7 @@ public class OfferService implements OfferServiceRemote {
 
 	@Override
 	public List<Offer> getOffresByTrader(int traderId) {
-		Query query=em.createQuery("select o From Offer o where trader.id=:param");
+		Query query=em.createQuery("select o From Offer o join o.trader t where t.id=:param");
 		query.setParameter("param",traderId);
 		return query.getResultList();
 	}
@@ -73,7 +73,7 @@ public class OfferService implements OfferServiceRemote {
 	@Override
 	public int addOffre(Offer o, int traderId) {
 		Trader t=em.find(Trader.class,traderId);
-		//o.setTrader(t);
+		o.setTrader(t);
 		em.persist(o);
 		return o.getId();
 	}
