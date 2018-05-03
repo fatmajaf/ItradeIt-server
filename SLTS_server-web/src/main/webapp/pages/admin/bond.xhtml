@@ -1,0 +1,868 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/template/layout.xhtml" xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<f:facet name="last">
+			<head></head>
+			<script
+				src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+				type="text/javascript"></script>
+		</f:facet>
+
+	</h:head>
+
+	<ui:define name="title">Choisir une fonctionnalité :</ui:define>
+
+	<ui:define name="content">
+
+
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+
+
+
+			<!-- SELECT2 EXAMPLE -->
+			<div class="box box-default">
+				<div class="box-header with-border">
+					<h3 class="box-title">Bond Management</h3>
+
+
+
+
+
+
+
+					<div class="nav-tabs-custom">
+						<ul class="nav nav-tabs">
+							<li><a href="#step1" data-toggle="tab">Pricing and
+									Publishing</a></li>
+							<li><a href="#activity" data-toggle="tab">Bond
+									Management</a></li>
+							<li><a href="#timeline" data-toggle="tab">Advisor Space</a></li>
+
+						</ul>
+						<div class="tab-content">
+
+
+
+
+							<div class="active tab-pane" id="step1">
+
+
+								<!-- ./col -->
+								<div class="col-md-12">
+									<!-- small box -->
+									<div class="small-box bg-green">
+										<div class="inner">
+											<h3>
+												PRICING %<sup style="font-size: 20px"></sup>
+											</h3>
+
+											<p>Bond Rate</p>
+										</div>
+										<div class="icon">
+											<i class="ion ion-stats-bars"></i>
+										</div>
+
+									</div>
+								</div>
+								<!-- ./col -->
+
+
+
+
+
+
+
+								<h:form>
+
+									<div class="row">
+
+										<div class="col-md-3">
+											<div class="form-group">
+												<label>Coupon Rate</label>
+												<h:inputText id="validateCouponRate"
+													value="#{bondManagementBean.couponrate}" required="true"
+													requiredMessage="Coupon Rate is necessary !" type="text"
+													class="form-control" style="width: 100%;">
+													<f:validateDoubleRange minimum="1" maximum="6"></f:validateDoubleRange>
+												</h:inputText>
+												<h:message for="validateCouponRate" style="color:green" />
+											</div>
+											<!-- /.form-group -->
+
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label>Coupon Rate Type</label>
+												<h:selectOneMenu
+													value="#{bondManagementBean.typeOfCouponPayment}"
+													class="form-control select2" style="width: 100%;">
+													<f:selectItem itemValue="Bi Annual" itemLabel="Bi Annual" />
+													<f:selectItem itemValue="Annually" itemLabel="Annually" />
+													<f:selectItem itemValue="Semi Annually"
+														itemLabel="Semi Annually" />
+													<f:selectItem itemValue="Quarterly" itemLabel="Quarterly" />
+													<f:selectItem itemValue="Monthly" itemLabel="Monthly" />
+													<f:selectItem itemValue="Continuous Compounding"
+														itemLabel="Continuous Compounding" />
+
+
+
+												</h:selectOneMenu>
+											</div>
+											<!-- /.form-group -->
+
+										</div>
+										<div class="col-md-3">
+
+											<div class="form-group">
+												<label>Ammount to be Studied</label>
+												<h:inputText value="#{bondManagementBean.ammount}"
+													type="text" class="form-control" style="width: 100%;" />
+
+											</div>
+
+
+
+										</div>
+										<div class="col-md-3">
+											<div class="form-group">
+												<label>Date of Publication</label>
+												<h:inputText id="datetoday"
+													value="#{bondManagementBean.datetoday}" type="text"
+													class="form-control" style="width: 100%;">
+													<f:convertDateTime pattern="dd-MM-yyyy" />
+												</h:inputText>
+
+
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4"></div>
+
+											<div class="col-md-4">
+												<h4>
+													<h:selectOneRadio value="#{bondManagementBean.pricingVar}">
+														<f:selectItem itemValue="#{true}"
+															itemLabel="Calculate Present Value" />
+
+														<f:selectItem itemValue="#{false}"
+															itemLabel="Calculate Future Value" />
+
+													</h:selectOneRadio>
+												</h4>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-4"></div>
+											<div class="col-md-4">
+												<div class="input-group margin">
+
+													<h:inputText type="text" class="form-control"
+														disabled="true" value="#{bondManagementBean.x}" />
+													<span class="input-group-btn"> <h:commandButton
+															class="btn btn-info btn-flat"
+															action="#{bondManagementBean.pricingBond()}"
+															onclick="return confirm('Are you sure?');" value="Price">
+
+														</h:commandButton>
+
+													</span>
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+								</h:form>
+
+								<div class="row">
+
+									<div class="col-md-4"></div>
+									<div class="col-md-4">
+										<div class="box box-warning box-solid">
+											<div class="box-header with-border">
+												<h3 class="box-title">Currency Convertor</h3>
+
+												<div class="box-tools pull-right">
+													<button type="button" class="btn btn-box-tool"
+														data-widget="collapse">
+														<i class="fa fa-minus"></i>
+													</button>
+												</div>
+												<!-- /.box-tools -->
+											</div>
+											<!-- /.box-header -->
+											<div class="box-body">
+												<h:form>
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>From</label>
+																<h:selectOneMenu value="#{bondManagementBean.from}"
+																	class="form-control select2" style="width: 100%;">
+
+																	<f:selectItem itemLabel=""
+																		itemValue="#{bondManagementBean.from}" />
+																	<f:selectItems value="#{currencies.currencies}" />
+																</h:selectOneMenu>
+															</div>
+														</div>
+
+
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>To</label>
+																<h:selectOneMenu value="#{bondManagementBean.to}"
+																	class="form-control select2" style="width: 100%;">
+
+																	<f:selectItem itemLabel=""
+																		itemValue="#{bondManagementBean.to}" />
+																	<f:selectItems value="#{currencies.currencies}" />
+																</h:selectOneMenu>
+															</div>
+														</div>
+													</div>
+
+													<div class="form-group">
+														<label>Ammount</label>
+														<h:inputText value="#{bondManagementBean.soumLekher}"
+															type="text" class="form-control" style="width: 100%;" />
+													</div>
+
+
+													<div class="form-group">
+
+														<h:commandButton
+															class="btn btn-block btn-warning btn-flat"
+															action="#{bondManagementBean.convertCurrency()}"
+															value="Convert !" />
+													</div>
+
+
+
+
+
+													<div class="form-group">
+														<label>Result</label>
+														<h:inputText value="#{bondManagementBean.price}"
+															type="text" class="form-control" style="width: 100%;" />
+													</div>
+												</h:form>
+
+
+
+
+
+												<!-- /.form-group -->
+
+
+
+
+											</div>
+
+											<!-- /.box-body -->
+
+
+										</div>
+										<!-- /.box -->
+									</div>
+								</div>
+
+
+								<h:form>
+									<div class="row">
+
+
+
+
+
+										<!-- ./col -->
+										<div class="col-md-12">
+											<!-- small box -->
+											<div class="small-box bg-green">
+												<div class="inner">
+													<h3>
+														General Details<sup style="font-size: 20px"></sup>
+													</h3>
+
+													<p>Bond management</p>
+												</div>
+												<div class="icon">
+													<i class="ion ion-stats-bars"></i>
+												</div>
+
+											</div>
+										</div>
+										<!-- ./col -->
+
+
+
+
+
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Instrument Type</label> <select
+													class="form-control select2" style="width: 100%;">
+													<option selected="selected">Bond</option>
+													<option>Option</option>
+													<option>Derivative</option>
+
+												</select>
+											</div>
+											<!-- /.form-group -->
+
+											<div class="form-group">
+												<label>Bond Background</label>
+												<h:selectOneMenu value="#{bondManagementBean.backroundType}"
+													class="form-control select2" style="width: 100%;">
+													<f:selectItem itemValue="Corporate" itemLabel="Corporate" />
+													<f:selectItem itemValue="Government" itemLabel="Government" />
+													<f:selectItem itemValue="Asset-Backed Securities"
+														itemLabel="Asset-Backed Securities" />
+
+
+												</h:selectOneMenu>
+											</div>
+											<!-- /.form-group -->
+
+										</div>
+										<!-- /.col -->
+										<div class="col-md-6">
+
+											<!-- /.form-group -->
+											<div class="form-group">
+
+
+
+												<label>Bond Issuer</label>
+												<h:selectOneMenu class="form-control select2"
+													value="#{bondManagementBean.instrumentIssuerID}">
+													<f:selectItems value="#{bondManagementBean.customers}"
+														var="customer" itemValue="#{customer.id}"
+														itemLabel="#{customer.firstName} #{customer.lastName} ">
+													</f:selectItems>
+												</h:selectOneMenu>
+
+
+
+
+											</div>
+											<!-- /.form-group -->
+
+
+											<div class="form-group">
+												<label>Bond Issuer Profile</label>
+												<h:selectOneMenu
+													value="#{bondManagementBean.instrumentIssuerType}"
+													class="form-control select2" style="width: 100%;">
+													<f:selectItem itemValue="Corporation"
+														itemLabel="Corporation" />
+													<f:selectItem itemValue="Investment Trust"
+														itemLabel="Investment Trust" />
+													<f:selectItem itemValue="Domestic" itemLabel="Domestic" />
+													<f:selectItem itemValue="Foreign Government"
+														itemLabel="Foreign Government" />
+
+												</h:selectOneMenu>
+											</div>
+											<!-- /.form-group -->
+										</div>
+										<!-- /.col -->
+									</div>
+									<!-- /.row -->
+
+									<!-- /.END first 4 inputs -->
+
+
+
+
+
+
+
+
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Currency</label>
+												<h:selectOneMenu value="#{bondManagementBean.currency}"
+													class="form-control select2" style="width: 100%;">
+
+													<f:selectItem itemLabel="flouuus" itemValue="" />
+													<f:selectItems value="#{currencies.currencies}" />
+												</h:selectOneMenu>
+											</div>
+
+											<!-- /.form-group -->
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Maturity Date</label>
+												<div class="input-group date">
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+													<h:inputText type="text" class="form-control pull-right"
+														id="datepicker" />
+												</div>
+											</div>
+											<!-- /.form-group -->
+										</div>
+
+
+
+
+
+
+
+
+										<!-- ./col -->
+										<div class="col-md-12">
+											<!-- small box -->
+											<div class="small-box bg-green">
+												<div class="inner">
+													<h3>
+														BONDS' OPTIONS<sup style="font-size: 20px"></sup>
+													</h3>
+
+													<p>Bond Rate</p>
+												</div>
+												<div class="icon">
+													<i class="ion ion-stats-bars"></i>
+												</div>
+
+											</div>
+										</div>
+										<!-- ./col -->
+
+									</div>
+
+
+
+
+
+
+									<div align="center">
+
+										<h3>
+											<h:selectBooleanCheckbox
+												value="#{bondManagementBean.callableTest}" />
+											Callable
+											<h:selectBooleanCheckbox
+												value="#{bondManagementBean.convertibleTest}" />
+											Convertable
+
+										</h3>
+
+									</div>
+
+
+									<br></br>
+									<br></br>
+									<br></br>
+									<div class="row">
+										<div class="col-md-4"></div>
+
+										<div class="col-md-4">
+										<h:form>
+											<h:commandButton class="btn btn-block btn-info btn-lg"
+												action="#{bondManagementBean.addBond()}" value="ADD BOND"
+												onclick="return confirm('Are you sure?');" />
+</h:form>
+
+
+
+										</div>
+									</div>
+
+								</h:form>
+
+
+								<div class="pad margin no-print">
+									<div class="callout callout-info"
+										style="margin-bottom: 0 !important;">
+										<h4>
+											<i class="fa fa-info"></i> Note:
+										</h4>
+										This page has been enhanced for printing. Click the print
+										button at the bottom of the invoice to test.
+									</div>
+								</div>
+
+
+
+
+
+
+
+
+
+
+
+
+							</div>
+
+							<!-- /end step1 -->
+
+
+
+
+
+
+
+
+							<div class="tab-pane" id="activity">
+								<!-- Post -->
+								<div class="alert alert-warning alert-dismissible">
+									<button type="button" class="close" data-dismiss="alert"
+										aria-hidden="true"></button>
+									<h4>
+										<i class="icon fa fa-warning"></i> Alert!
+									</h4>
+									No Bond can be CLOSED unless it is still Open !
+								</div>
+								
+								
+								
+								
+								<div class="row">
+<div class="col-md-4"></div>
+
+										<div class="col-md-4">
+							
+							<label>Bond Issuer</label>
+							<h:form>
+												<h:selectOneMenu class="form-control select2"
+													value="#{bondManagementBean.instrumentIssuerID}">
+													<f:selectItems value="#{bondManagementBean.customers}"
+														var="customer" itemValue="#{customer.id}"
+														itemLabel="#{customer.firstName} #{customer.lastName}">
+													</f:selectItems>
+												</h:selectOneMenu>
+												
+
+													
+												 <h:commandButton
+															class="btn btn-block btn-info btn-sm"
+															action="#{bondManagementBean.viewC()}"
+															value="See Customer Contact">
+
+														</h:commandButton></h:form>
+
+													<br></br>
+													<br></br>
+													<br></br>
+												
+									
+											<!-- Widget: user widget style 1 -->
+											<div class="box box-widget widget-user">
+												<!-- Add the bg color to the header using any of the bg-* classes -->
+												<div class="widget-user-header bg-aqua-active">
+													<h3 class="widget-user-username">
+														<h:outputText
+															value="#{bondManagementBean.c.firstName} #{bondManagementBean.c.lastName}" />
+													</h3>
+													<h5 class="widget-user-desc">Customer &amp; Issuer</h5>
+												</div>
+												<div class="widget-user-image">
+													<img class="img-circle"
+														src="../../dist/img/user1-128x128.jpg" alt="User Avatar" />
+												</div>
+												<div class="box-footer">
+													<div class="row">
+														<div class="col-sm-4 border-right">
+															<div class="description-block">
+																<h5 class="description-header">Bonds</h5>
+																<span class="description-text"><h:outputText value="#{bondManagementBean.nbrBondsTraded}" /></span>
+															</div>
+															<!-- /.description-block -->
+														</div>
+														<!-- /.col -->
+														<div class="col-sm-4 border-right">
+															<div class="description-block">
+																<h5 class="description-header">Email</h5>
+																<span class="description-text"><h:outputText value="#{bondManagementBean.customerEmail}" /></span>
+															</div>
+															<!-- /.description-block -->
+														</div>
+														<!-- /.col -->
+														<div class="col-sm-4">
+															<div class="description-block">
+																<h5 class="description-header">Phone</h5>
+																<span class="description-text"><h:outputText value="#{bondManagementBean.customerPhone}" /></span>
+															</div>
+															<!-- /.description-block -->
+														</div>
+														<!-- /.col -->
+													</div>
+												</div>
+											</div>
+										</div>
+										</div>
+										
+										
+										
+										
+								<div class="box">
+									<div class="box-header">
+										<h3 class="box-title">Bonds' Data</h3>
+									</div>
+									<!-- /.box-header -->
+									<div class="box-body">
+										<h:dataTable id="example1" value="#{bondManagementBean.bonds}"
+											var="bond" class="table table-bordered table-striped">
+											<h:column>
+												<f:facet name="header"></f:facet>
+												<div class="col-md-3 col-sm-4">
+													<i class="fa fa-fw fa-money"></i>
+												</div>
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Date of Publication" />
+												</f:facet>
+												<h:outputText value="#{bond.dateOfPublication}"
+													disabled="true" />
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Instrument Issuer Type" />
+												</f:facet>
+												<h:outputText value="#{bond.instrumentIssuerType}" />
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Bond's Bakground Type " />
+												</f:facet>
+												<h:outputText value="#{bond.backroundType}" />
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Currency" />
+												</f:facet>
+												<h:outputText value="#{bond.currency}" />
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Status" />
+												</f:facet>
+												<span class="label label-primary">Open</span>
+											</h:column>
+											<h:column>
+												<f:facet name="header">
+													<h:outputText value="Delete Open Bonds" />
+												</f:facet>
+												<h:form>
+													<h:commandButton class="btn btn-block btn-info btn-sm"
+														action="#{bondManagementBean.deleteBond(bond.id)}"
+														onclick="return confirm('Are you sure?');" value="Close" />
+												</h:form>
+
+											</h:column>
+										</h:dataTable>
+									</div>
+									<!-- /.box-body -->
+								</div>
+
+
+								<!-- /.post -->
+
+								<!-- Post -->
+								<div class="post clearfix">
+									<div class="user-block">
+										<img class="img-circle img-bordered-sm"
+											src="../../dist/img/user7-128x128.jpg" alt="User Image" /> <span
+											class="username"> <a href="#">Sarah Ross</a> <a
+											href="#" class="pull-right btn-box-tool"><i
+												class="fa fa-times"></i></a>
+										</span> <span class="description">Sent you a message - 3 days
+											ago</span>
+									</div>
+									<!-- /.user-block -->
+									<p>Lorem ipsum represents a long-held tradition for
+										designers, typographers and the like. Some people hate it and
+										argue for its demise, but others ignore the hate as they
+										create awesome tools to help create filler text for everyone
+										from bacon lovers to Charlie Sheen fans.</p>
+
+									<form class="form-horizontal">
+										<div class="form-group margin-bottom-none">
+											<div class="col-sm-9">
+												<input class="form-control input-sm" placeholder="Response" />
+											</div>
+											<div class="col-sm-3">
+												<button type="submit"
+													class="btn btn-danger pull-right btn-block btn-sm">Send</button>
+											</div>
+										</div>
+									</form>
+								</div>
+								<!-- /.post -->
+
+								<!-- Post -->
+								<div class="post">
+									<div class="user-block">
+										<img class="img-circle img-bordered-sm"
+											src="../../dist/img/user6-128x128.jpg" alt="User Image" /> <span
+											class="username"> <a href="#">Adam Jones</a> <a
+											href="#" class="pull-right btn-box-tool"><i
+												class="fa fa-times"></i></a>
+										</span> <span class="description">Posted 5 photos - 5 days ago</span>
+									</div>
+									<!-- /.user-block -->
+									<div class="row margin-bottom">
+										<div class="col-sm-6">
+											<img class="img-responsive" src="../../dist/img/photo1.png"
+												alt="Photo" />
+										</div>
+										<!-- /.col -->
+										<div class="col-sm-6">
+											<div class="row">
+												<div class="col-sm-6">
+													<img class="img-responsive" src="../../dist/img/photo2.png"
+														alt="Photo" /> <br></br> <img class="img-responsive"
+														src="../../dist/img/photo3.jpg" alt="Photo" />
+												</div>
+												<!-- /.col -->
+												<div class="col-sm-6">
+													<img class="img-responsive" src="../../dist/img/photo4.jpg"
+														alt="Photo" /> <br></br> <img class="img-responsive"
+														src="../../dist/img/photo1.png" alt="Photo" />
+												</div>
+												<!-- /.col -->
+											</div>
+											<!-- /.row -->
+										</div>
+										<!-- /.col -->
+									</div>
+									<!-- /.row -->
+
+									<ul class="list-inline">
+										<li><a href="#" class="link-black text-sm"><i
+												class="fa fa-share margin-r-5"></i> Share</a></li>
+										<li><a href="#" class="link-black text-sm"><i
+												class="fa fa-thumbs-o-up margin-r-5"></i> Like</a></li>
+										<li class="pull-right"><a href="#"
+											class="link-black text-sm"><i
+												class="fa fa-comments-o margin-r-5"></i> Comments (5)</a></li>
+									</ul>
+
+									<input class="form-control input-sm" type="text"
+										placeholder="Type a comment" />
+								</div>
+								<!-- /.post -->
+							</div>
+
+
+
+
+
+							<!-- /.tab-pane -->
+							<div class="tab-pane" id="timeline">
+							<div class="row">
+
+										
+
+									</div>
+								<!-- The timeline -->
+								<div class="row">
+									<div class="col-md-6">
+
+										<div class="box box-danger">
+											<div class="box-header">
+												<h3 class="box-title">Yield to Maturity - Cash Flows</h3>
+											</div>
+											<div class="box-body">
+												<h:form>
+													<div class="form-group">
+														<label>Parvalue</label>
+														<h:inputText id="validateSalaire" required="true"
+															requiredMessage="le calcule necessite hehdya"
+															validatorMessage="hadhak hou"
+															value="#{bondManagementBean.parValueNew}" type="text"
+															class="form-control" style="width: 100%;">
+
+														</h:inputText>
+														<h:message for="validateSalaire" style="color:green" />
+													</div>
+													<div class="form-group">
+														<label>Market Price</label>
+														<h:inputText value="#{bondManagementBean.marketValue}"
+															type="text" class="form-control" style="width: 100%;" />
+
+													</div>
+													<div class="form-group">
+														<label>Annual Rate</label>
+														<h:inputText value="#{bondManagementBean.annualRate}"
+															type="text" class="form-control" style="width: 100%;" />
+
+													</div>
+													<div class="form-group">
+														<label>Maturity in years</label>
+														<h:inputText value="#{bondManagementBean.maturityInYears}"
+															type="text" class="form-control" style="width: 100%;" />
+
+													</div>
+
+													<h:commandButton class="btn btn-block btn-info btn-sm"
+														action="#{bondManagementBean.calculateYieldTomaturity()}"
+														value="Calculate" />
+													<h:inputText type="text" class="form-control"
+														disabled="true"
+														value="#{bondManagementBean.yieldToMaturity}" />
+												</h:form>
+
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+
+										<div class="box box-danger">
+											<div class="box-header">
+												<h3 class="box-title">Current Yield</h3>
+											</div>
+											<div class="box-body"></div>
+										</div>
+									</div>
+								</div>
+
+<h2><h:link outcome="/pages/admin/test.xhtml" value="View Charts for more Details about Pricing the Bonds"/></h2>
+
+							
+
+								
+							</div>
+							<!-- /.tab-pane -->
+
+
+
+
+
+
+
+							<!-- /.tab-pane -->
+						</div>
+
+
+
+						<!-- /.tab-content -->
+					</div>
+					<!-- /.nav-tabs-custom -->
+				</div>
+
+
+
+
+
+
+
+			</div>
+		</div>
+		<!-- /.box -->
+	</ui:define>
+</ui:composition>
