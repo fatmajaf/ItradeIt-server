@@ -1,0 +1,170 @@
+
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/template/layout.xhtml" 
+                xmlns:b="http://primefaces.org/ui"
+                xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Choisir une fonctionnalité :</ui:define>
+
+	<ui:define name="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Bond Management</h3>
+
+
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="row">
+							<div class="login-box">
+								<div class="login-box-body">
+									<p class="login-box-msg">Bond Management</p>
+									<div class="form-group has-feedback">Currency :</div>
+									<h:form method="post">
+										<div class="form-group has-feedback">
+											<h:inputText value="#{bondManagementBean.currency}"
+												type="text" class="form-control" placeholder="Currency" />
+										</div>
+										<div class="form-group has-feedback">Coupon Rate:</div>
+										<div class="form-group has-feedback">
+											<h:inputText value="#{bondManagementBean.couponrate}"
+												type="text" class="form-control" placeholder="Coupon Rate" />
+										</div>
+										<div class="form-group has-feedback">Flous edenya:</div>
+										<div class="form-group has-feedback">
+											<h:selectOneMenu value="#{bondManagementBean.currency}"
+												class="form-control">
+												<f:selectItem itemLabel="flouuus" itemValue="" />
+												<f:selectItems value="#{currencies.currencies}" />
+											</h:selectOneMenu>
+
+										</div>
+										<div class="form-group has-feedback">ParValue :</div>
+										<div class="form-group has-feedback">
+											<input type="text" class="form-control" placeholder="Ammount" />
+										</div>
+										<div class="form-group has-feedback">
+											<div class="checkbox icheck">
+												<label> <input type="checkbox"
+													value="#{bondManagementBean.callable}" /> Callable Bond
+												</label>
+											</div>
+
+											<div class="checkbox icheck">
+												<label> <input type="checkbox"
+													value="#{bondManagementBean.convertible}" /> Convertible
+													Bond
+												</label>
+											</div>
+										</div>
+										<div class="social-auth-links text-center">
+											<h:commandButton class="btn btn-primary btn-block btn-flat"
+												value="Add" action="#{bondManagementBean.addBond()}" />
+
+
+										</div>
+
+									</h:form>
+
+<!-- Date -->
+              <div class="form-group">
+                <label>Date:</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <h:inputText  type="text" class="form-control pull-right" id="datepicker"/>
+                </div>
+                <!-- /.input group -->
+              </div>
+              <!-- /.form group -->
+<h:inputText value="#{listModel.creationDate}" styleClass="datepicker"
+    valueChangeListener="#{listController.filterFieldChanged}">
+    <f:convertDateTime pattern="yyyy-mm-dd"/>
+</h:inputText>
+
+<h:inputText value="#{listModel.updateDate}" styleClass="datepicker"
+    valueChangeListener="#{listController.filterFieldChanged}">
+    <f:convertDateTime pattern="yyyy-mm-dd"/>
+</h:inputText>
+
+<!-- bootstrap datepicker -->
+<script src="../../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script>
+  $(function () {
+  //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    });</script>
+								</div>
+
+
+							</div>
+
+							<!-- /.bodyyy -->
+						</div>
+						<!-- /.row -->
+
+					</div>
+
+
+					<!-- ./box-body -->
+					<div class="box-footer">
+						<div class="row">
+							<div class="col-sm-3 col-xs-6">
+								<div class="description-block border-right">
+									<span class="description-percentage text-green"><i
+										class="fa fa-caret-up"></i> 17%</span>
+									<h5 class="description-header">$35,210.43</h5>
+									<span class="description-text">TOTAL REVENUE</span>
+								</div>
+								<!-- /.description-block -->
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-3 col-xs-6">
+								<div class="description-block border-right">
+									<span class="description-percentage text-yellow"><i
+										class="fa fa-caret-left"></i> 0%</span>
+									<h5 class="description-header">$10,390.90</h5>
+									<span class="description-text">TOTAL COST</span>
+								</div>
+								<!-- /.description-block -->
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-3 col-xs-6">
+								<div class="description-block border-right">
+									<span class="description-percentage text-green"><i
+										class="fa fa-caret-up"></i> 20%</span>
+									<h5 class="description-header">$24,813.53</h5>
+									<span class="description-text">TOTAL PROFIT</span>
+								</div>
+								<!-- /.description-block -->
+							</div>
+							<!-- /.col -->
+							<div class="col-sm-3 col-xs-6">
+								<div class="description-block">
+									<span class="description-percentage text-red"><i
+										class="fa fa-caret-down"></i> 18%</span>
+									<h5 class="description-header">1200</h5>
+									<span class="description-text">GOAL COMPLETIONS</span>
+								</div>
+								<!-- /.description-block -->
+							</div>
+						</div>
+						<!-- /.row -->
+					</div>
+					<!-- /.box-footer -->
+				</div>
+				<!-- /.box -->
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
