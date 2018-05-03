@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
@@ -20,11 +21,12 @@ import javax.naming.directory.SearchResult;
 
 import sun.misc.BASE64Encoder;
 import tn.esprit.SLTS_server.persistence.Admin;
+import tn.esprit.SLTS_server.persistence.Trader;
 import tn.esprit.SLTS_server.persistence.User;
 import tn.esprit.SLTS_server.services.UserService;
 
 @ManagedBean
-@ApplicationScoped
+@SessionScoped
 public class LoginBean {
 	private String login;
 	private String password;
@@ -42,23 +44,40 @@ public class LoginBean {
 		String  navigateTo = null;
 		if (login.equals("") && password.equals(""))
 
-			addMessage("Info", "Please enter your login and password");
+			{addMessage("Info", "Please enter your login and password");
+			return null;
+			}
 			
 		else
-			us= new User();
+			{us= new User();
 			us.setPassword(encryptLdapPassword("SHA",password));
 			us.setLogin(login);
-			User user = service.login(us);
+			User user = null;
+					user=service.login(us);
+					System.out.println("the user : "+user);
 			if (user == null || (!loginfromLDAP(password, login))) 
-				addMessage("Info", "Login or password incorrect");
-				
+				{addMessage("Info", "Login or password incorrect");
+				return null;
+				}
 			else 
+				{
 				us=user;
 				if (us instanceof Admin)
+					{loggedIn=true;
+					addMessage("Info", "welcome");
+					System.out.println("isssss "+loggedIn);
+					navigateTo = "/pages/admin/home?faces-redirect=true";
+					return navigateTo;}
+				else if (us instanceof Trader){
 					loggedIn=true;
 					addMessage("Info", "welcome");
-					navigateTo = "/pages/admin/home?faces-redirect=true";
-	   return navigateTo;
+					navigateTo = "/pages/trader/home?faces-redirect=true";
+					return navigateTo;
+				}
+				}
+			return null;
+			}
+	   
 				
 			
 
@@ -172,4 +191,5 @@ public class LoginBean {
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
 	}
+	
 }

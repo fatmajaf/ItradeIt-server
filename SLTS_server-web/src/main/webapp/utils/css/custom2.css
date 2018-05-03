@@ -1,0 +1,102 @@
+
+/* *********  contacts  ********************************** */
+.col-md-55, .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  position: relative;
+  min-height: 1px;
+  float: left;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+.profile_view {
+  margin-bottom: 20px;
+  display: inline-block;
+  width: 100%;
+}
+.well.profile_view {
+  padding: 10px 0 0;
+}
+.well.profile_view .divider {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 5px;
+  margin-top: 5px;
+}
+.well.profile_view .ratings {
+  margin-bottom: 0;
+}
+.pagination.pagination-split li {
+  display: inline-block;
+  margin-right: 3px;
+}
+.pagination.pagination-split li a {
+  border-radius: 4px;
+  color: #768399;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+.well.profile_view {
+  background: #fff;
+}
+.well.profile_view .bottom {
+  margin-top: -20px;
+  background: #F2F5F7;
+  padding: 9px 0;
+  border-top: 1px solid #E6E9ED;
+}
+.well.profile_view .left {
+  margin-top: 20px;
+}
+.well.profile_view .left p {
+  margin-bottom: 3px;
+}
+.well.profile_view .right {
+  margin-top: 0px;
+  padding: 10px;
+}
+.well.profile_view .img-circle {
+  border: 1px solid #E6E9ED;
+  padding: 2px;
+}
+.well.profile_view h2 {
+  margin: 5px 0;
+}
+.well.profile_view .ratings {
+  text-align: left;
+  font-size: 16px;
+}
+.well.profile_view .brief {
+  margin: 0;
+  font-weight: 300;
+}
+.profile_left {
+  background: white;
+}
+
+/* *********  /contacts  ********************************** */
+
+
+/* *********  moris  **************************** */
+
+.morris-hover {
+  position: absolute;
+  z-index: 1000;
+}
+.morris-hover.morris-default-style {
+  padding: 6px;
+  color: #666;
+  background: rgba(243, 242, 243, 0.8);
+  border: solid 2px rgba(195, 194, 196, 0.8);
+  font-family: sans-serif;
+  font-size: 12px;
+  text-align: center;
+}
+.morris-hover.morris-default-style .morris-hover-row-label {
+  font-weight: bold;
+  margin: 0.25em 0;
+}
+.morris-hover.morris-default-style .morris-hover-point {
+  white-space: nowrap;
+  margin: 0.1em 0;
+}
+
+/* *********  /moris  **************************** */
+

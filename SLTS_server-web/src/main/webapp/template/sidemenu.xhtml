@@ -1,6 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core" 
 	xmlns:h="http://java.sun.com/jsf/html">
 	
 <!-- Left side column. contains the logo and sidebar -->
@@ -35,19 +36,40 @@
 								<!-- /.search form -->
 								<!-- sidebar menu: : style can be found in sidebar.less -->
 								<ul class="sidebar-menu" data-widget="tree" style="color: #b8c7ce">
-									<li class="header">MAIN NAVIGATION</li>
-									<li class="active treeview menu-open" style="color: #b8c7ce"><a href="#"> <i
-											class="fa fa-dashboard" style="color: #b8c7ce" ></i> <span style="color: #b8c7ce">Dashboard</span> <span
-											class="pull-right-container" style="color: #b8c7ce"> <i
-												class="fa fa-angle-left pull-right" style="color: white"></i>
+									<c:if test="#{loginBean.us['class'].simpleName eq 'Admin'}">
+										<li><a href="/SLTS_server-web/pages/admin/home.jsf" style="color: #b8c7ce"> <i class="fa fa-dashboard"></i>
+											<span>Home</span> <span class="pull-right-container" style="color: #b8c7ce">
+												
 										</span>
-									</a>
-										<ul class="treeview-menu" style="color: #b8c7ce">
-											<li style="color: white"><a href="index.html" style="color: #b8c7ce"><i class="fa fa-circle-o" style="color: #b8c7ce"></i>
-													Dashboard v1</a></li>
-											<li class="active"><a href="index2.html" style="color: #b8c7ce"><i
-													class="fa fa-circle-o"></i> Dashboard v2</a></li>
-										</ul></li>
+									</a></li>
+									</c:if>
+									<c:if test="#{loginBean.us['class'].simpleName eq 'Trader'}">
+										<li><a href="/SLTS_server-web/pages/trader/home.jsf" style="color: #b8c7ce"> <i class="fa fa-dashboard"></i>
+											<span>Home</span> <span class="pull-right-container" style="color: #b8c7ce">
+												
+										</span>
+									</a></li>
+										<li><a href="/SLTS_server-web/pages/trader/calculation.jsf" style="color: #b8c7ce"> <i class="fa fa-dashboard"></i>
+											<span>Calculation</span> <span class="pull-right-container" style="color: #b8c7ce">
+												
+										</span>
+									</a></li>
+									<li><a href="/SLTS_server-web/pages/trader/bond.jsf" style="color: #b8c7ce"> <i class="fa fa-dashboard"></i>
+											<span>Bond Management</span> <span class="pull-right-container" style="color: #b8c7ce">
+												
+										</span>
+									</a></li>
+									<li><a href="/SLTS_server-web/pages/trader/yahoof.jsf" style="color: #b8c7ce"> <i class="fa fa-dashboard"></i>
+											<span>Search</span> <span class="pull-right-container" style="color: #b8c7ce">
+												
+										</span>
+									</a></li>
+									</c:if>
+										<li><a href="/SLTS_server-web/pages/admin/users.jsf" style="color: #b8c7ce"> <i class="fa fa-dashboard"></i>
+											<span>Users management</span> <span class="pull-right-container" style="color: #b8c7ce">
+												
+										</span>
+									</a></li>
 									<li class="treeview" style="color: #b8c7ce" ><a href="#" style="color:#b8c7ce"> <i
 											class="fa fa-files-o"></i> <span>Layout Options</span> <span
 											class="pull-right-container"> <span
@@ -64,11 +86,7 @@
 											<li><a href="pages/layout/collapsed-sidebar.html"><i
 													class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
 										</ul></li>
-									<li><a href="pages/widgets.html" style="color: #b8c7ce"> <i class="fa fa-th"></i>
-											<span>Widgets</span> <span class="pull-right-container" style="color: #b8c7ce">
-												<small class="label pull-right bg-green">new</small>
-										</span>
-									</a></li>
+								
 									<li class="treeview" style="color: #b8c7ce"><a href="#" style="color: #b8c7ce"> <i
 											class="fa fa-pie-chart"></i> <span>Charts</span> <span
 											class="pull-right-container"> <i
