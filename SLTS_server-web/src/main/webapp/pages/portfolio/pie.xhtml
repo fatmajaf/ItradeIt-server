@@ -1,0 +1,146 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core" 
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/layout.xhtml">
+
+<ui:define name="content">
+
+
+
+    <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css"></link>
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css"></link>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"></link>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css"></link>
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css"></link>
+
+  <script src="../../utils/js/jquery2.min.js"></script>
+	<div class="content-wrapper">
+							<section class="content-header">
+								<h1>
+									Users<small>Management</small>
+								</h1>
+								<ol class="breadcrumb">
+									<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+									<li class="active">Users</li>
+								</ol>
+							</section>
+	<section class="content">
+       
+  <div class="row">
+  
+                  
+<div class="col-md-9 col-sm-9 col-xs-12">
+
+                    <div class="profile_title">
+                      <div class="col-md-6">
+                        <h2>PORTFOLIO STATISIC</h2>
+                      </div>
+                      <div class="col-md-6">
+                        <div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
+                          <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                           <b class="caret"></b>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- start of user-activity-graph -->
+                    <div id="graph_bar" style="width:100%; height:280px;"></div>
+                    <!-- end of user-activity-graph -->
+
+                    
+                  </div>
+  
+  
+  
+    <script src="../../utils/js/jquery.min.js"></script>
+  
+
+
+<!-- chart js -->
+  <script src="../../utils/js/bootstrap.min.js"></script>
+  <script src="../../utils/js/chartjs/chart.min.js"></script>
+
+  <!-- moris js -->
+  <script src="../../utils/js/moris/raphael-min.js"></script>
+  <script src="../../utils/js/moris/morris.min.js"></script>
+
+  <!-- pace -->
+  <script src="../../utils/js/pace/pace.min.js"></script>
+
+  <script>
+    $(function() {
+      var day_data = [{
+        "period": "UZD",
+        "Number":  #{chartView.uzd}
+      }, {
+        "period": "USD",
+        "Number of trades":   #{chartView.usd}
+      }, {
+        "period": "EUR",
+        "Number":  #{chartView.eur}
+      }, {
+        "period": "CAD",
+        "Number":   #{chartView.cad}
+      }, {
+        "period": "TND",
+        "Number of trades":  #{chartView.tnd}
+      }
+      ];
+      Morris.Bar({
+        element: 'graph_bar',
+        data: day_data,
+        xkey: 'period',
+        hideHover: 'auto',
+        barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+        ykeys: ['Number'],
+        labels: ['Number'],
+        xLabelAngle: 60
+      });
+    });
+  </script>
+   <script src="../../utils/js/bootstrap2.min.js"></script>
+  
+  <!-- bootstrap progress js -->
+  <script src="../../utils/js/progressbar/bootstrap-progressbar.min.js"></script>
+  <script src="../../utils/js/nicescroll/jquery.nicescroll.min.js"></script>
+  <!-- icheck -->
+  <script src="../../utils/js/icheck/icheck.min.js"></script>
+
+  <script src="../../utils/js/custom2.js"></script>
+
+  <!-- image cropping -->
+  <script src="../../utils/js/cropping/cropper.min.js"></script>
+  <script src="../../utils/js/cropping/main.js"></script>
+
+  <!-- daterangepicker -->
+  <script type="text/javascript" src="../../utils/js/moment/moment.min.js"></script>
+  <script type="text/javascript" src="../../utils/js/datepicker/daterangepicker.js"></script>
+
+  <!-- chart js -->
+  <script src="../../utils/js/chartjs/chart.min2.js"></script>
+
+  <!-- moris js -->
+  <script src="../../utils/js/moris/raphael-min2.js"></script>
+  <script src="../../utils/js/moris/morris2.min.js"></script>
+
+  <!-- pace -->
+  <script src="../../utils/js/pace/pace2.min.js"></script>
+  
+  </div>
+  </section>
+  </div>
+  </ui:define>
+  </ui:composition>
+  

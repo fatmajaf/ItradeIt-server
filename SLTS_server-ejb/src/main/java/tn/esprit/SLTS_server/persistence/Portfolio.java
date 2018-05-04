@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,16 +20,33 @@ public class Portfolio implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private double cashflow;
-	private String currency;
+	@Enumerated(EnumType.STRING)
+	private Currency currency;
 	private Date date_creation;
 	@ManyToOne
 	private User users;
 	
+	
+	public Portfolio() {
+		
+	}
+	public Portfolio(double cashflow2, Currency currency2, Date date1, int idUpdate) {
+		cashflow=cashflow2;
+		currency=currency2;
+		
+	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
 	}
 	public double getCashflow() {
 		return cashflow;
@@ -35,12 +54,7 @@ public class Portfolio implements Serializable{
 	public void setCashflow(double cashflow) {
 		this.cashflow = cashflow;
 	}
-	public String getCurrency() {
-		return currency;
-	}
-	public void setCurrency(String i) {
-		this.currency = i;
-	}
+	
 	public Date getDate_creation() {
 		return date_creation;
 	}
@@ -52,6 +66,15 @@ public class Portfolio implements Serializable{
 	}
 	public void setUsers(User users) {
 		this.users = users;
+	}
+	public Currency getCurrency() {
+		// TODO Auto-generated method stub
+		return currency;
+	}
+	@Override
+	public String toString() {
+		return "Portfolio [id=" + id + ", cashflow=" + cashflow + ", currency=" + currency + ", date_creation="
+				+ date_creation + ", users=" + users + "]";
 	}
 	
 	

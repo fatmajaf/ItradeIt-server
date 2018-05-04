@@ -2,6 +2,7 @@ package tn.esprit.SLTS_server.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,25 +19,23 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-
-
-
+@LocalBean
 @Stateless
-public class PortfolioServiceImp implements Portfolioservice{
+public class PortfolioServiceImp implements Portfolioservice {
 
 	@PersistenceContext
 	EntityManager entityManager;
-	
+
 	@Override
 	public void addportfolio(Portfolio portfolio) {
+		
 		entityManager.persist(portfolio);
-		
-		
+
 	}
-	
+
 	@Override
 	public Portfolio searchbyid(int id) {
-		
+
 		return entityManager.find(Portfolio.class, id);
 	}
 
@@ -44,13 +43,14 @@ public class PortfolioServiceImp implements Portfolioservice{
 	public void deletePortfolio(int id) {
 		entityManager.remove(searchbyid(id));
 
-
 	}
 
 	@Override
 	public void updatePortfolio(Portfolio portfolio) {
+		System.out.println("in merge");
+		System.out.println(portfolio);
 		entityManager.merge(portfolio);
-		
+
 	}
 
 	@Override
@@ -59,71 +59,23 @@ public class PortfolioServiceImp implements Portfolioservice{
 		return query.getResultList();
 	}
 
-	@Override
-	public Long calculerStatus1() {
-		String jpql = "SELECT count(*) from Portfolio WHERE currency=DZD " ;
-		Query query = entityManager
-				.createQuery(jpql);
-		List<Long> res1 = query.getResultList();
-		if ((res1 != null) && (!res1.isEmpty())) {
-			return res1.get(0);
-		}
-		return null;
-	}
+
 
 	@Override
-	public Long calculerStatus2() {
-		String jpql = "SELECT count(*) from Portfolio WHERE currency=USD " ;
-		Query query = entityManager
-				.createQuery(jpql);
-		List<Long> res1 = query.getResultList();
-		if ((res1 != null) && (!res1.isEmpty())) {
-			return res1.get(0);
-		}
-		return null;
-	}
+	public Long calculerStatus(String criteria) {
+		String jpql="";
+		if (criteria.equals("USD"))
+		{ jpql= "SELECT count(*) from Portfolio WHERE currency= tn.esprit.SLTS_server.persistence.Currency.USD";}
+		else if (criteria.equals("CAD"))
+		{jpql = "SELECT count(*) from Portfolio WHERE currency= tn.esprit.SLTS_server.persistence.Currency.CAD";}
+		else if (criteria.equals("EUR"))
+		{jpql = "SELECT count(*) from Portfolio WHERE currency= tn.esprit.SLTS_server.persistence.Currency.EUR";}
+		else if (criteria.equals("TND"))
+		{jpql = "SELECT count(*) from Portfolio WHERE currency= tn.esprit.SLTS_server.persistence.Currency.TND";}
+		else
+		{jpql = "SELECT count(*) from Portfolio WHERE currency= tn.esprit.SLTS_server.persistence.Currency.DZD";}
 
-	@Override
-	public Long calculerStatus3() {
-		String jpql = "SELECT count(*) from Portfolio WHERE currency=EUR " ;
-		Query query = entityManager
-				.createQuery(jpql);
-		List<Long> res1 = query.getResultList();
-		if ((res1 != null) && (!res1.isEmpty())) {
-			return res1.get(0);
-		}
-		return null;
-	}
-
-	@Override
-	public Long calculerStatus4() {
-		String jpql = "SELECT count(*) from Portfolio WHERE currency=CAD " ;
-		Query query = entityManager
-				.createQuery(jpql);
-		List<Long> res1 = query.getResultList();
-		if ((res1 != null) && (!res1.isEmpty())) {
-			return res1.get(0);
-		}
-		return null;
-	}
-
-	@Override
-	public Long calculerStatus5() {
-		String jpql = "SELECT count(*) from Portfolio WHERE currency=BRL " ;
-		Query query = entityManager
-				.createQuery(jpql);
-		List<Long> res1 = query.getResultList();
-		if ((res1 != null) && (!res1.isEmpty())) {
-			return res1.get(0);
-		}
-		return null;
-	}
-
-	@Override
-	public Long calculerStatus6() {
-		String jpql = "SELECT count(*) from Portfolio WHERE currency=TND " ;
-		Query query = entityManager
-				.createQuery(jpql);
+		Query query = entityManager.createQuery(jpql);
 		List<Long> res1 = query.getResultList();
 		if ((res1 != null) && (!res1.isEmpty())) {
 			return res1.get(0);

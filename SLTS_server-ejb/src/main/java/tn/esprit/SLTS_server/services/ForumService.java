@@ -2,6 +2,7 @@ package tn.esprit.SLTS_server.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,7 +10,7 @@ import javax.persistence.TypedQuery;
 
 import tn.esprit.SLTS_server.persistence.Forum;
 import tn.esprit.SLTS_server.persistence.Portfolio;
-
+@LocalBean
 @Stateless
 public class ForumService implements IForumService {
 	@PersistenceContext

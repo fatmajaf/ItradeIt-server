@@ -1,0 +1,44 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/template/layout.xhtml">
+
+	<ui:define name="content">
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>
+					Dashboard <small>Version 2.0</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li class="active">Dashboard</li>
+				</ol>
+			</section>
+
+			<h:panelGrid columns="2">
+
+				<h:form>
+					<h:outputText value=" Currency" />
+					<h:selectOneMenu value="#{potfolioBean.currency}" class="form-control">
+						<f:selectItem itemLabel="Selection la currency" itemValue="" />
+						<f:selectItems value="#{currencydata.currencies}"></f:selectItems>
+					</h:selectOneMenu>
+
+					<h:outputText value="chashflow" />
+
+					<h:inputText value="#{potfolioBean.cashflow}"  class="form-control"/>
+					<br />
+					<h:commandButton action="#{potfolioBean.addPortfolio()}"
+						value="add portfolio" class="btn btn-block btn-success" />
+				</h:form>
+
+			</h:panelGrid>
+		</div>
+		<!-- /.content-wrapper -->
+	</ui:define>
+</ui:composition>

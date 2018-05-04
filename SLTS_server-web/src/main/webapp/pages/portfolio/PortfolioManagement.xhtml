@@ -1,0 +1,85 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/template/layout.xhtml">
+
+	<ui:define name="content">
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>
+					Dashboard <small>Version 2.0</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li class="active">Dashboard</li>
+				</ol>
+			</section>
+
+			<h:form>
+				<h:panelGrid columns="2">
+
+					<h:outputText value="currency" />
+					<h:inputText value="#{potfolioBean.currency}" />
+
+					<h:outputText value="cash flow" />
+					<h:inputText value="#{potfolioBean.cashflow}" />
+				
+						<h:commandButton action="#{potfolioBean.mettreAjourportfolio()}"
+							value="update" class="btn btn-block btn-warning" />
+
+					
+				</h:panelGrid>
+			</h:form>
+			<h:form>
+				<h:dataTable value="#{potfolioBean.portfolios}" var="port"
+					border="1" class="table table-bordered">
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Currency" />
+						</f:facet>
+						<h:outputText value="#{port.currency}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="cashflow" />
+						</f:facet>
+						<h:outputText value="#{port.cashflow}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Date de Creation" />
+						</f:facet>
+						<h:outputText value="#{port.date_creation}" />
+					</h:column>
+					<h:column>
+						<h:commandButton action="#{potfolioBean.supprimer(port.id)}"
+							value="delete" class="btn btn-block btn-danger" />
+					</h:column>
+					<h:column>
+						<h:commandButton action="#{potfolioBean.modifier(port)}"
+							value="update" class="btn btn-block btn-warning" />
+
+					</h:column>
+
+
+
+				</h:dataTable>
+
+
+			</h:form>
+			<h:form>
+							<h:commandButton action="#{potfolioBean.gotopie()}"
+							value="forum" class="btn btn-block btn-warning" />
+							</h:form>
+		</div>
+		<!-- /.content-wrapper -->
+	</ui:define>
+</ui:composition>

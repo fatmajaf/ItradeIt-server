@@ -20,6 +20,14 @@ public class Reponse implements Serializable{
 	@ManyToOne
 	private Forum idquestion;
 	
+	public Reponse() {
+	
+	}
+	public Reponse(String rep2, User iduser2, Forum f) {
+		rep=rep2;
+		iduser=iduser2;
+		idquestion=f;
+	}
 	public User getIduser() {
 		return iduser;
 	}

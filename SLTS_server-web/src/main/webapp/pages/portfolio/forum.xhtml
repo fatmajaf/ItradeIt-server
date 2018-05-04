@@ -1,0 +1,69 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/template/layout.xhtml">
+
+	<ui:define name="content">
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>
+					Dashboard <small>Version 2.0</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li class="active">Dashboard</li>
+				</ol>
+			</section>
+
+			<form>
+				<h:dataTable value="#{forumBean.listquestion}" var="port" border="1"
+					class="table table-bordered">
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Question" />
+						</f:facet>
+						<h:outputText value="#{port.question}" />
+					</h:column>
+
+					<h:column>
+
+						<h:form>
+							<h:dataTable value="#{reponseBean.getReponsesbyQ(port.id)}"
+								var="repo">
+								<h:column>
+									<f:facet name="header">
+										<h:outputText value="reponse" />
+										<h:outputText value="#{repo.rep}" />
+									</f:facet>
+
+									<h:outputText value="#{repo.rep}" />
+									<br />
+									<br />
+									
+
+
+								</h:column>
+							</h:dataTable>
+							
+								<h:inputText value="#{reponseBean.rep}" />
+								<h:commandButton action="#{reponseBean.addrep(port)}"
+									value="add reponse" />
+						
+						</h:form>
+					</h:column>
+				</h:dataTable>
+			</form>
+			<h:commandButton action="#{forumBean.gotochat()}"
+							value="chat room" class="btn btn-block btn-warning" />>
+
+		</div>
+
+		<!-- /.content-wrapper -->
+	</ui:define>
+</ui:composition>

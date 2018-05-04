@@ -1,174 +1,112 @@
 package tn.esprit.SLTS_server.presentation.mbeans;
+ 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 
 import java.io.Serializable;
-import java.util.List;
-
 import javax.faces.bean.ManagedBean;
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
-import org.primefaces.model.chart.BarChartModel;
-import org.primefaces.model.chart.CategoryAxis;
-import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.ChartSeries;
-import org.primefaces.model.chart.LineChartSeries;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
-import tn.esprit.SLTS_server.instrumentServices.InstrumentServiceRemote;
-import tn.esprit.SLTS_server.persistence.Bond;
+import org.primefaces.model.chart.PieChartModel;
 
+import tn.esprit.SLTS_server.services.PortfolioServiceImp;
+import tn.esprit.SLTS_server.services.Portfolioservice;
  
 @ManagedBean
+@ViewScoped
 public class ChartView implements Serializable {
-	 /**
-	 * 
+ 
+	@EJB
+	PortfolioServiceImp service; 
+	private Long uzd ;
+	private Long usd;
+	private Long eur;
+	private Long cad;
+	private Long tnd;
+	
+    /**
+	 *  pieModel1.set("DZD", service.calculerStatus1());
+        System.out.println(service.calculerStatus1());
+        pieModel1.set(" USD", service.calculerStatus2());
+        pieModel1.set("EUR", service.calculerStatus3());
+        pieModel1.set("CAD", service.calculerStatus4());
+        pieModel1.set("TND", service.calculerStatus5());
+         
 	 */
 	private static final long serialVersionUID = 1L;
-	private LineChartModel lineModel;
-    
-
-  
-    
-    private BarChartModel barModel;
-    
-    @EJB
-	private InstrumentServiceRemote instrumentServiceRemote;
-     
+	private PieChartModel pieModel1;
+ 
     @PostConstruct
     public void init() {
-        createLineModels();
-        createBarModels();
+       uzd= service.calculerStatus("DZD");
+       usd=  service.calculerStatus("USD");
+       eur=  service.calculerStatus("EUR");
+       cad=  service.calculerStatus("CAD");
+       tnd= service.calculerStatus("TND");
     }
- 
 
- 
- 
-     
-    private void createLineModels() {
-      //  lineModel1 = initLinearModel();
-       // lineModel1.setTitle("Linear Chart");
-      //  lineModel1.setLegendPosition("e");
-      //  Axis yAxis = lineModel.getAxis(AxisType.Y);
-       // yAxis.setMin(0);
-     //   yAxis.setMax(10);
-         
-        lineModel = lineModelMethod();
-        lineModel.setTitle("Saleprice Chart Of Bonds Published");
-        lineModel.setLegendPosition("Price");
-        lineModel.setShowPointLabels(true);
-        lineModel.getAxes().put(AxisType.X, new CategoryAxis("Saleprice"));
-        Axis yAxis = lineModel.getAxis(AxisType.Y);
-        yAxis.setLabel("Bond's Id");
-       
-        
-       
-    }
-     
-    private LineChartModel initLinearModel() {
-        LineChartModel model = new LineChartModel();
- 
-        LineChartSeries series1 = new LineChartSeries();
-        series1.setLabel("Series 1");
- 
-        series1.set(1, 2);
-        series1.set(2, 1);
-        series1.set(3, 3);
-        series1.set(4, 6);
-        series1.set(5, 8);
- 
-        LineChartSeries series2 = new LineChartSeries();
-        series2.setLabel("Series 2");
- 
-        series2.set(1, 6);
-        series2.set(2, 3);
-        series2.set(3, 2);
-        series2.set(4, 7);
-        series2.set(5, 9);
- 
-        model.addSeries(series1);
-        model.addSeries(series2);
-         
-        return model;
-    }
-     
-    public LineChartModel lineModelMethod() {
-    	ChartSeries series1 = new ChartSeries();
-    	
-    	
-    	List<Bond> series1List = instrumentServiceRemote.findAllBonds();
-    	System.out.println("hii"+series1List);
-    	for (Bond t : series1List) {
-    	    series1.set(t.getId(), t.getSaleprice());
-    	}
-
-    	LineChartModel lineModel = new LineChartModel();
-    	lineModel.addSeries(series1);
-
-    	return lineModel;
-    	}
-
-	public LineChartModel getLineModel() {
-		return lineModel;
+	public PortfolioServiceImp getService() {
+		return service;
 	}
 
-	public void setLineModel(LineChartModel lineModel) {
-		this.lineModel = lineModel;
+	public void setService(PortfolioServiceImp service) {
+		this.service = service;
 	}
 
-	public InstrumentServiceRemote getInstrumentServiceRemote() {
-		return instrumentServiceRemote;
+	public Long getUzd() {
+		return uzd;
 	}
 
-	public void setInstrumentServiceRemote(InstrumentServiceRemote instrumentServiceRemote) {
-		this.instrumentServiceRemote = instrumentServiceRemote;
+	public void setUzd(Long uzd) {
+		this.uzd = uzd;
 	}
 
-	public BarChartModel getBarModel() {
-		return barModel;
+	public Long getUsd() {
+		return usd;
 	}
 
-	public void setBarModel(BarChartModel barModel) {
-		this.barModel = barModel;
+	public void setUsd(Long usd) {
+		this.usd = usd;
 	}
 
+	public Long getEur() {
+		return eur;
+	}
 
-	 private BarChartModel initBarModel() {
-	        BarChartModel model = new BarChartModel();
-	 
-	        ChartSeries boys = new ChartSeries();
-	        boys.setLabel("Type Of Coupon Payment");
-	        boys.set("Monthly",instrumentServiceRemote.nbrBondsByType("Monthly") );
-	        boys.set("Quarterly", instrumentServiceRemote.nbrBondsByType("Quarterly") );
-	       
-	        boys.set(" Semi Annually", instrumentServiceRemote.nbrBondsByType(" Semi Annually"));
-	        boys.set("Annually", instrumentServiceRemote.nbrBondsByType("Annually"));
-	        boys.set("Bi Annual", instrumentServiceRemote.nbrBondsByType("Bi Annual"));
-	 
-	     
-	 
-	        model.addSeries(boys);
-	     
-	         
-	        return model;
-	    }
-	     
-	    private void createBarModels() {
-	        createBarModel();
-	        createBarModel();
-	    }
-	     
-	    private void createBarModel() {
-	        barModel = initBarModel();
-	         
-	        barModel.setTitle("Statistics");
-	        barModel.setLegendPosition("ne");
-	         
-	        Axis xAxis = barModel.getAxis(AxisType.X);
-	        xAxis.setLabel("Bonds classified By Type Of Coupon Payment");
-	         
-	        Axis yAxis = barModel.getAxis(AxisType.Y);
-	        yAxis.setLabel("Number of Bonds");
-	        yAxis.setMin(0);
-	        yAxis.setMax(20);
-	    }
+	public void setEur(Long eur) {
+		this.eur = eur;
+	}
+
+	public Long getCad() {
+		return cad;
+	}
+
+	public void setCad(Long cad) {
+		this.cad = cad;
+	}
+
+	public Long getTnd() {
+		return tnd;
+	}
+
+	public void setTnd(Long tnd) {
+		this.tnd = tnd;
+	}
+
+	public PieChartModel getPieModel1() {
+		return pieModel1;
+	}
+
+	public void setPieModel1(PieChartModel pieModel1) {
+		this.pieModel1 = pieModel1;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+    
+ 
+    
+    
 }

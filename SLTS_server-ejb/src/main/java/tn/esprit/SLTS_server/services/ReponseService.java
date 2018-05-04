@@ -2,6 +2,7 @@ package tn.esprit.SLTS_server.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +11,7 @@ import javax.persistence.TypedQuery;
 import tn.esprit.SLTS_server.persistence.Forum;
 import tn.esprit.SLTS_server.persistence.Portfolio;
 import tn.esprit.SLTS_server.persistence.Reponse;
+@LocalBean
 @Stateless
 public class ReponseService implements IReponseService{
 	@PersistenceContext
@@ -46,10 +48,11 @@ public class ReponseService implements IReponseService{
 	}
 
 	@Override
-	public List<Reponse> findAllbyId(int idd) {
-	/*	TypedQuery<Reponse> query = entityManager.createQuery("Select c from Reponse c where c.idquestion =:idd  ", Reponse.class);
-		List<Reponse> reponses =query.setParameter("idd", idd).getResultList();
-		return  reponses ;*/
-		return null;
+	public List<Reponse> findAllbyId(int iddd) {
+		Forum f = entityManager.find(Forum.class, iddd);
+		TypedQuery<Reponse> query = entityManager.createQuery("Select c from Reponse c where c.idquestion =:f  ", Reponse.class);
+		query.setParameter("f", f);
+		return  query.getResultList() ;
+	
 	}
 }

@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+		xmlns:jsf="http://xmlns.jcp.org/jsf"
+	template="/template/layout.xhtml">
+
+<ui:define name="content">
+
+
+						<!-- Content Wrapper. Contains page content -->
+						<div class="content-wrapper">
+							<!-- Content Header (Page header) -->
+							<section class="content-header">
+								<h1>
+									Dashboard <small>Version 2.0</small>
+									
+								</h1>
+								
+								
+						
+								<ol class="breadcrumb">
+									<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+									<li class="active">Dashboard</li>
+								</ol>
+							</section>
+
+							<!-- Main content -->
+							<section class="content">
+								<!-- Info boxes -->
+								<div class="row">
+									<div class="col-md-3 col-sm-6 col-xs-12">
+
+
+
+
+
+
+
+ 
+<script type="text/javascript" src="chatroom.js"></script>
+<script type="text/javascript">
+var wsUri = 'ws://localhost:18080/SLTS_server-web/chat';
+var proxy = CreateProxy(wsUri);
+
+document.addEventListener("DOMContentLoaded", function(event) {
+	console.log(document.getElementById('loginPanel'));
+	proxy.initiate({
+		loginPanel: document.getElementById('loginPanel'),
+		msgPanel: document.getElementById('msgPanel'),
+		txtMsg: document.getElementById('txtMsg'),
+		txtLogin: document.getElementById('txtLogin'),
+		msgContainer: document.getElementById('msgContainer')
+	});
+});
+
+</script>
+
+
+			<div id="infoLabel">Type a name to join the room</div>
+			<div style="padding: 10px;">
+				<input id="txtLogin" type="text" class="loginInput"
+					onkeyup="proxy.login_keyup(event)" />
+				<button type="button" class="loginInput" onclick="proxy.login()">Login</button>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row no_padding title__block nothing no-margin">
+				<div id="msgPanel" style="display: none">
+					<div id="msgContainer" style="overflow: auto;"></div>
+					<div id="msgController">
+						<textarea id="txtMsg" title="Enter to send message"
+							onkeyup="proxy.sendMessage_keyup(event)"
+							style="height: 20px; width: 100%"></textarea>
+						<button style="height: 30px; width: 100px" type="button"
+							onclick="proxy.logout()">Logout</button>
+							
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</section>
+
+
+</div>
+</ui:define>
+</ui:composition>

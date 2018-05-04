@@ -24,7 +24,12 @@ public class Forum implements Serializable{
 	
 	@ManyToOne
 	private User iduser;
-
+public Forum() {
+	// TODO Auto-generated constructor stub
+}
+	public Forum(String question2) {
+		question=question2;
+	}
 	public List<Reponse> getReponses() {
 		return reponses;
 	}
