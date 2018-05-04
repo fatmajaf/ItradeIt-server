@@ -11,7 +11,7 @@
 				src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
 				type="text/javascript"></script>
 		</f:facet>
- 
+
 	</h:head>
 
 	<ui:define name="title">Choisir une fonctionnalité :</ui:define>
@@ -169,7 +169,7 @@
 															class="btn btn-info btn-flat"
 															action="#{bondManagementBean.pricingBond()}"
 															onclick="return confirm('Are you sure?');" value="Price">
-
+															<f:ajax execute="@form" render="@form" />
 														</h:commandButton>
 
 													</span>
@@ -241,7 +241,9 @@
 														<h:commandButton
 															class="btn btn-block btn-warning btn-flat"
 															action="#{bondManagementBean.convertCurrency()}"
-															value="Convert !" />
+															value="Convert !">
+															<f:ajax execute="@form render=@form" />
+														</h:commandButton>
 													</div>
 
 
@@ -469,11 +471,13 @@
 										<div class="col-md-4"></div>
 
 										<div class="col-md-4">
-										<h:form>
-											<h:commandButton class="btn btn-block btn-info btn-lg"
-												action="#{bondManagementBean.addBond()}" value="ADD BOND"
-												onclick="return confirm('Are you sure?');" />
-</h:form>
+											<h:form>
+												<h:commandButton class="btn btn-block btn-info btn-lg"
+													action="#{bondManagementBean.addBond()}" value="ADD BOND"
+													onclick="return confirm('Are you sure?');">
+													<f:ajax execute="@form" render="@form" />
+												</h:commandButton>
+											</h:form>
 
 
 
@@ -526,88 +530,89 @@
 									</h4>
 									No Bond can be CLOSED unless it is still Open !
 								</div>
-								
-								
-								
-								
+
+
+
+
 								<div class="row">
-<div class="col-md-4"></div>
+									<div class="col-md-4"></div>
 
-										<div class="col-md-4">
-							
-							<label>Bond Issuer</label>
-							<h:form>
-												<h:selectOneMenu class="form-control select2"
-													value="#{bondManagementBean.instrumentIssuerID}">
-													<f:selectItems value="#{bondManagementBean.customers}"
-														var="customer" itemValue="#{customer.id}"
-														itemLabel="#{customer.firstName} #{customer.lastName}">
-													</f:selectItems>
-												</h:selectOneMenu>
-												
+									<div class="col-md-4">
 
-													
-												 <h:commandButton
-															class="btn btn-block btn-info btn-sm"
-															action="#{bondManagementBean.viewC()}"
-															value="See Customer Contact">
+										<label>Bond Issuer</label>
+										<h:form>
+											<h:selectOneMenu class="form-control select2"
+												value="#{bondManagementBean.instrumentIssuerID}">
+												<f:selectItems value="#{bondManagementBean.customers}"
+													var="customer" itemValue="#{customer.id}"
+													itemLabel="#{customer.firstName} #{customer.lastName}">
+												</f:selectItems>
+											</h:selectOneMenu>
 
-														</h:commandButton></h:form>
 
-													<br></br>
-													<br></br>
-													<br></br>
-												
-									
-											<!-- Widget: user widget style 1 -->
-											<div class="box box-widget widget-user">
-												<!-- Add the bg color to the header using any of the bg-* classes -->
-												<div class="widget-user-header bg-aqua-active">
-													<h3 class="widget-user-username">
-														<h:outputText
-															value="#{bondManagementBean.c.firstName} #{bondManagementBean.c.lastName}" />
-													</h3>
-													<h5 class="widget-user-desc">Customer &amp; Issuer</h5>
-												</div>
-												<div class="widget-user-image">
-													<img class="img-circle"
-														src="../../dist/img/user1-128x128.jpg" alt="User Avatar" />
-												</div>
-												<div class="box-footer">
-													<div class="row">
-														<div class="col-sm-4 border-right">
-															<div class="description-block">
-																<h5 class="description-header">Bonds</h5>
-																<span class="description-text"><h:outputText value="#{bondManagementBean.nbrBondsTraded}" /></span>
-															</div>
-															<!-- /.description-block -->
+
+											<h:commandButton class="btn btn-block btn-info btn-sm"
+												action="#{bondManagementBean.viewC()}"
+												value="See Customer Contact">
+												<f:ajax execute="@form" render="@form" />
+											</h:commandButton>
+										</h:form>
+
+										<br></br> <br></br> <br></br>
+
+
+										<!-- Widget: user widget style 1 -->
+										<div class="box box-widget widget-user">
+											<!-- Add the bg color to the header using any of the bg-* classes -->
+											<div class="widget-user-header bg-aqua-active">
+												<h3 class="widget-user-username">
+													<h:outputText
+														value="#{bondManagementBean.c.firstName} #{bondManagementBean.c.lastName}" />
+												</h3>
+												<h5 class="widget-user-desc">Customer &amp; Issuer</h5>
+											</div>
+											<div class="widget-user-image">
+												<img class="img-circle"
+													src="../../dist/img/user1-128x128.jpg" alt="User Avatar" />
+											</div>
+											<div class="box-footer">
+												<div class="row">
+													<div class="col-sm-4 border-right">
+														<div class="description-block">
+															<h5 class="description-header">Bonds</h5>
+															<span class="description-text"><h:outputText
+																	value="#{bondManagementBean.nbrBondsTraded}" /></span>
 														</div>
-														<!-- /.col -->
-														<div class="col-sm-4 border-right">
-															<div class="description-block">
-																<h5 class="description-header">Email</h5>
-																<span class="description-text"><h:outputText value="#{bondManagementBean.customerEmail}" /></span>
-															</div>
-															<!-- /.description-block -->
-														</div>
-														<!-- /.col -->
-														<div class="col-sm-4">
-															<div class="description-block">
-																<h5 class="description-header">Phone</h5>
-																<span class="description-text"><h:outputText value="#{bondManagementBean.customerPhone}" /></span>
-															</div>
-															<!-- /.description-block -->
-														</div>
-														<!-- /.col -->
+														<!-- /.description-block -->
 													</div>
+													<!-- /.col -->
+													<div class="col-sm-4 border-right">
+														<div class="description-block">
+															<h5 class="description-header">Email</h5>
+															<span class="description-text"><h:outputText
+																	value="#{bondManagementBean.customerEmail}" /></span>
+														</div>
+														<!-- /.description-block -->
+													</div>
+													<!-- /.col -->
+													<div class="col-sm-4">
+														<div class="description-block">
+															<h5 class="description-header">Phone</h5>
+															<span class="description-text"><h:outputText
+																	value="#{bondManagementBean.customerPhone}" /></span>
+														</div>
+														<!-- /.description-block -->
+													</div>
+													<!-- /.col -->
 												</div>
 											</div>
 										</div>
-										</div>
-										
-										
-										
-										
+									</div>
+								</div>
+
+
+
+
 								<div class="box">
 									<div class="box-header">
 										<h3 class="box-title">Bonds' Data</h3>
@@ -660,7 +665,9 @@
 												<h:form>
 													<h:commandButton class="btn btn-block btn-info btn-sm"
 														action="#{bondManagementBean.deleteBond(bond.id)}"
-														onclick="return confirm('Are you sure?');" value="Close" />
+														onclick="return confirm('Are you sure?');" value="Close">
+														<f:ajax execute="@form" render="@form" />
+													</h:commandButton>
 												</h:form>
 
 											</h:column>
@@ -764,18 +771,14 @@
 
 							<!-- /.tab-pane -->
 							<div class="tab-pane" id="timeline">
-							<div class="row">
-
-										
-
-									</div>
+								<div class="row"></div>
 								<!-- The timeline -->
 								<div class="row">
 									<div class="col-md-6">
 
 										<div class="box box-danger">
 											<div class="box-header">
-												<h3 class="box-title">Yield to Maturity - Cash Flows</h3>
+												<h2 class="box-title">Yield to Maturity - Cash Flows</h2>
 											</div>
 											<div class="box-body">
 												<h:form>
@@ -811,7 +814,9 @@
 
 													<h:commandButton class="btn btn-block btn-info btn-sm"
 														action="#{bondManagementBean.calculateYieldTomaturity()}"
-														value="Calculate" />
+														value="Calculate">
+														<f:ajax execute="@form" render="@form" />
+													</h:commandButton>
 													<h:inputText type="text" class="form-control"
 														disabled="true"
 														value="#{bondManagementBean.yieldToMaturity}" />
@@ -824,18 +829,46 @@
 
 										<div class="box box-danger">
 											<div class="box-header">
-												<h3 class="box-title">Current Yield</h3>
+												<h2 class="box-title">Comparator
+												</h2>
 											</div>
-											<div class="box-body"></div>
+											<div class="box-body">
+
+
+										<!-- ./col -->
+										<div class="col-md-12">
+											<!-- small box -->
+											<div class="small-box bg-green">
+												<div class="inner">
+													<h3>
+														Bond's Coupon Rate<sup style="font-size: 20px"></sup>
+													</h3>
+
+													<p>With premium bonds, the coupon rate is greater than market interest rates. With discount bonds, the coupon rate is less than market interest rates.
+</p>
+												</div>
+												<div class="icon">
+													<i class="ion ion-stats-bars"></i>
+												</div>
+
+											</div>
+										</div>
+										<!-- ./col -->
+
+
+											</div>
 										</div>
 									</div>
 								</div>
 
-<h2><h:link outcome="/pages/trader/test.xhtml" value="View Charts for more Details about Pricing the Bonds"/></h2>
+								<h2 align="center">
+									<h:link outcome="/pages/trader/test.xhtml"
+										value="View Charts for more Details about Pricing the Bonds" />
+								</h2>
 
-							
 
-								
+
+
 							</div>
 							<!-- /.tab-pane -->
 

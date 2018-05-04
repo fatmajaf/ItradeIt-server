@@ -1,0 +1,601 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fc="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf" template="/template/layout.xhtml">
+
+	<ui:define name="content">
+		<script language="javascript" type="text/jscript"
+			src="jquery-3.2.1.min.js"></script>
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>
+					Options <small> calci</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li class="active">Users</li>
+				</ol>
+			</section>
+			<section class="content">
+
+
+
+				<div class="row">
+				<div class="col-md-12">
+   <div class="alert alert-info alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+                <h4><i class="icon fa fa-info"></i> Important</h4>
+               All inputs should be numeric
+              </div>
+
+</div>
+					<div class="col-md-12">
+
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">Options</h3>
+
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool"
+										data-widget="collapse">
+										<i class="fa fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-box-tool"
+										data-widget="remove">
+										<i class="fa fa-times"></i>
+									</button>
+								</div>
+							</div>
+							<div class="box-body">
+								<h:form id="form">
+									<form method="post" id="f">
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Spot
+												Price</label>
+
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.spotprice}"
+														id="validatespot" required="true" class="form-control"
+														partialSubmit="true" onblur="myFunc(this)">
+														<f:ajax />
+														<f:ajax event="keyup"
+															listener="#{calculationBean.changesmanagement()}"
+															execute="validatespot" />
+													</h:inputText>
+												</div>
+											</div>
+
+											<div id="respoonse" hidden="hidden">
+
+												<span class="help-block" style="color: #dd4b39;"><i
+													class="fa fa-times-circle-o"></i>input must be numeric</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Strike
+												price</label>
+
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.strikeprice}"
+														id="validatestrike" required="true" class="form-control"
+														partialSubmit="true" onblur="myFunc2(this)">
+														<f:ajax />
+														<f:ajax event="keyup"
+															listener="#{calculationBean.changesmanagement()}"
+															execute="validatestrike" />
+													</h:inputText>
+												</div>
+											</div>
+
+											<div id="respoonse2" hidden="hidden">
+
+												<span class="help-block" style="color: #dd4b39;"><i
+													class="fa fa-times-circle-o"></i>input must be numeric</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Maturity</label>
+
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.maturity}"
+														id="validatematurity" required="true" class="form-control"
+														partialSubmit="true" onblur="myFunc3(this)">
+														<f:ajax />
+														<f:ajax event="keyup"
+															listener="#{calculationBean.changesmanagement()}"
+															execute="validatematurity" />
+													</h:inputText>
+												</div>
+											</div>
+
+											<div id="respoonse3" hidden="hidden">
+
+												<span class="help-block" style="color: #dd4b39;"><i
+													class="fa fa-times-circle-o"></i>input must be numeric</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Volatility</label>
+
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.volatility}"
+														id="validatevolatility" required="true"
+														class="form-control" partialSubmit="true"
+														onblur="myFunc4(this)">
+														<f:ajax />
+														<f:ajax event="keyup"
+															listener="#{calculationBean.changesmanagement()}"
+															execute="validatevolatility" />
+													</h:inputText>
+												</div>
+											</div>
+
+											<div id="respoonse4" hidden="hidden">
+
+												<span class="help-block" style="color: #dd4b39;"><i
+													class="fa fa-times-circle-o"></i>input must be numeric</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Riskfree
+												rate</label>
+
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.riskfreerate}"
+														id="validaterisk" required="true" class="form-control"
+														partialSubmit="true" onblur="myFunc5(this)">
+														<f:ajax />
+														<f:ajax event="keyup"
+															listener="#{calculationBean.changesmanagement()}"
+															execute="validaterisk" />
+													</h:inputText>
+												</div>
+											</div>
+
+											<div id="respoonse5" hidden="hidden">
+
+												<span class="help-block" style="color: #dd4b39;"><i
+													class="fa fa-times-circle-o"></i>input must be numeric</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Annual
+												Yield</label>
+
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.annualyield}"
+														id="validateannyield" required="true" class="form-control"
+														partialSubmit="true" onblur="myFunc6(this)">
+														<f:ajax />
+														<f:ajax event="keyup"
+															listener="#{calculationBean.changesmanagement()}"
+															execute="validateannyield" />
+													</h:inputText>
+												</div>
+											</div>
+
+											<div id="respoonse6" hidden="hidden">
+
+												<span class="help-block" style="color: #dd4b39;"><i
+													class="fa fa-times-circle-o"></i>input must be numeric</span>
+											</div>
+										</div>
+										<h:panelGroup id="foo">
+											<div id="c">
+												<div class="col-md-3 col-sm-12 col-xs-12">
+													<div class="info-box">
+														<span class="info-box-icon bg-aqua"><i
+															class="ion ion-ios-gear-outline"></i></span>
+
+														<div class="info-box-content">
+															<span class="info-box-text">Put price</span> <span
+																class="info-box-number">
+																#{calculationBean.putprice} </span> <span class="info-box-text">Call
+																price</span> <span class="info-box-number">
+																#{calculationBean.callprice} </span>
+														</div>
+														<!-- /.info-box-content -->
+													</div>
+													<!-- /.info-box -->
+												</div>
+
+											</div>
+										</h:panelGroup>
+									</form>
+								</h:form>
+							</div>
+							<!-- /.box-body -->
+						</div>
+
+
+					</div>
+					<script>
+          
+           function myFunc(input) {
+        	   if (!$.isNumeric(input.value))
+       	    { this.value = 0;
+       	       $("#respoonse").show();}
+       	    else {$("#respoonse").hide();}
+           }
+           function myFunc2(input) {
+        	   if (!$.isNumeric(input.value))
+       	    { this.value = 0;
+       	       $("#respoonse2").show();}
+       	    else {$("#respoonse2").hide();}
+           }
+           function myFunc3(input) {
+        	   if (!$.isNumeric(input.value))
+       	    { this.value = 0;
+       	       $("#respoonse3").show();}
+       	    else {$("#respoonse3").hide();}
+           }
+           function myFunc4(input) {
+        	   if (!$.isNumeric(input.value))
+       	    { this.value = 0;
+       	       $("#respoonse4").show();}
+       	    else {$("#respoonse4").hide();}
+           }
+           function myFunc5(input) {
+        	   if (!$.isNumeric(input.value))
+       	    { this.value = 0;
+       	       $("#respoonse5").show();}
+       	    else {$("#respoonse5").hide();}
+           }
+           function myFunc6(input) {
+        	   if (!$.isNumeric(input.value))
+       	    { this.value = 0;
+       	       $("#respoonse6").show();}
+       	    else {$("#respoonse6").hide();}
+           }
+           </script>
+
+
+
+
+					<div class="col-md-6">
+						<div class="box box-danger">
+							<div class="box-header with-border">
+								<h3 class="box-title">Compound Interest</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool"
+										data-widget="collapse">
+										<i class="fa fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-box-tool"
+										data-widget="remove">
+										<i class="fa fa-times"></i>
+									</button>
+								</div>
+							</div>
+							<div class="box-body">
+
+								<h:form id="form2">
+									<form id="f2" method="post">
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Principal</label>
+
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.principal}"
+														id="principal" required="true" class="form-control"
+														 onblur="myFunc10(this)">
+														<f:ajax />
+														
+													</h:inputText>
+												</div>
+											</div>
+
+											<div id="respoonse10" hidden="hidden">
+
+												<span class="help-block" style="color: #dd4b39;"><i
+													class="fa fa-times-circle-o"></i>input must be numeric</span>
+											</div>
+											
+											
+											
+										</div>
+
+
+
+<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Annual Rate</label>
+
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.rate}"
+														id="rate" required="true" class="form-control"
+														 onblur="myFunc11(this)">
+														<f:ajax />
+														
+													</h:inputText>
+												</div>
+											</div>
+
+											<div id="respoonse11" hidden="hidden">
+
+												<span class="help-block" style="color: #dd4b39;"><i
+													class="fa fa-times-circle-o"></i>input must be numeric and &gt; 100</span>
+											</div>
+											
+											
+											
+										</div>
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Number of years</label>
+
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.nbyears}"
+														id="nbyears" required="true" class="form-control"
+														 onblur="myFunc12(this)">
+														<f:ajax />
+														
+													</h:inputText>
+												</div>
+											</div>
+
+											<div id="respoonse12" hidden="hidden">
+
+												<span class="help-block" style="color: #dd4b39;"><i
+													class="fa fa-times-circle-o"></i>input must be numeric</span>
+											</div>
+											
+											
+											
+										</div>
+
+										
+<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Type</label>
+
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+												
+													
+													<h:selectOneMenu value="#{calculationBean.type}" class="form-control">
+	<f:selectItem itemLabel="Select type" itemValue=""/>
+	<f:selectItems value="#{data2.types}"/>
+	<f:ajax />
+</h:selectOneMenu>
+													
+													
+													
+												</div>
+											</div>
+
+											
+											
+											
+											
+										</div>
+
+<div class="col-xs-2 pull-right">
+<h:commandButton class="btn btn-info btn-block btn-flat" value="Calculate" update="fooo" action="#{calculationBean.calculinterestcounpound()}">
+<f:ajax execute="form2" render="form2" />
+</h:commandButton>
+			</div>				
+
+
+
+<h:panelGroup id="fooo">
+											<div id="c">
+												<div class="col-md-6 col-sm-12 col-xs-12">
+													<div class="info-box">
+														<span class="info-box-icon bg-aqua"><i
+															class="ion ion-ios-gear-outline"></i></span>
+
+														<div class="info-box-content">
+															<span class="info-box-text">Compound interest</span> <span
+																class="info-box-number">
+																#{calculationBean.compoundinterestresult} </span> 
+														</div>
+														<!-- /.info-box-content -->
+													</div>
+													<!-- /.info-box -->
+												</div>
+
+											</div>
+										</h:panelGroup>
+									</form>
+								</h:form>
+
+							</div>
+							
+
+						</div>
+							
+
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<div class="col-md-6">
+						<div class="box box-success">
+							<div class="box-header with-border">
+								<h3 class="box-title">Forward pricing</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool"
+										data-widget="collapse">
+										<i class="fa fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-box-tool"
+										data-widget="remove">
+										<i class="fa fa-times"></i>
+									</button>
+								</div>
+							</div>
+							<div class="box-body">
+
+								<h:form id="form3">
+									<form id="f3" method="post">
+									
+									
+									<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Spot price</label>
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.spotpricef}"
+														id="spotpricef" required="true" class="form-control"
+														 onblur="myFunc22(this)">
+														<f:ajax />
+													</h:inputText>
+												</div>
+											</div>
+                                             <div id="respoonse22" hidden="hidden">
+               <span class="help-block" style="color: #dd4b39;"><i class="fa fa-times-circle-o"></i>input must be numeric and &lt; 100</span>
+											</div>
+                                            </div>
+											<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Risk free rate</label>
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.riskfreeratef}"
+														id="riskfreef" required="true" class="form-control"
+														 onblur="myFunc21(this)">
+														<f:ajax />
+													</h:inputText>
+												</div>
+											</div>
+                                             <div id="respoonse21" hidden="hidden">
+               <span class="help-block" style="color: #dd4b39;"><i class="fa fa-times-circle-o"></i>input must be numeric and &lt; 100</span>
+											</div>
+                                            </div>
+									
+									<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Maturity in years:</label>
+											<div class="col-sm-10">
+												<div class="form-group has-feedback">
+													<h:inputText value="#{calculationBean.matyears}"
+														id="mat" required="true" class="form-control"
+														 onblur="myFunc23(this)">
+														<f:ajax />
+													</h:inputText>
+												</div>
+											</div>
+                                             <div id="respoonse23" hidden="hidden">
+               <span class="help-block" style="color: #dd4b39;"><i class="fa fa-times-circle-o"></i>input must be numeric and &lt; 100</span>
+											</div>
+                                            </div>
+									
+									
+<div class="col-xs-2 pull-right">
+<h:commandButton class="btn btn-info btn-block btn-flat" value="Calculate" update="foooo" action="#{calculationBean.calculforward()}">
+<f:ajax execute="form3" render="form3" />
+</h:commandButton>
+			</div>	
+									<br></br><br></br><br></br>
+									
+									<h:panelGroup id="foooo">
+											<div id="cc">
+												<div class="col-md-6 col-sm-12 col-xs-12">
+													<div class="info-box">
+														<span class="info-box-icon bg-aqua"><i
+															class="ion ion-ios-gear-outline"></i></span>
+
+														<div class="info-box-content">
+															<span class="info-box-text">Forward price</span> <span
+																class="info-box-number">
+																#{calculationBean.forwardprice} </span> 
+														</div>
+														<!-- /.info-box-content -->
+													</div>
+													<!-- /.info-box -->
+												</div>
+
+											</div>
+										</h:panelGroup>
+									
+									
+									</form>
+									</h:form>
+
+							</div>
+							
+
+						</div>
+							
+
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				</div>
+			</section>
+		</div>
+	<script type="text/javascript">
+          
+           function myFunc10(input) {
+        	   if (!$.isNumeric(input.value))
+       	    { this.value = 0;
+       	       $("#respoonse10").show();}
+       	    else {$("#respoonse10").hide();}
+           }
+           function myFunc11(input) {
+        	   if (!$.isNumeric(input.value) || input.value > 100 )
+       	    { this.value = 0;
+       	       $("#respoonse11").show();}
+       	    else {$("#respoonse11").hide();}
+           }
+           function myFunc12(input) {
+        	   if (!$.isNumeric(input.value))
+       	    { this.value = 0;
+       	       $("#respoonse12").show();}
+       	    else {$("#respoonse12").hide();}
+           }
+           function myFunc21(input) {
+        	   if (!$.isNumeric(input.value) || input.value > 100 )
+       	    { this.value = 0;
+       	       $("#respoonse21").show();}
+       	    else {$("#respoonse21").hide();}
+           }
+           function myFunc22(input) {
+        	   if (!$.isNumeric(input.value))
+       	    { this.value = 0;
+       	       $("#respoonse22").show();}
+       	    else {$("#respoonse22").hide();}
+           }
+           function myFunc23(input) {
+        	   if (!$.isNumeric(input.value))
+       	    { this.value = 0;
+       	       $("#respoonse23").show();}
+       	    else {$("#respoonse23").hide();}
+           }
+           
+   </script>
+	</ui:define>
+</ui:composition>

@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 
 import javax.faces.bean.ManagedBean;
-
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.Query;
 import javax.persistence.Temporal;
@@ -86,6 +86,19 @@ public class BondManagementBean {
 	private String customerEmail;
 	private Integer customerPhone;
 	private Long nbrBondsTraded;
+
+	
+	@ManagedProperty(value = "#{loginBean}")
+	LoginBean loginBean;
+	
+	
+	public LoginBean getLoginBean() {
+		return loginBean;
+	}
+
+	public void setLoginBean(LoginBean loginBean) {
+		this.loginBean = loginBean;
+	}
 
 	public String getFrom() {
 		return from;
@@ -278,7 +291,8 @@ public class BondManagementBean {
 	}
 
 	public List<Customer> getCustomers() {
-		customers = userServiceLocal.getalltradercustomersbyid(19);
+		Integer id=loginBean.getUs().getId();
+		customers = userServiceLocal.getalltradercustomersbyid(id);
 
 		return customers;
 	}
@@ -355,6 +369,7 @@ public class BondManagementBean {
 	public void addBond() {
 		System.out.println("dhaerli hehdi" + currency);
 		System.out.println(instrumentIssuerID);
+		Customer instrumentIssuer=(Customer) userServiceLocal.findUserById(instrumentIssuerID);
 		
 		if (callableTest==true){
 			callable=1;
@@ -365,11 +380,12 @@ public class BondManagementBean {
 		}else convertible=0;
 		
 		if (pricingVar==false)
-		{instrumentServiceRemote.create(new Bond(currency, null, InstrumentIssuerType, ammount, couponrate, callable, x,
+		{instrumentServiceRemote.create(new Bond(currency, instrumentIssuer, InstrumentIssuerType, ammount, couponrate, callable, x,
 				convertible, backroundType, null, null, typeOfCouponPayment, datetoday));
-		System.out.println("dkhal lele fct");}
+		System.out.println("dkhal lele fct");
+		}
 		else if (pricingVar==true){
-			instrumentServiceRemote.create(new Bond(currency, null, InstrumentIssuerType, x, couponrate, callable, ammount,
+			instrumentServiceRemote.create(new Bond(currency, instrumentIssuer, InstrumentIssuerType, x, couponrate, callable, ammount,
 					convertible, backroundType, null, null, typeOfCouponPayment, datetoday));
 			System.out.println("dkhal lele fct");
 		}

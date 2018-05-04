@@ -150,7 +150,7 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 
 	@Override
 	public Trader findtraderactivelazynbtrades(String criteria) {
-		String jpql= "SELECT u.user.trader from TradingExchange u join u.user c join c.trader group by u.user.id order by count(*)"
+		String jpql= "SELECT u.user.trader from TradingExchange u join u.user c join c.trader group by u.user.id order by count(*) "
 				+ criteria;
 		Query query = em.createQuery(jpql
 				);
@@ -191,7 +191,30 @@ String jpql = "SELECT count(*) from TradingExchange u group by u.user.id order b
 		query.executeUpdate();
 		
 	}
+// Select COUNT(*) as nbtrades , MONTH(a.creation_date) as month FROM ( SELECT '1' AS MONTH UNION SELECT '2' AS MONTH UNION SELECT '3' AS MONTH UNION SELECT '4' AS MONTH UNION SELECT '5' AS MONTH UNION SELECT '6' AS MONTH UNION SELECT '7' AS MONTH UNION SELECT '8' AS MONTH UNION SELECT '9' AS MONTH UNION SELECT '10' AS MONTH UNION SELECT '11' AS MONTH UNION SELECT '12' AS MONTH  ) AS m  LEFT JOIN  tradingexchange a on m.MONTH= MONTH(a.creation_date) inner JOIN user u on u.id=a.id_user  WHERE u.trader_id= :id and YEAR(a.creation_date)=YEAR(CURRENT_DATE) GROUP BY m.MONTH
+	@Override
+	public List<Object[]> statjsftradescustomers(int idU) {
+		Query q = em.createNativeQuery("Select ifnull(COUNT(*), 0) as nbtrades , MONTH(a.creation_date) as month FROM ( SELECT '1' AS MONTH UNION SELECT '2' AS MONTH UNION SELECT '3' AS MONTH UNION SELECT '4' AS MONTH UNION SELECT '5' AS MONTH UNION SELECT '6' AS MONTH UNION SELECT '7' AS MONTH UNION SELECT '8' AS MONTH UNION SELECT '9' AS MONTH UNION SELECT '10' AS MONTH UNION SELECT '11' AS MONTH UNION SELECT '12' AS MONTH  ) AS m  LEFT JOIN  tradingexchange a on m.MONTH= MONTH(a.creation_date) WHERE a.id_user= :id and YEAR(a.creation_date)=YEAR(CURRENT_DATE) GROUP BY m.MONTH");
+		q.setParameter("id", idU);
+		List<Object[]> res = q.getResultList();
+		return res;
+	}
 
-	
+	@Override
+	public List<Object[]> statjsftradestrader(int idU) {
+		Query q = em.createNativeQuery("Select COUNT(*) as nbtrades , MONTH(a.creation_date) as month FROM ( SELECT '1' AS MONTH UNION SELECT '2' AS MONTH UNION SELECT '3' AS MONTH UNION SELECT '4' AS MONTH UNION SELECT '5' AS MONTH UNION SELECT '6' AS MONTH UNION SELECT '7' AS MONTH UNION SELECT '8' AS MONTH UNION SELECT '9' AS MONTH UNION SELECT '10' AS MONTH UNION SELECT '11' AS MONTH UNION SELECT '12' AS MONTH  ) AS m  LEFT JOIN  tradingexchange a on m.MONTH= MONTH(a.creation_date) inner JOIN user u on u.id=a.id_user  WHERE u.trader_id= :id and YEAR(a.creation_date)=YEAR(CURRENT_DATE) GROUP BY m.MONTH");
+		q.setParameter("id", idU);
+		List<Object[]> res = q.getResultList();
+		return res;
+	}
+
+	@Override
+	public List<User> SearchAllUsersStartwith(String criteria) {
+		String jpql = "SELECT u FROM User u where u.firstName like :criteria or u.lastName like :criteria ";
+
+		Query query = em.createQuery(jpql);
+		query.setParameter("criteria",  criteria + "%");
+		return query.getResultList();
+	}
 
 }

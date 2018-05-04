@@ -8,22 +8,28 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartSeries;
 
-import tn.esprit.SLTS_server.instrumentServices.InstrumentService;
-import tn.esprit.SLTS_server.instrumentServices.InstrumentServiceLocal;
 import tn.esprit.SLTS_server.instrumentServices.InstrumentServiceRemote;
 import tn.esprit.SLTS_server.persistence.Bond;
-import tn.esprit.SLTS_server.persistence.Instrument;
+
  
 @ManagedBean
 public class ChartView implements Serializable {
-	 private LineChartModel lineModel;
-    private LineChartModel lineModel1;
-    private LineChartModel lineModel2;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private LineChartModel lineModel;
+    
+
+  
+    
+    private BarChartModel barModel;
     
     @EJB
 	private InstrumentServiceRemote instrumentServiceRemote;
@@ -31,35 +37,31 @@ public class ChartView implements Serializable {
     @PostConstruct
     public void init() {
         createLineModels();
+        createBarModels();
     }
  
-    public LineChartModel getLineModel1() {
-        return lineModel1;
-    }
+
  
-    public LineChartModel getLineModel2() {
-        return lineModel2;
-    }
+ 
      
     private void createLineModels() {
-        lineModel1 = initLinearModel();
-        lineModel1.setTitle("Linear Chart");
-        lineModel1.setLegendPosition("e");
-        Axis yAxis = lineModel1.getAxis(AxisType.Y);
-        yAxis.setMin(0);
-        yAxis.setMax(10);
+      //  lineModel1 = initLinearModel();
+       // lineModel1.setTitle("Linear Chart");
+      //  lineModel1.setLegendPosition("e");
+      //  Axis yAxis = lineModel.getAxis(AxisType.Y);
+       // yAxis.setMin(0);
+     //   yAxis.setMax(10);
          
-        lineModel2 = initCategoryModel();
-        lineModel2.setTitle("Category Chart");
-        lineModel2.setLegendPosition("e");
-        lineModel2.setShowPointLabels(true);
-        lineModel2.getAxes().put(AxisType.X, new CategoryAxis("Years"));
-        yAxis = lineModel2.getAxis(AxisType.Y);
-        yAxis.setLabel("Births");
-        yAxis.setMin(0);
-        yAxis.setMax(200);
-        
         lineModel = lineModelMethod();
+        lineModel.setTitle("Saleprice Chart Of Bonds Published");
+        lineModel.setLegendPosition("Price");
+        lineModel.setShowPointLabels(true);
+        lineModel.getAxes().put(AxisType.X, new CategoryAxis("Saleprice"));
+        Axis yAxis = lineModel.getAxis(AxisType.Y);
+        yAxis.setLabel("Bond's Id");
+       
+        
+       
     }
      
     private LineChartModel initLinearModel() {
@@ -89,39 +91,14 @@ public class ChartView implements Serializable {
         return model;
     }
      
-    private LineChartModel initCategoryModel() {
-        LineChartModel model = new LineChartModel();
- 
-        ChartSeries boys = new ChartSeries();
-        boys.setLabel("Boys");
-   
-        boys.set("2004", 120);
-        boys.set("2005", 100);
-        boys.set("2006", 44);
-        boys.set("2007", 150);
-        boys.set("2008", 25);
- 
-        ChartSeries girls = new ChartSeries();
-        girls.setLabel("Girls");
-        girls.set("2004", 52);
-        girls.set("2005", 60);
-        girls.set("2006", 110);
-        girls.set("2007", 90);
-        girls.set("2008", 120);
- 
-        model.addSeries(boys);
-        model.addSeries(girls);
-         
-        return model;
-    }
     public LineChartModel lineModelMethod() {
     	ChartSeries series1 = new ChartSeries();
-    	String series1Name = "Series 1";
+    	
     	
     	List<Bond> series1List = instrumentServiceRemote.findAllBonds();
     	System.out.println("hii"+series1List);
     	for (Bond t : series1List) {
-    	    series1.set(t.getCurrency(), t.getId());
+    	    series1.set(t.getId(), t.getSaleprice());
     	}
 
     	LineChartModel lineModel = new LineChartModel();
@@ -146,6 +123,52 @@ public class ChartView implements Serializable {
 		this.instrumentServiceRemote = instrumentServiceRemote;
 	}
 
+	public BarChartModel getBarModel() {
+		return barModel;
+	}
 
- 
+	public void setBarModel(BarChartModel barModel) {
+		this.barModel = barModel;
+	}
+
+
+	 private BarChartModel initBarModel() {
+	        BarChartModel model = new BarChartModel();
+	 
+	        ChartSeries boys = new ChartSeries();
+	        boys.setLabel("Type Of Coupon Payment");
+	        boys.set("Monthly",instrumentServiceRemote.nbrBondsByType("Monthly") );
+	        boys.set("Quarterly", instrumentServiceRemote.nbrBondsByType("Quarterly") );
+	       
+	        boys.set(" Semi Annually", instrumentServiceRemote.nbrBondsByType(" Semi Annually"));
+	        boys.set("Annually", instrumentServiceRemote.nbrBondsByType("Annually"));
+	        boys.set("Bi Annual", instrumentServiceRemote.nbrBondsByType("Bi Annual"));
+	 
+	     
+	 
+	        model.addSeries(boys);
+	     
+	         
+	        return model;
+	    }
+	     
+	    private void createBarModels() {
+	        createBarModel();
+	        createBarModel();
+	    }
+	     
+	    private void createBarModel() {
+	        barModel = initBarModel();
+	         
+	        barModel.setTitle("Statistics");
+	        barModel.setLegendPosition("ne");
+	         
+	        Axis xAxis = barModel.getAxis(AxisType.X);
+	        xAxis.setLabel("Bonds classified By Type Of Coupon Payment");
+	         
+	        Axis yAxis = barModel.getAxis(AxisType.Y);
+	        yAxis.setLabel("Number of Bonds");
+	        yAxis.setMin(0);
+	        yAxis.setMax(20);
+	    }
 }

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   <display-name>SLTS_server-web</display-name>
+  <filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>tn.esprit.SLTS_server.presentation.mbeans.LoginFilter</filter-class>
+	</filter>
  <!--  <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -18,6 +22,18 @@
 </listener>
 <context-param>
 <param-name>javax-faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+<param-value>true</param-value>
+
+</context-param>
+<context-param>
+<description>
+Régler à true pour empêcher l'affichage du message d'avertissement suivant :
+FacesMessage(s) have been enqueued, but might 
+not have been displayed
+</description>
+<param-name>
+ com.ibm.ws.jsf.disableEnqueuedMessagesWarning
+</param-name>
 <param-value>true</param-value>
 </context-param>
 </web-app>

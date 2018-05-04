@@ -222,9 +222,13 @@ public class InstrumentService implements InstrumentServiceRemote, InstrumentSer
 	public Long nbrBondsByCustomer(Integer idu){
 		//return em.createQuery("SELECT count(b) FROM Instrument b where b.instrumentIssuer.customer.id=:idu",Integer.class).setParameter("idu", idu).getSingleResult();
 		
-		return em.createQuery("SELECT count(b) FROM Instrument b",Long.class).getSingleResult();
+		return em.createQuery("SELECT count(*) FROM Instrument b where b.InstrumentIssuer.id=:idu",Long.class).setParameter("idu", idu).getSingleResult();
 
 	
+	}
+	@Override
+	public Long nbrBondsByType(String type){
+		return em.createQuery("SELECT count(*) FROM Instrument b where b.typeOfCouponPayment=:type",Long.class).setParameter("type", type).getSingleResult();
 	}
 
 }

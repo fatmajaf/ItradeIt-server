@@ -35,10 +35,13 @@ public class LoginBean {
 
 	@EJB
 	UserService service;
+	
+	
 	private void addMessage(String summary, String detail) {
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
+	
 
 	public String verifConnexion() throws NamingException {
 		String  navigateTo = null;
@@ -154,6 +157,11 @@ public class LoginBean {
 		return false;
 	}
 
+	public String doLogout(){
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "/login?faces-redirect=true";
+	}
+	
 	
 	public UserService getService() {
 		return service;

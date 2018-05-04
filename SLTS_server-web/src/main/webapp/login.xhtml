@@ -3,6 +3,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+		xmlns:c="http://java.sun.com/jstl/core" 
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui">
@@ -51,7 +52,9 @@
 		
 		<div class="login-box-body">
 				<p class="login-box-msg">Sign in to start your session</p>
-
+<c:if test="#{loginBean.us ne null}">
+<p class="login-box-msg">#{loginBean.us.firstName} #{loginBean.us.lastName} : you are already logged in , if you want to sign in with a different account : </p>
+</c:if>
 				<form method="post">
 					<div class="form-group has-feedback">
 						<input type="email" class="form-control" placeholder="Email" jsf:value="#{loginBean.login}"/><span

@@ -2,6 +2,7 @@ package tn.esprit.SLTS_server.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +12,7 @@ import tn.esprit.SLTS_server.persistence.Comment;
 import tn.esprit.SLTS_server.persistence.User;
 
 @Stateless
+@LocalBean
 public class CommentService implements CommentServiceLocal, CommentServiceRemote {
 	@PersistenceContext
 	EntityManager em;
@@ -97,7 +99,7 @@ public class CommentService implements CommentServiceLocal, CommentServiceRemote
 
 	@Override
 	public User getmostbannedcommenter() {
-		String jpql = "SELECT u.commenter from Comment u join u.commenter c where u.banned=1 and MONTH(u.creationDate)=MONTH(current_date()) and year(u.creationDate) = year(current_date()) group by u.commenter.id order by count(*) desc";
+		String jpql = "SELECT u.commenter from Comment u  where u.banned=1 and MONTH(u.creationDate)=MONTH(current_date()) and year(u.creationDate) = year(current_date()) group by u.commenter.id order by count(*) desc";
 
 		Query query = em.createQuery(jpql);
 

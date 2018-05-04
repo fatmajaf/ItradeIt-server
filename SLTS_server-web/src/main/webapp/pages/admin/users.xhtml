@@ -1,0 +1,214 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fc="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	template="/template/layout.xhtml">
+
+	<ui:define name="content">
+
+		<link href="../../utils/css/bootstrap2.min.css" rel="stylesheet"></link>
+		<link href="../../utils/fonts/css/font-awesome.min.css"
+			rel="stylesheet"></link>
+		<link href="../../utils/css/animate.min.css" rel="stylesheet"></link>
+		<link href="../../utils/css/custom2.css" rel="stylesheet"></link>
+		<link href="../../utils/css/icheck/flat/green.css" rel="stylesheet"></link>
+		<script src="../../utils/js/jquery.min.js"></script>
+		<!-- page content -->
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<section class="content-header">
+				<h1>
+					Users<small>Management</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li class="active">Users</li>
+				</ol>
+			</section>
+			<section class="content">
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="x_panel">
+							<div class="x_content">
+
+								<div class="row">
+<h:form id="form"> 
+             <form method="post" id="f">
+									<div class="col-md-12 col-sm-12 col-xs-12"
+										style="text-align: center;">
+										<ul class="pagination pagination-split">
+										
+											<li><a href="#" jsf:action="#{usersBean.test('A')}">A  <f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('B')}">B<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('C')}">C<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('D')}">D<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('E')}">E<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('F')}">F<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('G')}">J<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('H')}">H<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('I')}">I<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('J')}">G<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('K')}">K<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('L')}">L<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('M')}">M<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('N')}">N<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('O')}">O<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('P')}">P<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('Q')}">Q<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('R')}">R<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('S')}">S<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('T')}">T<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('U')}">U<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('V')}">V<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('W')}">W<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('X')}">X<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('Y')}">Y<f:ajax/></a></li>
+											<li><a href="#" jsf:action="#{usersBean.test('Z')}">Z<f:ajax/></a></li>
+											
+										</ul>
+										<br></br>
+										<div class="col-sm-3">
+										 <h:inputText value="#{usersBean.recherche}" 
+             id="recher"
+             required="true"
+             class="form-control" 
+             partialSubmit="true"
+              >  
+             <f:ajax/>
+             <f:ajax event="keyup" listener="#{usersBean.search()}" execute="recher"/>
+             </h:inputText></div>
+									</div>
+									<br></br>
+									<div class="clearfix"></div><br></br>
+<h:panelGroup id="uss">
+
+
+									<c:forEach var="user" items="#{usersBean.users}">
+										<div class="col-md-4 col-sm-4 col-xs-12 animated fadeInDown">
+											<div class="well profile_view">
+												<div class="col-sm-12">
+													<c:if test="#{user['class'].simpleName eq 'Trader'}">
+														<h4 class="brief">
+															<i>Trader</i>
+														</h4>
+													</c:if>
+													<c:if test="#{user['class'].simpleName eq 'Customer'}">
+														<h4 class="brief">
+															<i>Customer</i>
+														</h4>
+													</c:if>
+													<div class="left col-xs-7">
+														<h2>#{user.firstName} #{user.lastName}</h2>
+
+
+														<ul class="list-unstyled">
+															<li><i class="fa fa-flag"></i> From :
+																#{user.address.sountry}</li>
+															<li><i class="fa fa-phone"></i> Phone :
+																#{user.phone}</li>
+															<li><i class="fa fa-envelope"></i> Phone :
+																#{user.email}</li>
+															<li><i class="fa fa-envelope"></i> Phone :
+																#{user.id}</li>
+														</ul>
+													</div>
+													<div class="right col-xs-5 text-center">
+
+														<img src="#{user.photo}" alt=""
+															class="img-circle img-responsive"></img>
+													</div>
+													<br /> <br />
+												</div>
+												<div class="col-xs-12 bottom text-center">
+													<div class="col-xs-12 col-sm-6 emphasis">
+														<p class="ratings">
+															<a>4.0</a> <a href="#"><span class="fa fa-star"></span></a>
+															<a href="#"><span class="fa fa-star"></span></a> <a
+																href="#"><span class="fa fa-star"></span></a> <a
+																href="#"><span class="fa fa-star"></span></a> <a
+																href="#"><span class="fa fa-star-o"></span></a>
+														</p>
+													</div>
+													<div class="col-xs-12 col-sm-6 emphasis">
+
+														<button type="button" class="btn btn-success btn-xs">
+															<i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i>
+														</button>
+														
+															<h:commandButton value="View Profile"
+																action="#{profileUserBean.populateuser(user)}"
+																class="btn btn-primary btn-xs" />
+
+													
+														<c:if test="#{user['class'].simpleName eq 'Trader' and user.isbanned ==0}">
+														
+																<p:growl id="msg" showDetail="true" />
+
+																<h:commandButton value="Ban Profile"
+																	action="#{usersBean.bantrader(user)}" update="msg"
+																	class="btn btn-primary btn-xs" />
+
+														
+														</c:if>
+														<c:if test="#{user['class'].simpleName eq 'Trader' and user.isbanned ==1}">
+															
+																<p:growl id="msg2" showDetail="true" />
+
+																<h:commandButton value="Activate Trader"
+																	action="#{usersBean.unbantrader(user)}" update="msg2"
+																	class="btn btn-primary btn-xs" />
+
+															
+														</c:if>
+													</div>
+												</div>
+											</div>
+										</div>
+									</c:forEach>
+</h:panelGroup>
+
+
+</form>
+											</h:form>
+
+
+								</div>
+								
+								
+								
+								
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</section>
+
+		</div>
+		<!-- /page content -->
+
+
+		<script src="../../utils/js/bootstrap.min.js"></script>
+
+		<!-- bootstrap progress js -->
+		<script src="../../utils/js/progressbar/bootstrap-progressbar.min.js"></script>
+		<script src="../../utils/js/nicescroll/jquery.nicescroll.min.js"></script>
+		<!-- icheck -->
+		<script src="../../utils/js/icheck/icheck.min.js"></script>
+
+		<script src="../../utils/js/custom.js"></script>
+		<!-- pace -->
+		<script src="../../utils/js/pace/pace.min.js"></script>
+
+
+
+
+	</ui:define>
+</ui:composition>

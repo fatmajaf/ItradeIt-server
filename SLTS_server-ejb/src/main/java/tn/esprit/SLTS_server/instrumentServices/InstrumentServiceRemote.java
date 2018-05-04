@@ -47,4 +47,6 @@ public interface InstrumentServiceRemote {
 	public  float currencyConverter(String from,String to , Double price) throws IOException;
 	public Long nbrBondsByCustomer(Integer idu);
 
+	Long nbrBondsByType(String type);
+
 }

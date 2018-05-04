@@ -1,0 +1,686 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core" 
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/layout.xhtml">
+
+<ui:define name="content">
+
+
+
+    <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css"></link>
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css"></link>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"></link>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css"></link>
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css"></link>
+
+  <script src="../../utils/js/jquery2.min.js"></script>
+	<div class="content-wrapper">
+							<section class="content-header">
+								<h1>
+									Users<small>Management</small>
+								</h1>
+								<ol class="breadcrumb">
+									<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+									<li class="active">Users</li>
+								</ol>
+							</section>
+	<section class="content">
+       
+  <div class="row">
+ <div class="col-md-3">
+
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+              <img class="profile-user-img img-responsive img-circle" src="#{profileUserBean.photo}" alt="User profile picture"></img>
+
+              <h3 class="profile-username text-center">#{profileUserBean.user.firstName} #{profileUserBean.user.lastName}</h3>
+
+              <p class="text-muted text-center">#{profileUserBean.type}</p>
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Good Impressions</b> <a class="pull-right">#{profileUserBean.nbpositivetotal}</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Negative Impressions</b> <a class="pull-right">#{profileUserBean.nbnegativetotal}</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Banned Comments</b> <a class="pull-right">#{profileUserBean.nbbannedcomments}</a>
+                </li>
+              </ul>
+
+                   <c:if test="#{profileUserBean.user['isactive']==1}">
+                     <span class="label label-info">Active</span>
+                   </c:if>
+                   <c:if test="#{profileUserBean.user['isactive']==0}">
+                     <span class="label label-info">Not Active</span>
+                   </c:if>
+                     <c:if test="#{profileUserBean.type eq 'customer'}">
+                       <span class="label label-danger">Customer</span>
+                      
+                        <br /><br />
+                        <h:form>
+                            <h:commandButton value="Trader : #{profileUserBean.user.trader.firstName}
+                        #{profileUserBean.user.trader.lastName}" action="#{profileUserBean.populateuser(profileUserBean.user.trader)}" class="btn btn-primary btn-xs"/>
+                                                            </h:form>
+                        
+                     </c:if>
+                   
+                    <c:if test="#{profileUserBean.type eq 'trader'}">
+                     <span class="label label-danger">Trader</span>
+                     <c:if test="#{profileUserBean.user['isbanned'] ==1}">
+                     <span class="label label-success">Banned</span>
+                      <h:form>
+                     <p:growl id="msgun" showDetail="true"/>
+<h:commandButton value="Activate Trader" action="#{profileUserBean.unbanuser()}" update="msgun" class="btn btn-primary btn-xs"/>
+ </h:form>
+                   </c:if>
+                   <c:if test="#{profileUserBean.user['isbanned'] ==0}">
+                     <span class="label label-success">Not Banned</span>
+                        <h:form>
+                     <p:growl id="msgb" showDetail="true"/>
+<h:commandButton value="Ban Profile" action="#{profileUserBean.banuser()}" update="msgb" class="btn btn-primary btn-xs"/>
+ </h:form>
+                   </c:if>
+                   <c:if test="#{profileUserBean.user['tradertype'] ne null}">
+                     <span class="label label-warning">#{profileUserBean.user.tradertype}</span>
+                   </c:if>
+                   </c:if>
+              
+            
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+          <!-- About Me Box -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">About #{profileUserBean.user.login}</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <strong><i class="fa fa-map-marker margin-r-5"></i> Address</strong>
+
+              <p class="text-muted">
+               #{profileUserBean.user.address.sountry} #{profileUserBean.user.address.zipcode}  #{profileUserBean.user.address.state} #{profileUserBean.user.address.street} 
+              </p>
+
+              <hr></hr>
+
+              <strong><i class="fa fa-map-marker margin-r-5"></i> Email</strong>
+
+              <p class="text-muted">#{profileUserBean.user.email}</p>
+
+              <hr></hr>
+              
+              
+
+              <strong><i class="fa fa-birthday-cake"></i> Birthdate</strong>
+
+              <p class="text-muted">#{profileUserBean.user.birthdate}</p>
+
+              <hr></hr>
+              
+              <strong><i class="fa fa-phone"></i> Phone number</strong>
+
+              <p class="text-muted">#{profileUserBean.user.phone}</p>
+
+              <hr></hr>
+                
+              <strong><i class="fa fa-flag"></i> Nationality</strong>
+
+              <p class="text-muted">#{profileUserBean.user.nationality}</p>
+
+              <hr></hr>
+              <strong><i class="fa fa-calendar"></i> Here since </strong>
+ 			<p class="text-muted">#{profileUserBean.user.creationDate}</p>
+
+              <hr></hr>
+              
+
+              <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+           <!-- DONUT CHART -->
+          <div class="box box-danger">
+            <div class="box-header with-border">
+              <h3 class="box-title">Donut Chart</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body chart-responsive">
+              <div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+        
+                 
+                     <div class="col-md-3" style="width: 200 ; height: 100;">
+           <div class="box box-success" style="width: 200 ; height: 100;">
+            <div class="box-header with-border"  style="width: 200 ; height: 100;">
+              <h3 class="box-title">Companies</h3>
+            </div>
+             <c:if test="#{profileUserBean.companies.size()==0}"> 
+             <center>No companies</center>
+             </c:if>
+              <c:if test="#{profileUserBean.companies.size()>0}">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"  style="width: 200 ; height: 100;">
+               
+                <div class="carousel-inner">
+               <c:if test="#{profileUserBean.companies.size()>0}">
+                  <div class="item active">
+                   <center> <img src="http://localhost:8080/ImagesItradeit/icon.jpg" ></img><br></br><br></br>
+                  #{profileUserBean.companies.get(0).name} 
+					</center>
+                    
+                  </div>
+                  </c:if>
+                  <c:forEach var="company" items="#{profileUserBean.companies}">
+                  <c:if test="#{company ne profileUserBean.companies.get(0)}">
+                  <div class="item">
+                    <center> <img src="http://localhost:8080/ImagesItradeit/icon.jpg" ></img><br></br><br></br>
+                #{company.name}
+				</center>
+                  
+                  </div>
+                  </c:if>
+                  </c:forEach>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                  <span class="fa fa-angle-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                  <span class="fa fa-angle-right"></span>
+                </a>
+              </div>
+            </div>
+            </c:if>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+                 
+                 
+                 
+                 
+          </div>       
+                 
+                 
+      <c:if test="#{profileUserBean.user['class'].simpleName eq 'Trader'}">
+       <div class="col-md-3">
+              <!-- USERS LIST -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Customers</h3>
+
+                  <div class="box-tools pull-right">
+                    
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <ul class="users-list clearfix">
+                   <c:forEach var="customer" items="#{profileUserBean.customersfortrader}">
+                    <li>
+                      <img src="#{customer.photo}" alt="User Image"></img>
+                      <a class="users-list-name" href="#">#{customer.firstName} #{customer.lastName}</a>
+                      <span class="users-list-date">#{customer.creationDate}</span>
+                    </li>
+                   
+                   </c:forEach>
+                   
+                  </ul>
+                  <!-- /.users-list -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                  <a href="javascript:void(0)" class="uppercase">View All Users</a>
+                </div>
+                <!-- /.box-footer -->
+              </div>
+              <!--/.box -->
+            </div>
+                 </c:if> 
+                 
+                 
+                 
+                 
+                 
+        
+                 
+                 
+                 
+                 
+<div class="col-md-9 col-sm-9 col-xs-12">
+
+                    <div class="profile_title">
+                      <div class="col-md-6">
+                        <h2>User Activity Report</h2>
+                      </div>
+                      <div class="col-md-6">
+                        <div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
+                          <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                           <b class="caret"></b>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- start of user-activity-graph -->
+                    <div id="graph_bar" style="width:100%; height:280px;"></div>
+                    <!-- end of user-activity-graph -->
+
+                    
+                  </div>
+                  <br> </br> 
+                    <br> </br> 
+                      <br> </br> 
+                        <br> </br> 
+                          <br> </br> 
+                            <br> </br> 
+                              <br> </br> 
+                                <br> </br>   <br> </br>     <br> </br> 
+                               
+                                     <br> </br> 
+                                <br> </br>   <br> </br>     <br> </br>    <br> </br> 
+                               
+                                 <br> </br>
+                                 
+                   <div class="col-md-9 col-sm-9 col-xs-12">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
+              <li><a href="#tweets" data-toggle="tab">Tweets</a></li>
+              <li><a href="#trades" data-toggle="tab">Trades</a></li>
+            </ul>
+          de  <div class="tab-content">
+              <div class="active tab-pane" id="activity">
+                <!-- Post -->
+                 <ul class="list-inline">
+                    
+                    <li class="pull-right">
+                      <a href="#" class="link-black text-sm"><i class="fa fa-comments-o margin-r-5"></i> Comments
+                        ( #{profileUserBean.comments.size()} ) </a></li>
+                  </ul>
+				<h:form id="form">
+                  <h:inputText id="g" 
+                  required="true"
+                  requiredMessage="Comment should not be empty"
+                  class="form-control input-sm" type="text" placeholder="Type a comment" value="#{profileUserBean.commentbody}"/>
+                  <h:commandButton id="btn"  action="#{profileUserBean.addcomment()}" style="display:none" update="foo">
+            
+                  </h:commandButton>
+                 <br></br><br />
+                  <h:message for="btn" class="alert alert-warning alert-dismissible"/>
+                  <h:message for="g" class="alert alert-danger alert-dismissible">                
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button></h:message>
+                  </h:form>
+                 
+                  <br></br> <br></br>
+                  <h:panelGroup id="foo">
+                  
+                  
+                <c:forEach var="comment" items="#{profileUserBean.comments}">
+                <div class="post">
+                  <div class="user-block">
+                  <c:if test="#{comment.commenter['photo'] eq null}">
+                    <img class="img-circle img-bordered-sm" src="http://localhost:8080/ImagesItradeit/user.png" alt="user image"></img>
+                    </c:if>
+                    
+                    <c:if test="#{comment.commenter['photo'] ne null}">
+                    
+                    <img class="img-circle img-bordered-sm" src="${fn:replace(comment.commenter.photo,'C:/wamp64/www/','http://localhost:8080/')}" alt="user image"></img>
+                    </c:if>
+                    
+                    
+                        <span class="username">
+                          <a href="#">#{comment.commenter.firstName} #{comment.commenter.lastName}</a>
+                   <c:if test="#{comment.commenter['id'] eq loginBean.us['id']}">
+
+                          <h:form>
+                         
+                           <h:commandButton  class="pull-right btn-box-tool btn  btn-default btn-xs" action="#{profileUserBean.deletecomment(comment)}" 
+                           value="x"
+                           update="foo" 
+                           onclick="return confirm('Are you sure you want to delete this comment ? '
+      						  );"></h:commandButton>
+                          </h:form>
+     </c:if>
+               <c:if test="#{(comment.commenter['id'] ne loginBean.us['id']) and (comment['banned']==0)}">
+
+                          <h:form id="formban">
+                         
+                           <h:commandButton id="btnban" class="pull-right btn-box-tool btn  btn-default btn-xs" action="#{profileUserBean.banncomment(comment)}" 
+                           value="x"
+                           update="foo" 
+                           onclick="return confirm('Are you sure you want to ban this comment ? '
+      						  );"></h:commandButton>
+      					
+                          </h:form>
+     </c:if>
+                        </span>
+                        
+                    <span class="description">Shared publicly  -  #{comment.creationDate} #{comment.id}</span>
+                  </div>
+                  <!-- /.user-block -->
+                  <c:if test="#{profileUserBean.map[comment.body].intValue() == 1}">
+                  <p style="background-color: #e6ffe6">
+                   #{comment.body}
+                  </p>
+                  <strong><i class="fa fa-smile-o"></i></strong>
+                  </c:if>
+                   <c:if test="#{profileUserBean.map[comment.body].intValue() != 1}">
+                    <p style="background-color: #ffe6e6">
+                   #{comment.body}
+                  </p>
+                   <strong><i class="fa fa-frown-o"></i></strong>
+                  </c:if>
+                   <c:if test="#{comment['banned']==1}">
+                  <strong><i class="fa fa-ban"></i> Banned</strong>
+                    
+                  </c:if>
+                    <c:if test="#{(comment.commenter['id'] eq loginBean.us['id']) and (comment['banned']==0)}">
+                  <h:form styleClass="form">
+                   <a class="btn" id ="editbutton" jsf:action="#{profileUserBean.editclickedcomment(comment)}">
+                <f:ajax />
+               <i class="fa fa-edit"></i> Edit
+      
+               </a>
+              </h:form>
+                 </c:if>
+                </div>
+                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#editbutton").click(function(){
+        $("#editdiv").toggle();
+       
+    });
+});
+</script>
+             <div id="editdiv"  style="display:none">
+                  <h:form id="formm">
+                   <h:inputText id="gg" 
+                
+                  class="form-control input-sm" type="text"  value="#{profileUserBean.commentedit['body']}"/>
+                  <h:commandButton id="btnn"  action="#{profileUserBean.updatecomment()}" style="display:none" update="foo"></h:commandButton>
+                 
+                  </h:form>
+                  </div>    <!-- /.post -->
+</c:forEach>
+</h:panelGroup>
+               
+
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tweets">
+                <!-- The timeline -->
+                <ul class="timeline timeline-inverse">
+                  <!-- timeline time label -->
+                  
+                 
+                 <li class="time-label">
+                        <span class="bg-aqua">
+                          Positive tweets
+                        </span>
+                  </li>
+                  <c:forEach var="ptweet" items="#{profileUserBean.positivetweets}">
+                  <li>
+                    <i class="fa fa-comments bg-aqua"></i>
+
+                    <div class="timeline-item">
+                      
+                     
+                      <div class="timeline-body">
+                       #{ptweet}
+                      </div>
+                     
+                    </div>
+                  </li>
+                </c:forEach>
+               <li class="time-label">
+                        <span class="bg-red">
+                          Negative tweets
+                        </span>
+                  </li>
+                   <c:forEach var="ntweet" items="#{profileUserBean.negativetweets}">
+                   <li>
+                    <i class="fa fa-comments bg-red"></i>
+
+                    <div class="timeline-item">
+                     
+                      <div class="timeline-body">
+                         #{ntweet}
+                      </div>
+                     
+                    </div>
+                  </li>
+                  </c:forEach>
+                  <!-- END timeline item -->
+                  <li>
+                    <i class="fa fa-clock-o bg-gray"></i>
+                  </li>
+                </ul>
+              </div>
+              <!-- /.tab-pane -->
+
+              <div class="tab-pane" id="trades">
+              
+              
+              
+               <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">#{profileUserBean.user.firstName} #{profileUserBean.user.lastName} 's trades</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+            
+
+            
+          
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Customer name</th>
+                  <th>Issuer</th>
+                  <th>Creation Date</th>
+                  <th>Coupon Rate</th>
+                  <th>Par value</th>
+                  <th>Sale Price</th>
+                  <th>Maturity Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="trade" items="#{profileUserBean.trades}">
+                <tr>
+				 <td>#{trade.user.firstName} #{trade.user.lastName}</td>
+                  <td>#{trade.instrument.instrumentIssuer.firstName} #{trade.instrument.instrumentIssuer.firstName}
+                  </td>
+                  <td>#{trade.creationDate}</td>
+                      <td>#{trade.instrument.couponrate}</td>
+                  <td> #{trade.instrument.parvalue}</td>
+                  <td>#{trade.instrument.saleprice}</td>
+                   <td>#{trade.instrument.maturitydate}</td>
+                </tr>
+               </c:forEach>
+              
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Customer name</th>
+                  <th>Issuer</th>
+                  <th>Creation Date</th>
+                  <th>Coupon Rate</th>
+                  <th>Par value</th>
+                  <th>Sale Price</th>
+                  <th>Maturity Date</th>
+                </tr>
+                </tfoot>
+              </table>
+             
+            </div>
+            <!-- /.box-body -->
+            
+          </div>
+              
+              
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- /.nav-tabs-custom -->
+        </div>
+                  </div>
+                  
+  <script src="../../utils/js/jquery.min.js"></script>
+  
+
+
+<!-- chart js -->
+  <script src="../../utils/js/bootstrap.min.js"></script>
+  <script src="../../utils/js/chartjs/chart.min.js"></script>
+
+  <!-- moris js -->
+  <script src="../../utils/js/moris/raphael-min.js"></script>
+  <script src="../../utils/js/moris/morris.min.js"></script>
+
+  <!-- pace -->
+  <script src="../../utils/js/pace/pace.min.js"></script>
+
+  <script>
+    $(function() {
+      var day_data = [{
+        "period": "Jan",
+        "Number of trades":  #{profileUserBean.monthCounter[0]}
+      }, {
+        "period": "Feb",
+        "Number of trades":  #{profileUserBean.monthCounter[1]}
+      }, {
+        "period": "Mar",
+        "Number of trades":  #{profileUserBean.monthCounter[2]}
+      }, {
+        "period": "Apr",
+        "Number of trades":  #{profileUserBean.monthCounter[3]}
+      }, {
+        "period": "May",
+        "Number of trades":  #{profileUserBean.monthCounter[4]}
+      }, {
+        "period": "Jun",
+        "Number of trades":  #{profileUserBean.monthCounter[5]}
+      }, {
+        "period": "Jul",
+        "Number of trades":  #{profileUserBean.monthCounter[6]}
+      }, {
+        "period": "Aug",
+        "Number of trades":  #{profileUserBean.monthCounter[7]}
+      }, {
+        "period": "Sep",
+        "Number of trades":  #{profileUserBean.monthCounter[8]}
+      }, {
+        "period": "Oct",
+        "Number of trades":  #{profileUserBean.monthCounter[9]}
+      }, {
+          "period": "Nov",
+          "Number of trades":  #{profileUserBean.monthCounter[10]}
+        },
+        {
+            "period": "Dec",
+            "Number of trades": #{profileUserBean.monthCounter[11]}
+          }
+      ];
+      Morris.Bar({
+        element: 'graph_bar',
+        data: day_data,
+        xkey: 'period',
+        hideHover: 'auto',
+        barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+        ykeys: ['Number of trades'],
+        labels: ['Number of trades'],
+        xLabelAngle: 60
+      });
+    });
+  </script>
+   <script src="../../utils/js/bootstrap2.min.js"></script>
+  
+  <!-- bootstrap progress js -->
+  <script src="../../utils/js/progressbar/bootstrap-progressbar.min.js"></script>
+  <script src="../../utils/js/nicescroll/jquery.nicescroll.min.js"></script>
+  <!-- icheck -->
+  <script src="../../utils/js/icheck/icheck.min.js"></script>
+
+  <script src="../../utils/js/custom2.js"></script>
+
+  <!-- image cropping -->
+  <script src="../../utils/js/cropping/cropper.min.js"></script>
+  <script src="../../utils/js/cropping/main.js"></script>
+
+  <!-- daterangepicker -->
+  <script type="text/javascript" src="../../utils/js/moment/moment.min.js"></script>
+  <script type="text/javascript" src="../../utils/js/datepicker/daterangepicker.js"></script>
+
+  <!-- chart js -->
+  <script src="../../utils/js/chartjs/chart.min2.js"></script>
+
+  <!-- moris js -->
+  <script src="../../utils/js/moris/raphael-min2.js"></script>
+  <script src="../../utils/js/moris/morris2.min.js"></script>
+
+  <!-- pace -->
+  <script src="../../utils/js/pace/pace2.min.js"></script>
+  
+  
+  <script>
+  $(function () {
+    "use strict";
+
+ 
+  
+
+    //DONUT CHART
+    var donut = new Morris.Donut({
+      element: 'sales-chart',
+      resize: true,
+      colors: ["#3c8dbc", "#f56954"],
+      data: [
+        {label: "Positive impressions", value:  #{profileUserBean.nbpositivetotal}    },
+	     {label: "Negative Impressions", value: #{profileUserBean.nbnegativetotal} }
+      ],
+      hideHover: 'auto'
+    });
+    
+  });
+</script>
+  
+
+ </section>
+ </div>
+</ui:define>
+</ui:composition> 

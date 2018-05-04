@@ -1,0 +1,764 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:fc="http://xmlns.jcp.org/jsf/core"
+	template="/template/layout.xhtml">
+
+	<ui:define name="content">
+	    <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css"></link>
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css"></link>
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"></link>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css"></link>
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css"></link>
+
+  <script src="../../utils/js/jquery2.min.js"></script>
+	<div class="content-wrapper">
+			<section class="content-header">
+				<h1>
+					Yahoo Finance<small>data</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li class="active">Users</li>
+				</ol>
+				  
+				
+			</section>
+			<section class="content">
+			
+			
+			
+			
+			
+        <div class="row">
+				     <h:form styleClass="form"  id="form">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header">
+                <div class="title_right">
+              <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+              
+                  <input type="text" class="form-control" jsf:value="#{yahooFinanceBean.symbolinput}" placeholder="Search for..."></input>
+                  <span class="input-group-btn">
+                        
+						     <p:commandButton value="Go!" update="example" class="btn btn-info btn-flat"  name="updateTable"  action="#{yahooFinanceBean.goclicked}"/>
+                        </span>
+                        	
+                       
+                </div>
+               
+              </div>
+                         </div>
+             
+
+          
+            </div>
+            <div class="box-body pad table-responsive">
+            
+       <h:panelGroup id="example">
+       <style>
+       .tile_stats_count .count {
+    font-size: 40px;
+    line-height: 47px;
+    font-weight: 600;
+}
+.tile_stats_count .right span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}</style>
+       
+        <!-- /top tiles -->
+                        
+                 
+                 
+
+   <!-- top tiles -->
+        <div class="row tile_count">
+          
+          <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+            <div class="left">
+            
+            </div>
+            <div class="right">
+             <h2> #{yahooFinanceBean.stock.name}<span>( #{yahooFinanceBean.stock.symbol} )</span></h2>
+        	 <h3>Price : #{yahooFinanceBean.stock.quote.price}</h3>
+                  <span class="count_top"><i class="fa fa-money"></i> #{yahooFinanceBean.stock.currency}</span> <br />
+                    <span class="count_top"><i class="fa  fa-bar-chart"></i> #{yahooFinanceBean.stock.stockExchange}</span>
+              <c:if test="#{yahooFinanceBean.stock.quote.change lt 0}">
+            <span class="pull-right text-red"><i class="fa fa-angle-down"></i> 
+              #{yahooFinanceBean.stock.quote.change} (  #{yahooFinanceBean.stock.quote.changeInPercent} )</span>
+              </c:if>
+                <c:if test="#{yahooFinanceBean.stock.quote.change gt 0}">
+              <span class="pull-right text-green"><i class="fa fa-angle-up"></i> 
+              #{yahooFinanceBean.stock.quote.change} (  #{yahooFinanceBean.stock.quote.changeInPercent} )</span>
+              </c:if>
+            </div>
+          </div>
+          
+         <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 pull-right">
+            <div class="left">
+            </div>
+            <div class="right">
+            
+            <p:commandButton value="1D" update="example" class="btn btn-default"  name="updateTable"  action="#{yahooFinanceBean.daily1Clicked()}"/>
+              <p:commandButton value="5D" update="example" class="btn btn-default"  name="updateTable"  action="#{yahooFinanceBean.daily5clicked()}"/>
+              <p:commandButton value="1Y" update="example" class="btn btn-default"  name="updateTable"  action="#{yahooFinanceBean.yearly1clicked()}"/>
+              <p:commandButton value="5Y" update="example" class="btn btn-default"  name="updateTable"  action="#{yahooFinanceBean.yearly5clicked()}"/>
+              <p:commandButton value="3M" update="example" class="btn btn-default"  name="updateTable"  action="#{yahooFinanceBean.monthly3clicked()}"/>
+            <p:commandButton   value="6M" update="example" class="btn btn-default"  name="updateTable"  action="#{yahooFinanceBean.monthly6clicked()}"/>
+            </div>
+          </div>
+    </div>
+  
+    <br></br>
+    <script type="text/javascript">
+window.onload = function () {
+	var chart = new CanvasJS.Chart("chartContainer",
+	{
+		title:{
+			text: "Candle Stick Chart",
+			fontFamily: "times new roman"
+		},
+		zoomEnabled: true,
+		exportEnabled: true,
+		axisY: {
+			includeZero:false,
+			title: "Prices",
+			prefix: "$ "
+		},
+		axisX: {
+			interval:2,
+			intervalType: "month",
+			valueFormatString: "MMM-YY",
+			labelAngle: -45
+		},
+		data: [
+		{
+			type: "candlestick",
+			risingColor: "green",
+			color: "red",
+			dataPoints: [
+
+				{x:   new Date(2016,01,01),y:[#{yahooFinanceBean.listehq.get(1).open},#{yahooFinanceBean.listehq.get(1).high}, #{yahooFinanceBean.listehq.get(1).low}, #{yahooFinanceBean.listehq.get(1).close}]},
+				{x: new Date(2016,02,01),y:[#{yahooFinanceBean.listehq.get(1).open},#{yahooFinanceBean.listehq.get(1).high}, #{yahooFinanceBean.listehq.get(1).low}, #{yahooFinanceBean.listehq.get(1).close}]},
+				{x: new Date(2016,03,01),y:[#{yahooFinanceBean.listehq.get(2).open},#{yahooFinanceBean.listehq.get(2).high}, #{yahooFinanceBean.listehq.get(2).low}, #{yahooFinanceBean.listehq.get(2).close}]},
+				{x: new Date(2016,04,01),y:[#{yahooFinanceBean.listehq.get(3).open},#{yahooFinanceBean.listehq.get(3).high}, #{yahooFinanceBean.listehq.get(3).low}, #{yahooFinanceBean.listehq.get(3).close}]},
+				{x: new Date(2016,05,01),y:[#{yahooFinanceBean.listehq.get(4).open},#{yahooFinanceBean.listehq.get(4).high}, #{yahooFinanceBean.listehq.get(4).low}, #{yahooFinanceBean.listehq.get(4).close}]},
+				{x:new Date(2016,06,01),y:[#{yahooFinanceBean.listehq.get(5).open},#{yahooFinanceBean.listehq.get(5).high}, #{yahooFinanceBean.listehq.get(5).low}, #{yahooFinanceBean.listehq.get(5).close}]},
+				{x: new Date(2016,07,01),y:[#{yahooFinanceBean.listehq.get(6).open},#{yahooFinanceBean.listehq.get(6).high}, #{yahooFinanceBean.listehq.get(6).low}, #{yahooFinanceBean.listehq.get(6).close}]},
+				{x: new Date(2016,08,01),y:[#{yahooFinanceBean.listehq.get(7).open},#{yahooFinanceBean.listehq.get(7).high}, #{yahooFinanceBean.listehq.get(7).low}, #{yahooFinanceBean.listehq.get(7).close}]},
+				{x: new Date(2016,09,01),y:[#{yahooFinanceBean.listehq.get(8).open},#{yahooFinanceBean.listehq.get(8).high}, #{yahooFinanceBean.listehq.get(8).low}, #{yahooFinanceBean.listehq.get(8).close}]},
+				{x: new Date(2016,10,01),y:[#{yahooFinanceBean.listehq.get(9).open},#{yahooFinanceBean.listehq.get(9).high}, #{yahooFinanceBean.listehq.get(9).low}, #{yahooFinanceBean.listehq.get(9).close}]},
+				{x: new Date(2016,11,01),y:[#{yahooFinanceBean.listehq.get(10).open},#{yahooFinanceBean.listehq.get(10).high}, #{yahooFinanceBean.listehq.get(10).low}, #{yahooFinanceBean.listehq.get(10).close}]},
+				{x:   new Date(2017,00,01),y:[#{yahooFinanceBean.listehq.get(0).open},#{yahooFinanceBean.listehq.get(0).high}, #{yahooFinanceBean.listehq.get(0).low}, #{yahooFinanceBean.listehq.get(0).close}]},
+				{x:   new Date(2017,01,01),y:[#{yahooFinanceBean.listehq.get(0).open},#{yahooFinanceBean.listehq.get(0).high}, #{yahooFinanceBean.listehq.get(0).low}, #{yahooFinanceBean.listehq.get(0).close}]},
+				{x: new Date(2017,02,01),y:[#{yahooFinanceBean.listehq.get(1).open},#{yahooFinanceBean.listehq.get(1).high}, #{yahooFinanceBean.listehq.get(1).low}, #{yahooFinanceBean.listehq.get(1).close}]},
+				{x: new Date(2017,03,01),y:[#{yahooFinanceBean.listehq.get(2).open},#{yahooFinanceBean.listehq.get(2).high}, #{yahooFinanceBean.listehq.get(2).low}, #{yahooFinanceBean.listehq.get(2).close}]},
+				{x: new Date(2017,04,01),y:[#{yahooFinanceBean.listehq.get(5).open},#{yahooFinanceBean.listehq.get(3).high}, #{yahooFinanceBean.listehq.get(3).low}, #{yahooFinanceBean.listehq.get(3).close}]},
+				{x: new Date(2017,05,01),y:[#{yahooFinanceBean.listehq.get(6).open},#{yahooFinanceBean.listehq.get(4).high}, #{yahooFinanceBean.listehq.get(4).low}, #{yahooFinanceBean.listehq.get(4).close}]},
+				{x:new Date(2017,06,01),y:[#{yahooFinanceBean.listehq.get(9).open},#{yahooFinanceBean.listehq.get(5).high}, #{yahooFinanceBean.listehq.get(5).low}, #{yahooFinanceBean.listehq.get(5).close}]},
+				{x: new Date(2017,07,01),y:[#{yahooFinanceBean.listehq.get(4).open},#{yahooFinanceBean.listehq.get(6).high}, #{yahooFinanceBean.listehq.get(6).low}, #{yahooFinanceBean.listehq.get(6).close}]},
+				{x: new Date(2017,08,01),y:[#{yahooFinanceBean.listehq.get(11).open},#{yahooFinanceBean.listehq.get(7).high}, #{yahooFinanceBean.listehq.get(7).low}, #{yahooFinanceBean.listehq.get(7).close}]},
+				{x: new Date(2017,09,01),y:[#{yahooFinanceBean.listehq.get(8).open},#{yahooFinanceBean.listehq.get(8).high}, #{yahooFinanceBean.listehq.get(8).low}, #{yahooFinanceBean.listehq.get(8).close}]},
+				{x: new Date(2017,10,01),y:[#{yahooFinanceBean.listehq.get(7).open},#{yahooFinanceBean.listehq.get(9).high}, #{yahooFinanceBean.listehq.get(9).low}, #{yahooFinanceBean.listehq.get(9).close}]},
+				{x: new Date(2017,11,01),y:[#{yahooFinanceBean.listehq.get(10).open},#{yahooFinanceBean.listehq.get(10).high}, #{yahooFinanceBean.listehq.get(10).low}, #{yahooFinanceBean.listehq.get(10).close}]}
+			]
+		}
+		]
+	});
+	chart.render();
+}
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<center><div class="col-md-9 col-sm-9 col-xs-12"><div id="chartContainer" style="height: 300px; width: 100%;">
+    </div></div></center>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#activity" data-toggle="tab">Historical Data</a></li>
+              <li><a href="#tweets" data-toggle="tab">Options Put</a></li>
+              <li><a href="#trades" data-toggle="tab">Options Call</a></li>
+               <li><a href="#news" data-toggle="tab">News</a></li>
+                 <li><a href="#statistics" data-toggle="tab">Statistics</a></li>
+                 <li><a href="#charts" data-toggle="tab">Charts</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane" id="activity">
+                <!-- Post -->
+  
+       
+            	<table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                
+                  <th>symbol</th>
+                  <th>adj close</th>
+                  <th>close</th>
+                  <th>date</th>
+                  <th>high</th>
+                  <th>low</th>
+                  <th>open</th>
+                   <th>volume</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:if test="#{yahooFinanceBean.listehq ne null}">
+                <c:forEach var="li" items="#{yahooFinanceBean.listehq}">
+                <tr>
+              
+				 <td>#{li.symbol}</td>
+				 
+                  <td>#{li.adjClose}
+
+                  </td>
+                  <td>#{li.close}</td>
+                       <td>#{li.date.time}
+                       
+                       </td>
+                  <td> #{li.high}</td>
+                  <td>#{li.low}</td>
+                   <td>#{li.open}</td>
+                     <td>#{li.volume}</td>
+                </tr>
+              
+               </c:forEach>
+                </c:if>
+                </tbody>
+                <tfoot>
+                <tr>
+                 <th>symbol</th>
+                  <th>adj close</th>
+                  <th>close</th>
+                  <th>date</th>
+                  <th>high</th>
+                  <th>low</th>
+                  <th>open</th>
+                   <th>volume</th>
+                </tr>
+                </tfoot>
+              </table>
+              </div>
+              <div class="tab-pane" id="tweets">
+              <table id="example2" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Index</th>
+                  <th>Ticker</th>
+                  <th>Option Type</th>
+                  <th>Expiry date</th>
+                  <th>Strike price</th>
+                  <th>Last price</th>
+                  <th>change</th>
+                   <th>Change percent</th>
+                    <th>Bid</th>
+                     <th>Ask</th>
+                      <th>Volume</th>
+                       <th>Open Interest</th>
+                        <th>Implied volatility</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:if test="#{yahooFinanceBean.listopput ne null}">
+                <c:forEach var="li" items="#{yahooFinanceBean.listopput}">
+                <tr>
+				 <td >#{li.index}</td>
+                  <td>#{li.ticker}
+
+                  </td>
+                  <td>#{li.optiontype}</td>
+                       <td>#{li.exirydate}
+                       
+                       </td>
+                  <td> #{li.strikeprice}</td>
+                  <td>#{li.lastprice}</td>
+                   <td>#{li.change}</td>
+                     <td>#{li.changepercent}</td>
+                      <td>#{li.bid}</td>
+                       <td>#{li.ask}</td>
+                        <td>#{li.volume}</td>
+                         <td>#{li.openinterest}</td>
+                          <td>#{li.impvolatility}</td>
+                </tr>
+              
+               </c:forEach>
+                </c:if>
+                </tbody>
+                <tfoot>
+                <tr>
+                 <th>symbol</th>
+                  <th>adj close</th>
+                  <th>close</th>
+                  <th>date</th>
+                  <th>high</th>
+                  <th>low</th>
+                  <th>open</th>
+                   <th>volume</th>
+                </tr>
+                </tfoot>
+              </table>
+              </div>
+              
+              
+              
+              
+              
+                  <div class="tab-pane" id="trades">
+              <table id="example3" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Index</th>
+                  <th>Ticker</th>
+                  <th>Option Type</th>
+                  <th>Expiry date</th>
+                  <th>Strike price</th>
+                  <th>Last price</th>
+                  <th>change</th>
+                   <th>Change percent</th>
+                    <th>Bid</th>
+                     <th>Ask</th>
+                      <th>Volume</th>
+                       <th>Open Interest</th>
+                        <th>Implied volatility</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:if test="#{yahooFinanceBean.listopput ne null}">
+                <c:forEach var="li" items="#{yahooFinanceBean.listopcall}">
+                
+                <tr>
+				 <td>#{li.index}</td>
+                  <td>#{li.ticker}
+
+                  </td>
+                  <td>#{li.optiontype}</td>
+                       <td>#{li.exirydate}
+                       
+                       </td>
+                  <td> #{li.strikeprice}</td>
+                  <td>#{li.lastprice}</td>
+                   <td>#{li.change}</td>
+                     <td>#{li.changepercent}</td>
+                      <td>#{li.bid}</td>
+                       <td>#{li.ask}</td>
+                        <td>#{li.volume}</td>
+                         <td>#{li.openinterest}</td>
+                          <td>#{li.impvolatility}</td>
+                </tr>
+              
+               </c:forEach>
+                </c:if>
+                </tbody>
+                <tfoot>
+                <tr>
+                 <th>symbol</th>
+                  <th>adj close</th>
+                  <th>close</th>
+                  <th>date</th>
+                  <th>high</th>
+                  <th>low</th>
+                  <th>open</th>
+                   <th>volume</th>
+                </tr>
+                </tfoot>
+              </table>
+              </div>
+                 <div class="tab-pane" id="news">
+              <ul class="timeline timeline-inverse">
+                  <!-- timeline time label -->
+                  
+                 <c:forEach var="newss" items="#{yahooFinanceBean.newslist}">
+                 <li class="time-label">
+                        <span class="bg-aqua">
+                          #{newss.datepub}
+                        </span>
+                  </li>
+                  
+                  <li>
+                    <i class="fa fa-comments bg-aqua"></i>
+
+                    <div class="timeline-item">
+                       <h3 class="timeline-header"><a href=" #{newss.url}">#{newss.titlee}</a></h3>
+                     
+                      <div class="timeline-body">
+                       #{newss.description}
+                      </div>
+                     
+                    </div>
+                  </li>
+                </c:forEach>
+                <li>
+                    <i class="fa fa-clock-o bg-gray"></i>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="tab-pane" id="statistics">
+              <style type="">table.countries_list td {
+    padding: 0 10px;
+    line-height: 30px;
+    border-top: 1px solid #eeeeee;
+}</style>
+
+			 <div class="x_content">
+                    <div class="dashboard-widget-content">
+                      <div class="col-md-4 hidden-small">
+                        <h2 class="line_30">Assessment measures</h2>
+
+                        <table class="countries_list">
+                          <tbody>
+                            <tr>
+                              <td>Market cap</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.marketcap}</td>
+                            </tr>
+                            <tr>
+                              <td>Previous P / E</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.petrailing}</td>
+                            </tr>
+                            <tr>
+                              <td>Price sales ratio</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.pricesalesratio}</td>
+                            </tr>
+                            <tr>
+                              <td>Price book ratio</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.pricebookratio}</td>
+                            </tr>
+                            <tr>
+                              <td>Cash MRQ</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.cashmrq}</td>
+                            </tr>
+                             <tr>
+                              <td>Cash per share</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.cashpershare}</td>
+                            </tr>
+                             <tr>
+                              <td>Debt MRQ</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.debtmrq}</td>
+                            </tr>
+                             <tr>
+                              <td>Debt over equity</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.debtoverequitymrq}</td>
+                            </tr>
+                             <tr>
+                              <td>Current ratio</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.curretratio}</td>
+                            </tr>
+                             <tr>
+                              <td>Cash MRQ</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.cashmrq}</td>
+                            </tr>
+                            <tr>
+                              <td>Book value per share</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.bookvaluepershare}</td>
+                            </tr>
+                            <tr>
+                              <td>Operating cash flow</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.operatingcashflow}</td>
+                            </tr>
+                            <tr>
+                              <td>levered free cash flow</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.leveredfreecashflow}</td>
+                            </tr>
+                            <tr>
+                              <td>Adv 3 month</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.adv3month}</td>
+                            </tr>
+                            <tr>
+                              <td>Adv 10 day</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.adv10day}</td>
+                            </tr>
+                            <tr>
+                              <td>Cash MRQ</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.cashmrq}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                       <div class="col-md-4 hidden-small">
+                        <h2 class="line_30">Important financial elements</h2>
+							<h3>Fiscal year</h3>
+                        <table class="countries_list">
+                          <tbody>
+                            <tr>
+                              <td>Fiscal year end</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.fiscalyearend}</td>
+                            </tr>
+                            
+                          </tbody>
+                        </table>
+                        <h3>Profitability</h3>
+                         <table class="countries_list">
+                          <tbody>
+                            <tr>
+                              <td>Profit margin</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.profitmargin}</td>
+                            </tr>
+                            <tr>
+                              <td>Operating margin</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.operatingmargin}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                         <h3>Effectiveness of management</h3>
+                         <table class="countries_list">
+                          <tbody>
+                            <tr>
+                              <td>Return on assets (ttm)</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.returnonasset}</td>
+                            </tr>
+                            <tr>
+                              <td>Return on equity (ttm)</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.returnonequities}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                          <h3>Income statement</h3>
+                         <table class="countries_list">
+                          <tbody>
+                            <tr>
+                              <td>Income per share (ttm)</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.revenuepershare}</td>
+                            </tr>
+                            <tr>
+                              <td>Revenue (ttm)</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.revenuetim}</td>
+                            </tr>
+                             <tr>
+                              <td>Revenue Grow Qtly</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.revenuegrowthqtly}</td>
+                            </tr>
+                            <tr>
+                              <td>Gross profit (ttm)</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.grossprfit}</td>
+                            </tr>
+                            <tr>
+                              <td>EBITDA</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.ebitdatim}</td>
+                            </tr>
+                            <tr>
+                              <td>Eps diluted</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.epsdiluted}</td>
+                            </tr>
+                             <tr>
+                              <td>Quarterly earnings growth</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.earningsgrowthqtly}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                     <div class="col-md-4 hidden-small">
+                        <h2 class="line_30">Statistics of actions</h2>
+							
+                        <table class="countries_list">
+                          <tbody>
+                            <tr>
+                              <td>Shares outstanding</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.sharesoutstanding}</td>
+                            </tr>
+                            <tr>
+                              <td>Shares float</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.sharesfloat}</td>
+                            </tr>
+                             <tr>
+                              <td>Owner percent insider</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.ownerpersentinsider}</td>
+                            </tr>
+                             <tr>
+                              <td>Owner percent institution</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.ownerpercentinstitution}</td>
+                            </tr>
+                             <tr>
+                              <td>Shares short</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.sharesshort}</td>
+                            </tr>
+                              <tr>
+                              <td>Shares short ratio</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.sharesshortratio}</td>
+                            </tr>
+                             <tr>
+                              <td>Shares short prior</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.sharesshortprior}</td>
+                            </tr>
+                             <tr>
+                              <td>Dividend fwd</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.dividendfwd}</td>
+                            </tr>
+                            <tr>
+                              <td>Dividend fwd yied</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.dividendfwdyield}</td>
+                            </tr>
+                            <tr>
+                              <td>Dividend Trailing</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.dividendtrailing}</td>
+                            </tr>
+                            <tr>
+                              <td>Dividend trailing yield</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.dividendtrailingyield}</td>
+                            </tr>
+                            <tr>
+                              <td>Dividend payout ratio</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.dividendpayoutratio}</td>
+                            </tr>
+                            <tr>
+                              <td>Dividend pay date</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.dividendpaydate}</td>
+                            </tr>
+                            <tr>
+                              <td>Dividend ex date</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.dividendexdate}</td>
+                            </tr>
+                            <tr>
+                              <td>Last split date</td>
+                              <td class="fs15 fw700 text-right">#{yahooFinanceBean.stat.lastsplitdate}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              
+              
+               <div class="active tab-pane" id="charts">
+              <div class="profile_title">
+                      <div class="col-md-6">
+                        <h2>Profitability and return metrics</h2>
+                      </div>
+                      <div class="col-md-6">
+                        <div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
+                          <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                           <b class="caret"></b>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- start of user-activity-graph -->
+                    <div id="graph_bar" style="width:100%; height:280px;"></div>
+                    <!-- end of user-activity-graph -->
+
+                    
+               <br></br> <br></br>
+               </div>
+              
+              </div>
+              </div>
+              </div>
+              
+              </h:panelGroup>
+            </div> 
+            </div> </div>
+              
+             </h:form>
+            
+            </div>
+
+  
+
+
+<!-- chart js -->
+  <script src="../../utils/js/bootstrap2.min.js"></script>
+  <script src="../../utils/js/chartjs/chart.min2.js"></script>
+
+  <!-- moris js -->
+  <script src="../../utils/js/moris/raphael-min2.js"></script>
+  <script src="../../utils/js/moris/morris2.min.js"></script>
+
+  <!-- pace -->
+  <script src="../../utils/js/pace/pace2.min.js"></script>
+<script>
+    $(function() {
+      var day_data = [{
+        "stat": "addchartstat",
+        "Value":  2
+      }, {
+    	  "stat": "Operating margin",
+        "Value": 25
+      }, {
+    	  "stat": "Return on assets",
+        "Value":  14
+      }, {
+    	  "stat": "Return on equity",
+        "Value":  55
+      }
+      ];
+      Morris.Bar({
+        element: 'graph_bar',
+        data: day_data,
+        xkey: 'stat',
+        hideHover: 'auto',
+        barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+        ykeys: ['Value'],
+        labels: ['Value'],
+        xLabelAngle: 60
+      });
+    });
+  </script>
+   <script src="../../utils/js/bootstrap2.min.js"></script>
+  
+  <!-- bootstrap progress js -->
+  <script src="../../utils/js/progressbar/bootstrap-progressbar.min.js"></script>
+  <script src="../../utils/js/nicescroll/jquery.nicescroll.min.js"></script>
+  <!-- icheck -->
+  <script src="../../utils/js/icheck/icheck.min.js"></script>
+
+  <script src="../../utils/js/custom2.js"></script>
+
+  <!-- image cropping -->
+  <script src="../../utils/js/cropping/cropper.min.js"></script>
+  <script src="../../utils/js/cropping/main.js"></script>
+
+  <!-- daterangepicker -->
+  <script type="text/javascript" src="../../utils/js/moment/moment.min.js"></script>
+  <script type="text/javascript" src="../../utils/js/datepicker/daterangepicker.js"></script>
+
+  <!-- chart js -->
+  <script src="../../utils/js/chartjs/chart.min2.js"></script>
+
+  <!-- moris js -->
+  <script src="../../utils/js/moris/raphael-min2.js"></script>
+  <script src="../../utils/js/moris/morris2.min.js"></script>
+
+  <!-- pace -->
+  <script src="../../utils/js/pace/pace2.min.js"></script>
+  
+  
+  <script>
+  $(function () {
+    "use strict";
+
+ 
+  
+
+    //DONUT CHART
+    var donut = new Morris.Donut({
+      element: 'sales-chart',
+      resize: true,
+      colors: ["#3c8dbc", "#f56954"],
+      data: [
+        {label: "Positive impressions", value:  22    },
+	     {label: "Negative Impressions", value: 88 }
+      ],
+      hideHover: 'auto'
+    });
+    
+  });
+</script>
+  
+
+				</section>
+				</div>
+
+  
+	</ui:define>
+	</ui:composition>

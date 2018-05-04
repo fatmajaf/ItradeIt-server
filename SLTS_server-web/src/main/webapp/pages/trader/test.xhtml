@@ -5,40 +5,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	>
 <h:head> 
-<h1><h:link outcome="/pages/admin/bond.xhtml" value="Go Back to The Last Page !"/></h1>
+<h1><h:link outcome="/pages/trader/bond.xhtml" value="Go Back to The Last Page !"/></h1>
 </h:head>
 
-<h:form id="form">
 
 
-    <p:growl id="msgs" showDetail="true" />
- 
-    <h:panelGrid columns="2" cellpadding="5">
-  
- 
-        <p:outputLabel for="button" value="Button:" />
-        <p:calendar id="button" value="#{calendarView.date3}" showOn="button" />
- 
-    </h:panelGrid>
- 
-    
-    <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
-        <p:panelGrid id="display" columns="2" columnClasses="label,value">
-        
- 
-            <h:outputText value="Button:" />
-            <h:outputText value="#{calendarView.date3}">
-                <f:convertDateTime pattern="MM/dd/yyyy" />
-            </h:outputText>
- 
-        </p:panelGrid>
-    </p:dialog>
-</h:form>
-<p:chart type="line" model="#{chartView.lineModel1}" style="height:300px;"/>
- 
-<p:chart type="line" model="#{chartView.lineModel2}" style="height:300px;"/>
-<p:panel header="Header">  
+
 <p:chart type="line" model="#{chartView.lineModel}" style="height:300px;"/>
-</p:panel>
+
+
+<p:chart type="bar" model="#{chartView.barModel}" style="height:300px"/>
 
 </ui:composition>

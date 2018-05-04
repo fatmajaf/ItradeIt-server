@@ -33,4 +33,8 @@ public interface UserServiceLocal {
 	Long getnbtradesforactivelazytrader(String criteria);
 	List<User> findAlldesactiatedCustomers();
 	void updatephotouserbyid(int idu, String photo);
+	
+	public List<Object[]> statjsftradescustomers (int idU);
+	public List<Object[]> statjsftradestrader (int idU);
+	List<User> SearchAllUsersStartwith(String criteria);
 }

@@ -30,75 +30,22 @@
 							<!-- Main content -->
 							<section class="content">
 								<!-- Info boxes -->
-								<div class="row">
-									<div class="col-md-3 col-sm-6 col-xs-12">
-										<div class="info-box">
-											<span class="info-box-icon bg-aqua"><i
-												class="ion ion-ios-gear-outline"></i></span>
-
-											<div class="info-box-content">
-												<span class="info-box-text">CPU Traffic</span> <span
-													class="info-box-number">90<small>%</small></span>
-											</div>
-											<!-- /.info-box-content -->
-										</div>
-										<!-- /.info-box -->
-									</div>
-									<!-- /.col -->
-									<div class="col-md-3 col-sm-6 col-xs-12">
-										<div class="info-box">
-											<span class="info-box-icon bg-red"><i
-												class="fa fa-google-plus"></i></span>
-
-											<div class="info-box-content">
-												<span class="info-box-text">Likes</span> <span
-													class="info-box-number">41,410</span>
-											</div>
-											<!-- /.info-box-content -->
-										</div>
-										<!-- /.info-box -->
-									</div>
-									<!-- /.col -->
-
-									<!-- fix for small devices only -->
-									<div class="clearfix visible-sm-block"></div>
-
-									<div class="col-md-3 col-sm-6 col-xs-12">
-										<div class="info-box">
-											<span class="info-box-icon bg-green"><i
-												class="ion ion-ios-cart-outline"></i></span>
-
-											<div class="info-box-content">
-												<span class="info-box-text">Sales</span> <span
-													class="info-box-number">760</span>
-											</div>
-											<!-- /.info-box-content -->
-										</div>
-										<!-- /.info-box -->
-									</div>
-									<!-- /.col -->
-									<div class="col-md-3 col-sm-6 col-xs-12">
-										<div class="info-box">
-											<span class="info-box-icon bg-yellow"><i
-												class="ion ion-ios-people-outline"></i></span>
-
-											<div class="info-box-content">
-												<span class="info-box-text">New Members</span> <span
-													class="info-box-number">2,000</span>
-											</div>
-											<!-- /.info-box-content -->
-										</div>
-										<!-- /.info-box -->
-									</div>
-									<!-- /.col -->
-								</div>
-								<!-- /.row -->
+							
 
 
 
+<div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>Users</h3>
 
-
-
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+               <i class="fa"></i>
+            </a>
+          </div>
 
 <div class="col-md-3 col-sm-6 col-xs-12">
  <!-- Widget: user widget style 1 -->
@@ -109,7 +56,7 @@
               <h5 class="widget-user-desc">#{dashboardBean.activetrader.firstName}  #{dashboardBean.activetrader.lastName}</h5>
             </div>
             <div class="widget-user-image">
-              <img class="img-circle" src="../../dist/img/user1-128x128.jpg" alt="User Avatar"></img>
+              <img class="img-circle" src="#{dashboardBean.photoactivetrader}" alt="User Avatar"></img>
             </div>
             <div class="box-footer">
               <div class="row">
@@ -121,7 +68,7 @@
                   <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
-                <div class="col-sm-4">
+                <div class="col-sm-4 pull-right">
                   <div class="description-block">
                     <h5 class="description-header">#{dashboardBean.nbtradesforactivetrader}</h5>
                     <span class="description-text">Trades</span>
@@ -146,33 +93,27 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-yellow">
               <h3 class="widget-user-username">Laziest trader</h3>
-              <h5 class="widget-user-desc">Founder &amp; CEO</h5>
+              <h5 class="widget-user-desc">#{dashboardBean.lazytrader.firstName} #{dashboardBean.lazytrader.lastName}</h5>
             </div>
             <div class="widget-user-image">
-              <img class="img-circle" src="../../dist/img/user1-128x128.jpg" alt="User Avatar"></img>
+               <img class="img-circle" src="#{dashboardBean.photolazytrader}" alt="User Avatar"></img>
             </div>
             <div class="box-footer">
               <div class="row">
                 <div class="col-sm-4 border-right">
                   <div class="description-block">
-                    <h5 class="description-header">3,200</h5>
-                    <span class="description-text">SALES</span>
+                    <h5 class="description-header">#{dashboardBean.nbcustforlazytrader}</h5>
+                    <span class="description-text">Customers</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
-                <div class="col-sm-4 border-right">
-                  <div class="description-block">
-                    <h5 class="description-header">13,000</h5>
-                    <span class="description-text">FOLLOWERS</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
+               
                 <!-- /.col -->
-                <div class="col-sm-4">
+                <div class="col-sm-4 pull-right">
                   <div class="description-block">
-                    <h5 class="description-header">35</h5>
-                    <span class="description-text">PRODUCTS</span>
+                    <h5 class="description-header">#{dashboardBean.nbtradesforformazytrader}</h5>
+                    <span class="description-text">Trades</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -197,36 +138,30 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-black">
               <h3 class="widget-user-username">Newest Customer</h3>
-              <h5 class="widget-user-desc">Founder &amp; CEO</h5>
+              <h5 class="widget-user-desc">#{dashboardBean.newcustomer.firstName} #{dashboardBean.newcustomer.lastName}</h5>
             </div>
             <div class="widget-user-image">
-              <img class="img-circle" src="../../dist/img/user1-128x128.jpg" alt="User Avatar"></img>
+              <img class="img-circle" src="#{dashboardBean.photonewcustomer}" alt="User Avatar"></img>
             </div>
             <div class="box-footer">
               <div class="row">
                 <div class="col-sm-4 border-right">
                   <div class="description-block">
-                    <h5 class="description-header">3,200</h5>
-                    <span class="description-text">SALES</span>
+                    <h5 class="description-header">Trader associated</h5>
+                    <span class="description-text">#{dashboardBean.newcustomer.trader.firstName} #{dashboardBean.newcustomer.trader.lastName}</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
-                <div class="col-sm-4 border-right">
+                <div class="col-sm-4 border-right pull-right">
                   <div class="description-block">
-                    <h5 class="description-header">13,000</h5>
-                    <span class="description-text">FOLLOWERS</span>
+                    <h5 class="description-header">Since </h5>
+                    <span class="description-text">#{dashboardBean.newcustomer.creationDate}</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
-                <div class="col-sm-4">
-                  <div class="description-block">
-                    <h5 class="description-header">35</h5>
-                    <span class="description-text">PRODUCTS</span>
-                  </div>
-                  <!-- /.description-block -->
-                </div>
+               
                 <!-- /.col -->
               </div>
               <!-- /.row -->
@@ -243,33 +178,39 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-red">
               <h3 class="widget-user-username">Most banned commenter</h3>
-              <h5 class="widget-user-desc">Founder &amp; CEO</h5>
+              <h5 class="widget-user-desc">#{dashboardBean.mostbanneduser.firstName} #{dashboardBean.mostbanneduser.lastName}</h5>
             </div>
             <div class="widget-user-image">
-              <img class="img-circle" src="../../dist/img/user1-128x128.jpg" alt="User Avatar"></img>
+             <img class="img-circle" src="#{dashboardBean.photomostbanneduser}" alt="User Avatar"></img>
             </div>
             <div class="box-footer">
               <div class="row">
                 <div class="col-sm-4 border-right">
                   <div class="description-block">
-                    <h5 class="description-header">3,200</h5>
-                    <span class="description-text">SALES</span>
+                    <h5 class="description-header">#{dashboardBean.nbcommentsbanned}</h5>
+                    <span class="description-text">Banned Comments</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4 border-right">
                   <div class="description-block">
-                    <h5 class="description-header">13,000</h5>
-                    <span class="description-text">FOLLOWERS</span>
+                <c:if test="#{user['class'].simpleName eq 'Customer'}">
+                    <h5 class="description-header">Type</h5>
+                    <span class="description-text">Customer</span>
+                    </c:if>
+                     <c:if test="#{user['class'].simpleName eq 'Trader'}">
+                    <h5 class="description-header">Type</h5>
+                    <span class="description-text">Trader</span>
+                    </c:if>
                   </div>
                   <!-- /.description-block -->
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-4">
                   <div class="description-block">
-                    <h5 class="description-header">35</h5>
-                    <span class="description-text">PRODUCTS</span>
+                    <h5 class="description-header">Since</h5>
+                    <span class="description-text">#{dashboardBean.mostbanneduser.creationDate}</span>
                   </div>
                   <!-- /.description-block -->
                 </div>
@@ -284,18 +225,23 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-								<div class="row">
+    
+        
+                            	<div class="row">
+                            	
 									<div class="col-md-12">
+									<div class="small-box bg-green">
+            <div class="inner">
+              <h3>Most viewed</h3>
+
+            </div>
+         <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+               <i class="fa"></i>
+            </a>
+          </div>
 										<div class="box">
 											<div class="box-header with-border">
 												<h3 class="box-title">Monthly Recap Report</h3>
@@ -476,24 +422,32 @@
 											<div class="box-footer no-padding">
 												<ul class="nav nav-pills nav-stacked">
 												<c:forEach items="#{dashboardBean.symbolss}" var="symb">
+												 <h:form styleClass="form">
 												<c:if test="#{dashboardBean.stocks[symb].quote.change lt 0}">
-													<li><a href="#">#{symb}<span
+													<li><a jsf:action="#{yahooFinanceBean.populateyahoo(symb)}">#{symb}<span
 															class="pull-right text-red"><i
-																class="fa fa-angle-down"></i> #{dashboardBean.stocks[symb].quote.change} , change in percent :#{dashboardBean.stocks[symb].quote.changeInPercent}</span></a></li>
+																class="fa fa-angle-down"></i> #{dashboardBean.stocks[symb].quote.change} , change in percent :#{dashboardBean.stocks[symb].quote.changeInPercent}</span>
+																 <f:ajax />
+																</a></li>
 													</c:if>
 													
 												<c:if test="#{dashboardBean.stocks[symb].quote.change gt 0}">
-													<li><a href="#">#{symb}<span
+													<li><a jsf:action="#{yahooFinanceBean.populateyahoo(symb)}">#{symb}<span
 															class="pull-right text-green"><i
-																class="fa fa-angle-up"></i> #{dashboardBean.stocks[symb].quote.change}, change in percent :#{dashboardBean.stocks[symb].quote.changeInPercent}</span></a></li>
+																class="fa fa-angle-up"></i> #{dashboardBean.stocks[symb].quote.change}, change in percent :#{dashboardBean.stocks[symb].quote.changeInPercent}</span>
+																 <f:ajax />
+																</a></li>
 													</c:if>
 													
 													
 													<c:if test="#{dashboardBean.stocks[symb].quote.change eq 0}">
-													<li><a href="#">#{symb}<span
+													<li><a jsf:action="#{yahooFinanceBean.populateyahoo(symb)}">#{symb}<span
 															class="pull-right text-yellow"><i
-																class="fa fa-angle-left"></i> #{dashboardBean.stocks[symb].quote.change}, change in percent :#{dashboardBean.stocks[symb].quote.changeInPercent}</span></a></li>
+																class="fa fa-angle-left"></i> #{dashboardBean.stocks[symb].quote.change}, change in percent :#{dashboardBean.stocks[symb].quote.changeInPercent}</span>
+																 <f:ajax />
+																</a></li>
 													</c:if>
+													</h:form>
 												</c:forEach>
 												</ul>
 											</div>
