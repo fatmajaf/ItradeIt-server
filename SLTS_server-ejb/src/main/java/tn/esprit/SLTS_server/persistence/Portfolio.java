@@ -27,6 +27,7 @@ public class Portfolio implements Serializable{
 	private User users;
 	
 	
+	
 	public Portfolio() {
 		
 	}
